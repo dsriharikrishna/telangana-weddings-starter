@@ -6,20 +6,17 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Phone, MessageSquare, Headphones, HelpCircle, FileText } from 'lucide-react';
+import { VendorPageHeader } from '@/components/ui/vendor-page-header';
 
 export default function VendorSupportPage() {
   const { language } = useLanguage();
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold font-heading text-[#292524]">
-          {language === 'te' ? 'వెండర్ సపోర్ట్ & హెల్ప్‌డెస్క్' : 'Vendor Support Desk'}
-        </h1>
-        <p className="text-xs text-stone-500 font-body">
-          {language === 'te' ? 'సేవలు, బ్యాంక్ సెటిల్మెంట్లు లేదా ఆర్డర్ల సమస్యల పరిష్కారం కోసం నేరుగా సంప్రదించండి.' : 'Dedicated coordinator assistance for wedding vendors in Narayanpet & Mahabubnagar.'}
-        </p>
-      </div>
+      <VendorPageHeader
+        title={language === 'te' ? 'వెండర్ సపోర్ట్ & హెల్ప్‌డెస్క్' : 'Vendor Support Desk'}
+        subtitle={language === 'te' ? 'సేవలు, బ్యాంక్ సెటిల్మెంట్లు లేదా ఆర్డర్ల సమస్యల పరిష్కారం కోసం నేరుగా సంప్రదించండి.' : 'Dedicated coordinator assistance for wedding vendors in Narayanpet & Mahabubnagar.'}
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="border-stone-200 bg-white shadow-sm">

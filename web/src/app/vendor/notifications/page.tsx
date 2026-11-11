@@ -5,6 +5,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Bell, Calendar, PhoneCall, CheckCircle2, MessageSquare } from 'lucide-react';
+import { VendorPageHeader } from '@/components/ui/vendor-page-header';
 
 export default function VendorNotificationsPage() {
   const { language } = useLanguage();
@@ -47,17 +48,12 @@ export default function VendorNotificationsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold font-heading text-[#292524]">
-            {language === 'te' ? 'నోటిఫికేషన్లు' : 'Notifications & Alerts'}
-          </h1>
-          <p className="text-xs text-stone-500 font-body">
-            {language === 'te' ? 'ఆర్డర్లు, పేమెంట్లు మరియు విచారణలకు సంబంధించిన హెచ్చరికలు.' : 'Real-time updates regarding customer inquiries, bookings, and payments.'}
-          </p>
-        </div>
+      <VendorPageHeader
+        title={language === 'te' ? 'నోటిఫికేషన్లు' : 'Notifications & Alerts'}
+        subtitle={language === 'te' ? 'ఆర్డర్లు, పేమెంట్లు మరియు విచారణలకు సంబంధించిన హెచ్చరికలు.' : 'Real-time updates regarding customer inquiries, bookings, and payments.'}
+      >
         <Badge className="bg-[#762B46] text-white">2 New</Badge>
-      </div>
+      </VendorPageHeader>
 
       <div className="space-y-3">
         {notifications.map((n) => {

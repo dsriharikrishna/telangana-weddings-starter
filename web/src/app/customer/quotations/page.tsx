@@ -5,14 +5,15 @@ import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { CustomerPageHeader } from "@/components/ui/customer-page-header";
 
 export default function CustomerQuotationsPage() {
   return (
     <div className="space-y-6">
-      <div className="pb-3 border-b border-[#E7DECF]">
-        <h1 className="text-xl font-bold text-[#292524]">Quotations (కొటేషన్లు)</h1>
-        <p className="text-xs text-[#57534E]">Official itemized quotations received from service providers</p>
-      </div>
+      <CustomerPageHeader
+        title="Quotations (కొటేషన్లు)"
+        subtitle="Official itemized quotations received from service providers"
+      />
 
       <div className="space-y-3">
         <Card className="p-4 bg-white border border-[#E7DECF] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">

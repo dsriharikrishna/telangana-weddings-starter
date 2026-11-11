@@ -6,21 +6,21 @@ import { useApp } from "@/context/AppContext";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { CustomerPageHeader } from "@/components/ui/customer-page-header";
 
 export default function CustomerEnquiriesPage() {
   const { enquiries, openAssistedModal } = useApp();
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between pb-3 border-b border-[#E7DECF]">
-        <div>
-          <h1 className="text-xl font-bold text-[#292524]">Enquiries & Quotations</h1>
-          <p className="text-xs text-[#57534E]">All assisted phone requests and quotation submissions</p>
-        </div>
+      <CustomerPageHeader
+        title="Enquiries & Quotations"
+        subtitle="All assisted phone requests and quotation submissions"
+      >
         <Button variant="primary" size="sm" onClick={() => openAssistedModal()}>
           Submit New Enquiry
         </Button>
-      </div>
+      </CustomerPageHeader>
 
       <div className="space-y-3">
         {enquiries.length > 0 ? (

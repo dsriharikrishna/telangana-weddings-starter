@@ -3,14 +3,15 @@
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { CustomerPageHeader } from "@/components/ui/customer-page-header";
 
 export default function CustomerPaymentsPage() {
   return (
     <div className="space-y-6">
-      <div className="pb-3 border-b border-[#E7DECF]">
-        <h1 className="text-xl font-bold text-[#292524]">Payments & Receipts</h1>
-        <p className="text-xs text-[#57534E]">All direct vendor advances and zero platform commissions</p>
-      </div>
+      <CustomerPageHeader
+        title="Payments & Receipts"
+        subtitle="All direct vendor advances and zero platform commissions"
+      />
 
       <Card className="p-4 bg-white border border-[#E7DECF] space-y-3">
         <div className="flex items-center justify-between text-xs">

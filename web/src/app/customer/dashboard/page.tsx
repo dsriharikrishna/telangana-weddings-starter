@@ -7,32 +7,36 @@ import {
   FileText, 
   CheckCircle2, 
   Clock, 
-  MapPin, 
   PhoneCall, 
   Plus, 
-  ArrowRight 
 } from "lucide-react";
 import { useApp } from "@/context/AppContext";
-import { Card, CardContent } from "@/components/ui/card";
+import { useAppStore } from "@/store/useAppStore";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { VendorMetricCard } from "@/components/ui/vendor-metric-card";
 
 export default function CustomerDashboardPage() {
   const { enquiries, openAssistedModal } = useApp();
+  const currentUser = useAppStore((s) => s.currentUser);
+
+  const customerName = currentUser?.name || "Ramesh Reddy";
+  const customerLocation = currentUser?.location || "Narayanpet District";
 
   return (
     <div className="space-y-6">
       {/* Welcome Banner */}
-      <div className="p-6 rounded-3xl bg-[#762B46] text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="p-6 rounded-3xl bg-[#762B46] text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
         <div>
           <span className="text-xs uppercase font-bold text-[#C5A46D]">Customer Portal</span>
-          <h1 className="text-xl sm:text-2xl font-bold">Welcome, Ramesh Reddy</h1>
+          <h1 className="text-xl sm:text-2xl font-bold">Welcome, {customerName}</h1>
           <p className="text-xs text-gray-200 mt-0.5">
-            Managing wedding preparations in Narayanpet District • 24 Dec 2026
+            Managing wedding preparations in {customerLocation} • 24 Dec 2026
           </p>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <Button variant="gold" size="sm" asChild>
             <Link href="/customer/my-weddings/create">
               <Plus className="w-3.5 h-3.5 mr-1.5" />
@@ -46,31 +50,36 @@ export default function CustomerDashboardPage() {
         </div>
       </div>
 
-      {/* Stats Cards */}
+      {/* Stats Cards using Reusable VendorMetricCard */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <Card className="p-4 bg-white border border-[#E7DECF]">
-          <span className="text-[10px] font-bold text-[#57534E] uppercase">Active Events</span>
-          <p className="font-heading font-bold text-xl text-[#762B46] mt-1">1</p>
-          <span className="text-[10px] text-gray-400">Wedding in Singaram</span>
-        </Card>
-
-        <Card className="p-4 bg-white border border-[#E7DECF]">
-          <span className="text-[10px] font-bold text-[#57534E] uppercase">Quotations Received</span>
-          <p className="font-heading font-bold text-xl text-[#762B46] mt-1">4</p>
-          <span className="text-[10px] text-emerald-600">2 Pending Approval</span>
-        </Card>
-
-        <Card className="p-4 bg-white border border-[#E7DECF]">
-          <span className="text-[10px] font-bold text-[#57534E] uppercase">Confirmed Bookings</span>
-          <p className="font-heading font-bold text-xl text-[#762B46] mt-1">2</p>
-          <span className="text-[10px] text-gray-400">Mandap & Sannai Melam</span>
-        </Card>
-
-        <Card className="p-4 bg-white border border-[#E7DECF]">
-          <span className="text-[10px] font-bold text-[#57534E] uppercase">Platform Fees</span>
-          <p className="font-heading font-bold text-xl text-[#762B46] mt-1">₹0</p>
-          <span className="text-[10px] text-emerald-600">Zero Commission</span>
-        </Card>
+        <VendorMetricCard
+          label="Active Events"
+          value="1"
+          sublabel="Wedding in Singaram"
+          icon={Calendar}
+          variant="crimson"
+        />
+        <VendorMetricCard
+          label="Quotations Received"
+          value="4"
+          trend="2 Pending Approval"
+          icon={FileText}
+          variant="gold"
+        />
+        <VendorMetricCard
+          label="Confirmed Bookings"
+          value="2"
+          sublabel="Mandap & Sannai Melam"
+          icon={CheckCircle2}
+          variant="emerald"
+        />
+        <VendorMetricCard
+          label="Platform Fees"
+          value="₹0"
+          trend="Zero Commission"
+          icon={Clock}
+          variant="default"
+        />
       </div>
 
       {/* Recent Enquiries & Bookings List */}

@@ -24,9 +24,13 @@ import {
   ExternalLink,
   ChevronLeft,
   ChevronsLeft,
-  ChevronsRight
+  ChevronsRight,
+  PanelLeftOpen,
+  PanelLeftClose
 } from "lucide-react";
+import { useAppStore } from "@/store/useAppStore";
 import { cn } from "@/lib/utils";
+import { SignOutConfirmDialog } from "@/components/ui/sign-out-dialog";
 
 const VENDOR_NAV = [
   { label: "Overview Dashboard", href: "/vendor/dashboard", icon: LayoutDashboard },
@@ -49,6 +53,17 @@ export default function VendorPortalLayout({ children }: { children: React.React
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [signOutDialogOpen, setSignOutDialogOpen] = useState(false);
+  const currentUser = useAppStore((s) => s.currentUser);
+  const logoutUser = useAppStore((s) => s.logoutUser);
+
+  const vendorDisplayName = currentUser?.vendorDetails?.businessName || currentUser?.name || "Sri Srinivasa Kalyana Mandapam";
+  const vendorInitials = currentUser?.avatarInitials || "SS";
+
+  const handleConfirmSignOut = () => {
+    logoutUser();
+    window.location.href = "/auth/login";
+  };
 
   // If vendor is on registration page, provide a focused standalone registration workspace
   const isRegisterPage = pathname === "/vendor/register";
@@ -121,7 +136,7 @@ export default function VendorPortalLayout({ children }: { children: React.React
       >
         {/* Vendor Profile Header */}
         <div className={cn(
-          "p-4 border-b border-white/10 flex items-center justify-between transition-all",
+          "p-4 border-b border-white/10 flex items-center transition-all",
           isCollapsed ? "justify-center p-3" : "gap-3"
         )}>
           <div className="flex items-center gap-3 overflow-hidden">
@@ -142,17 +157,6 @@ export default function VendorPortalLayout({ children }: { children: React.React
               </div>
             )}
           </div>
-
-          {/* Desktop Collapse Toggle Button */}
-          <button
-            type="button"
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            className="hidden md:flex p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-            title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-            aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-          >
-            {isCollapsed ? <ChevronsRight className="w-4 h-4" /> : <ChevronsLeft className="w-4 h-4" />}
-          </button>
         </div>
 
         {/* Navigation list */}
@@ -204,17 +208,18 @@ export default function VendorPortalLayout({ children }: { children: React.React
             </span>
             {!isCollapsed && <ChevronRight className="w-3.5 h-3.5 opacity-50" />}
           </Link>
-          <Link
-            href="/auth/login"
+          <button
+            type="button"
+            onClick={() => setSignOutDialogOpen(true)}
             title={isCollapsed ? "Sign Out" : undefined}
             className={cn(
-              "flex items-center text-xs font-semibold text-rose-300 hover:bg-rose-950/40 rounded-xl transition-colors",
+              "w-full flex items-center text-xs font-semibold text-rose-300 hover:bg-rose-950/40 rounded-xl transition-colors cursor-pointer",
               isCollapsed ? "justify-center p-2" : "gap-2 px-3 py-2"
             )}
           >
             <LogOut className="w-4 h-4" />
             {!isCollapsed && <span>Sign Out</span>}
-          </Link>
+          </button>
         </div>
       </aside>
 
@@ -223,13 +228,19 @@ export default function VendorPortalLayout({ children }: { children: React.React
         {/* Top Header Controls */}
         <header className="h-14 bg-white border-b border-[#E7DECF] px-4 sm:px-6 lg:px-8 flex items-center justify-between shrink-0 shadow-2xs w-full">
           <div className="flex items-center gap-3">
+            {/* Header Sidebar Collapse/Expand Toggle */}
             <button
               type="button"
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className="hidden md:flex p-1.5 rounded-lg border border-[#E7DECF] text-[#57534E] hover:bg-[#FAF7F2] transition-colors"
+              className="hidden md:flex items-center justify-center p-2 rounded-xl border border-[#E7DECF] bg-[#FAF7F2] hover:bg-[#E7DECF] text-[#762B46] transition-all cursor-pointer shadow-xs active:scale-95"
               title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+              aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
             >
-              <Menu className="w-4 h-4" />
+              {isCollapsed ? (
+                <PanelLeftOpen className="w-4 h-4 text-[#762B46]" />
+              ) : (
+                <PanelLeftClose className="w-4 h-4 text-[#762B46]" />
+              )}
             </button>
             <div className="text-xs sm:text-sm text-[#57534E]">
               <span className="font-semibold text-[#292524]">Narayanpet & Mahabubnagar</span> Partner Network
@@ -263,6 +274,15 @@ export default function VendorPortalLayout({ children }: { children: React.React
           {children}
         </main>
       </div>
+
+      {/* Confirmation Dialog on Sign Out */}
+      <SignOutConfirmDialog
+        open={signOutDialogOpen}
+        onOpenChange={setSignOutDialogOpen}
+        onConfirm={handleConfirmSignOut}
+        userName={vendorDisplayName}
+        role="vendor"
+      />
     </div>
   );
 }

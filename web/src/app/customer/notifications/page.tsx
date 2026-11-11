@@ -3,14 +3,15 @@
 import React from "react";
 import { Card } from "@/components/ui/card";
 import { Bell, CheckCircle2 } from "lucide-react";
+import { CustomerPageHeader } from "@/components/ui/customer-page-header";
 
 export default function CustomerNotificationsPage() {
   return (
     <div className="space-y-6">
-      <div className="pb-3 border-b border-[#E7DECF]">
-        <h1 className="text-xl font-bold text-[#292524]">Notifications</h1>
-        <p className="text-xs text-[#57534E]">Real-time updates regarding your enquiries and wedding bookings</p>
-      </div>
+      <CustomerPageHeader
+        title="Notifications"
+        subtitle="Real-time updates regarding your enquiries and wedding bookings"
+      />
 
       <div className="space-y-3">
         <Card className="p-4 bg-white border border-[#E7DECF] flex items-start gap-3 text-xs">

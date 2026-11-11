@@ -6,22 +6,22 @@ import { Plus, Calendar, MapPin, Users } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { CustomerPageHeader } from "@/components/ui/customer-page-header";
 
 export default function MyWeddingsPage() {
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between pb-3 border-b border-[#E7DECF]">
-        <div>
-          <h1 className="text-xl font-bold text-[#292524]">My Wedding Events</h1>
-          <p className="text-xs text-[#57534E]">Manage and coordinate family wedding ceremonies</p>
-        </div>
+      <CustomerPageHeader
+        title="My Wedding Events"
+        subtitle="Manage and coordinate family wedding ceremonies"
+      >
         <Button variant="primary" size="sm" asChild>
           <Link href="/customer/my-weddings/create">
             <Plus className="w-3.5 h-3.5 mr-1.5" />
             <span>Create New Wedding</span>
           </Link>
         </Button>
-      </div>
+      </CustomerPageHeader>
 
       <Card className="p-5 bg-white border border-[#E7DECF] space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">

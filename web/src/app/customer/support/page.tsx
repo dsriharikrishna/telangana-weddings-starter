@@ -2,16 +2,17 @@
 
 import React from "react";
 import { Card } from "@/components/ui/card";
-import { Phone, Mail, MessageSquare } from "lucide-react";
+import { Phone, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CustomerPageHeader } from "@/components/ui/customer-page-header";
 
 export default function CustomerSupportPage() {
   return (
     <div className="space-y-6">
-      <div className="pb-3 border-b border-[#E7DECF]">
-        <h1 className="text-xl font-bold text-[#292524]">Customer Support (సహాయ కేంద్రం)</h1>
-        <p className="text-xs text-[#57534E]">Rural wedding coordination helpline for families and village elders</p>
-      </div>
+      <CustomerPageHeader
+        title="Customer Support (సహాయ కేంద్రం)"
+        subtitle="Rural wedding coordination helpline for families and village elders"
+      />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Card className="p-5 bg-white border border-[#E7DECF] space-y-3">

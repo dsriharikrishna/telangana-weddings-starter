@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DataTable, Column } from "@/components/ui/data-table";
+import { VendorPageHeader } from "@/components/ui/vendor-page-header";
 import { Calendar, Eye, Phone, MapPin } from "lucide-react";
 
 interface BookingRecord {
@@ -169,22 +170,15 @@ export default function VendorBookingsListPage() {
 
   return (
     <div className="w-full space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E7DECF]">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-heading font-bold text-[#292524]">
-            Vendor Bookings
-          </h1>
-          <p className="text-xs text-[#57534E] mt-0.5">
-            Confirmed wedding dates, customer contacts, and token payment schedules across Narayanpet & Mahabubnagar
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-1 rounded-full font-bold">
-            {SAMPLE_BOOKINGS.filter(b => b.status === "confirmed").length} Active Bookings
-          </span>
-        </div>
-      </div>
+      {/* Reusable Header */}
+      <VendorPageHeader
+        title="Vendor Bookings"
+        subtitle="Confirmed wedding dates, customer contacts, and token payment schedules across Narayanpet & Mahabubnagar"
+      >
+        <span className="text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-1 rounded-full font-bold">
+          {SAMPLE_BOOKINGS.filter(b => b.status === "confirmed").length} Active Bookings
+        </span>
+      </VendorPageHeader>
 
       {/* Reusable Data Table */}
       <DataTable

@@ -15,21 +15,27 @@ import {
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { VendorMetricCard } from "@/components/ui/vendor-metric-card";
+import { useAppStore } from "@/store/useAppStore";
 
 export default function VendorDashboardPage() {
+  const currentUser = useAppStore((s) => s.currentUser);
+  const vendorName = currentUser?.vendorDetails?.businessName || currentUser?.name || "Sri Srinivasa Kalyana Mandapam";
+  const vendorLocation = currentUser?.location || "Narayanpet Town";
+
   return (
     <div className="space-y-6">
       {/* Banner */}
-      <div className="p-6 rounded-3xl bg-[#762B46] text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="p-6 rounded-3xl bg-[#762B46] text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
         <div>
           <span className="text-xs uppercase font-bold text-[#C5A46D]">Vendor Partner Portal</span>
-          <h1 className="text-xl sm:text-2xl font-bold">Sri Srinivasa Kalyana Mandapam</h1>
+          <h1 className="text-xl sm:text-2xl font-bold">{vendorName}</h1>
           <p className="text-xs text-gray-200 mt-0.5">
-            Base: Narayanpet Town • Serving 5 Mandals in Narayanpet & Mahabubnagar
+            Base: {vendorLocation} • Serving Narayanpet & Mahabubnagar Mandals
           </p>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <Button variant="gold" size="sm" asChild>
             <Link href="/vendor/quotations/create">
               <Plus className="w-3.5 h-3.5 mr-1.5" />
@@ -44,31 +50,36 @@ export default function VendorDashboardPage() {
         </div>
       </div>
 
-      {/* Metrics Row */}
+      {/* Metrics Row using Reusable VendorMetricCard */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <Card className="p-4 bg-white border border-[#E7DECF]">
-          <span className="text-[10px] font-bold text-[#57534E] uppercase">Total Enquiries</span>
-          <p className="font-heading font-bold text-xl text-[#762B46] mt-1">18</p>
-          <span className="text-[10px] text-emerald-700 font-semibold">+4 this week</span>
-        </Card>
-
-        <Card className="p-4 bg-white border border-[#E7DECF]">
-          <span className="text-[10px] font-bold text-[#57534E] uppercase">Confirmed Weddings</span>
-          <p className="font-heading font-bold text-xl text-[#762B46] mt-1">12</p>
-          <span className="text-[10px] text-gray-400">Peak Muhurtham Season</span>
-        </Card>
-
-        <Card className="p-4 bg-white border border-[#E7DECF]">
-          <span className="text-[10px] font-bold text-[#57534E] uppercase">Gross Booking Value</span>
-          <p className="font-heading font-bold text-xl text-[#762B46] mt-1">₹6,00,000</p>
-          <span className="text-[10px] text-emerald-700">100% Direct to Vendor</span>
-        </Card>
-
-        <Card className="p-4 bg-white border border-[#E7DECF]">
-          <span className="text-[10px] font-bold text-[#57534E] uppercase">Platform Commission</span>
-          <p className="font-heading font-bold text-xl text-[#762B46] mt-1">₹0</p>
-          <span className="text-[10px] text-emerald-700 font-semibold">Zero Commission Pilot</span>
-        </Card>
+        <VendorMetricCard
+          label="Total Enquiries"
+          value="18"
+          trend="+4 this week"
+          icon={Users}
+          variant="crimson"
+        />
+        <VendorMetricCard
+          label="Confirmed Weddings"
+          value="12"
+          sublabel="Peak Muhurtham Season"
+          icon={Calendar}
+          variant="gold"
+        />
+        <VendorMetricCard
+          label="Gross Booking Value"
+          value="₹6,00,000"
+          sublabel="100% Direct to Vendor"
+          icon={DollarSign}
+          variant="emerald"
+        />
+        <VendorMetricCard
+          label="Platform Commission"
+          value="₹0"
+          trend="Zero Commission Pilot"
+          icon={CheckCircle2}
+          variant="default"
+        />
       </div>
 
       {/* Pending Customer Enquiries */}

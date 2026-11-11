@@ -3,13 +3,11 @@
 import React, { useState, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { 
-  Phone, Lock, ArrowRight, ShieldCheck, Sparkles, User, Store, CheckCircle2 
-} from "lucide-react";
+import { ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from '@/components/layout/Footer';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useAppStore } from "@/store/useAppStore";
 import { SAMPLE_WEB_ACCOUNTS, MockWebAccount } from "@/data/sample-users";
@@ -34,10 +32,38 @@ function LoginFormContent() {
   const [otp, setOtp] = useState("123456");
   const [loading, setLoading] = useState(false);
 
+  const performLogin = (account: MockWebAccount) => {
+    setLoading(true);
+    // 1. Immediately set cookies in browser synchronously
+    if (typeof document !== "undefined") {
+      document.cookie = `tw_user_token=${account.id}; path=/; max-age=86400; SameSite=Lax`;
+      document.cookie = `tw_user_role=${account.role}; path=/; max-age=86400; SameSite=Lax`;
+    }
+
+    // 2. Update Zustand store
+    loginUser(account);
+
+    // 3. Navigate directly to respective portal
+    const target = redirectPath
+      ? redirectPath
+      : account.role === "vendor"
+        ? "/vendor/dashboard"
+        : "/customer/dashboard";
+
+    // Use window.location for hard navigation to ensure Next.js middleware and cookies sync instantly
+    window.location.href = target;
+  };
+
   const handleSelectSample = (acc: MockWebAccount) => {
     setSelectedAccount(acc);
     setPhone(acc.phone);
     setOtpSent(false);
+  };
+
+  const handleInstantQuickLogin = (acc: MockWebAccount) => {
+    setSelectedAccount(acc);
+    setPhone(acc.phone);
+    performLogin(acc);
   };
 
   const handleSendOtp = (e: React.FormEvent) => {
@@ -49,19 +75,7 @@ function LoginFormContent() {
 
   const handleVerifyOtp = (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-
-    setTimeout(() => {
-      loginUser(selectedAccount);
-
-      if (redirectPath) {
-        router.push(redirectPath);
-      } else if (selectedAccount.role === "vendor") {
-        router.push("/vendor/dashboard");
-      } else {
-        router.push("/customer/dashboard");
-      }
-    }, 350);
+    performLogin(selectedAccount);
   };
 
   return (
@@ -91,18 +105,16 @@ function LoginFormContent() {
                     key={acc.id}
                     type="button"
                     onClick={() => handleSelectSample(acc)}
-                    className={`w-full text-left p-3.5 rounded-2xl border transition-all flex items-start gap-3 cursor-pointer ${
-                      isSelected
+                    className={`w-full text-left p-3.5 rounded-2xl border transition-all flex items-start gap-3 cursor-pointer ${isSelected
                         ? "bg-white border-[#762B46] shadow-sm ring-2 ring-[#762B46]/20"
                         : "bg-white/80 border-stone-200 hover:border-stone-300 hover:bg-white"
-                    }`}
+                      }`}
                   >
                     <div
-                      className={`w-10 h-10 rounded-xl font-bold text-xs flex items-center justify-center shrink-0 ${
-                        isSelected
+                      className={`w-10 h-10 rounded-xl font-bold text-xs flex items-center justify-center shrink-0 ${isSelected
                           ? "bg-[#762B46] text-white"
                           : "bg-stone-100 text-stone-700"
-                      }`}
+                        }`}
                     >
                       {acc.avatarInitials}
                     </div>
@@ -113,11 +125,10 @@ function LoginFormContent() {
                         </span>
                         <Badge
                           variant="outline"
-                          className={`text-[9px] px-1.5 py-0 ${
-                            isVendor
+                          className={`text-[9px] px-1.5 py-0 ${isVendor
                               ? "bg-amber-50 text-amber-800 border-amber-200"
                               : "bg-blue-50 text-blue-800 border-blue-200"
-                          }`}
+                            }`}
                         >
                           {acc.badgeLabel}
                         </Badge>

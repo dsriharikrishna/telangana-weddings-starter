@@ -4,8 +4,10 @@ import React from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { DataTable, Column } from "@/components/ui/data-table";
-import { ShieldCheck, Download, ArrowUpRight } from "lucide-react";
+import { ShieldCheck, Download, ArrowUpRight, DollarSign, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { VendorPageHeader } from "@/components/ui/vendor-page-header";
+import { VendorMetricCard } from "@/components/ui/vendor-metric-card";
 
 interface PaymentRecord {
   id: string;
@@ -125,47 +127,40 @@ export default function VendorPaymentsPage() {
 
   return (
     <div className="w-full space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E7DECF]">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-heading font-bold text-[#292524]">
-            Payments & Direct Settlements
-          </h1>
-          <p className="text-xs text-[#57534E] mt-0.5">
-            100% vendor payout transparency with zero broker or platform commission deductions
-          </p>
-        </div>
-        <Button variant="secondary" size="sm" className="self-start sm:self-auto gap-1.5">
+      {/* Reusable Header */}
+      <VendorPageHeader
+        title="Payments & Direct Settlements"
+        subtitle="100% vendor payout transparency with zero broker or platform commission deductions"
+      >
+        <Button variant="secondary" size="sm" className="gap-1.5">
           <Download className="w-3.5 h-3.5" />
           <span>Export Ledger</span>
         </Button>
-      </div>
+      </VendorPageHeader>
 
-      {/* Financial Metric Cards */}
+      {/* Financial Metric Cards using Reusable VendorMetricCard */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <Card className="p-4 bg-white border border-[#E7DECF] rounded-2xl shadow-xs">
-          <span className="text-[10px] font-bold text-[#57534E] uppercase tracking-wider">
-            Total Revenue Collected
-          </span>
-          <p className="font-heading font-bold text-2xl text-[#762B46] mt-1">₹6,00,000</p>
-          <span className="text-[11px] text-emerald-700 font-medium">100% Retained by Vendor</span>
-        </Card>
-
-        <Card className="p-4 bg-white border border-[#E7DECF] rounded-2xl shadow-xs">
-          <span className="text-[10px] font-bold text-[#57534E] uppercase tracking-wider">
-            Platform Commission
-          </span>
-          <p className="font-heading font-bold text-2xl text-[#292524] mt-1">₹0.00</p>
-          <span className="text-[11px] text-emerald-700 font-medium">Zero Commission Pilot</span>
-        </Card>
-
-        <Card className="p-4 bg-white border border-[#E7DECF] rounded-2xl shadow-xs">
-          <span className="text-[10px] font-bold text-[#57534E] uppercase tracking-wider">
-            Settlement Method
-          </span>
-          <p className="font-heading font-bold text-2xl text-emerald-700 mt-1">Direct P2P</p>
-          <span className="text-[11px] text-[#78716C]">Direct UPI, Bank & Cash</span>
-        </Card>
+        <VendorMetricCard
+          label="Total Revenue Collected"
+          value="₹6,00,000"
+          trend="100% Retained by Vendor"
+          icon={DollarSign}
+          variant="crimson"
+        />
+        <VendorMetricCard
+          label="Platform Commission"
+          value="₹0.00"
+          trend="Zero Commission Pilot"
+          icon={ShieldCheck}
+          variant="gold"
+        />
+        <VendorMetricCard
+          label="Settlement Method"
+          value="Direct P2P"
+          sublabel="Direct UPI, Bank & Cash"
+          icon={Wallet}
+          variant="emerald"
+        />
       </div>
 
       {/* Settlements Table */}

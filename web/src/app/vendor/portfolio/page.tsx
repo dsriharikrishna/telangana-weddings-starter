@@ -4,6 +4,7 @@ import React from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Upload } from "lucide-react";
+import { VendorPageHeader } from "@/components/ui/vendor-page-header";
 
 export default function VendorPortfolioPage() {
   const photos = [
@@ -14,16 +15,15 @@ export default function VendorPortfolioPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between pb-3 border-b border-[#E7DECF]">
-        <div>
-          <h1 className="text-xl font-bold text-[#292524]">Portfolio Photo Gallery</h1>
-          <p className="text-xs text-[#57534E]">Real photos of past weddings help rural families trust your work</p>
-        </div>
+      <VendorPageHeader
+        title="Portfolio Photo Gallery"
+        subtitle="Real photos of past weddings help rural families trust your work"
+      >
         <Button variant="primary" size="sm" onClick={() => alert("Upload dialog opens. Select high-res wedding photos.")}>
           <Upload className="w-3.5 h-3.5 mr-1.5" />
           <span>Upload Real Photos</span>
         </Button>
-      </div>
+      </VendorPageHeader>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {photos.map((src, i) => (

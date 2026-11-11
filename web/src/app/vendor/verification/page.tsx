@@ -4,19 +4,16 @@ import React from "react";
 import { Card } from "@/components/ui/card";
 import { ShieldCheck, CheckCircle2, UserCheck, MapPin, Award, Phone } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { VendorPageHeader } from "@/components/ui/vendor-page-header";
 
 export default function VendorVerificationPage() {
   return (
     <div className="w-full space-y-6 font-body">
-      {/* Header */}
-      <div className="pb-4 border-b border-[#E7DECF]">
-        <h1 className="text-xl sm:text-2xl font-heading font-bold text-[#292524]">
-          Field Verification & Trust Status
-        </h1>
-        <p className="text-xs text-[#57534E] mt-0.5">
-          Manual physical trust verification ensures rural families in Narayanpet & Mahabubnagar book with peace of mind
-        </p>
-      </div>
+      {/* Reusable Header */}
+      <VendorPageHeader
+        title="Field Verification & Trust Status"
+        subtitle="Manual physical trust verification ensures rural families in Narayanpet & Mahabubnagar book with peace of mind"
+      />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full items-start">
         {/* Verification Status Banner & Details (8 columns) */}

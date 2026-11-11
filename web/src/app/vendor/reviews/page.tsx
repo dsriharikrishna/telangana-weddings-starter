@@ -5,6 +5,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Star, MessageCircle, MapPin, CheckCircle } from 'lucide-react';
+import { VendorPageHeader } from '@/components/ui/vendor-page-header';
 
 export default function VendorReviewsPage() {
   const { language } = useLanguage();
@@ -41,14 +42,10 @@ export default function VendorReviewsPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold font-heading text-[#292524]">
-          {language === 'te' ? 'కస్టమర్ సమీక్షలు (Reviews)' : 'Customer Reviews & Feedback'}
-        </h1>
-        <p className="text-xs text-stone-500 font-body">
-          {language === 'te' ? 'మీ పెళ్లి సేవలను ఉపయోగించిన కస్టమర్ల సమీక్షలు మరియు రేటింగ్‌లు.' : 'Verified feedback from rural families who booked your services.'}
-        </p>
-      </div>
+      <VendorPageHeader
+        title={language === 'te' ? 'కస్టమర్ సమీక్షలు (Reviews)' : 'Customer Reviews & Feedback'}
+        subtitle={language === 'te' ? 'మీ పెళ్లి సేవలను ఉపయోగించిన కస్టమర్ల సమీక్షలు మరియు రేటింగ్‌లు.' : 'Verified feedback from rural families who booked your services.'}
+      />
 
       {/* Aggregate Score Card */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">

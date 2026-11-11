@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DataTable, Column } from "@/components/ui/data-table";
+import { VendorPageHeader } from "@/components/ui/vendor-page-header";
 import { Calendar, Phone, MapPin, Send, Eye } from "lucide-react";
 
 interface EnquiryRecord {
@@ -168,22 +169,15 @@ export default function VendorEnquiriesPage() {
 
   return (
     <div className="w-full space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E7DECF]">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-heading font-bold text-[#292524]">
-            Customer Wedding Enquiries
-          </h1>
-          <p className="text-xs text-[#57534E] mt-0.5">
-            Direct enquiries and call-back requests from families in Narayanpet and Mahabubnagar
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs bg-amber-50 text-amber-800 border border-amber-200 px-3 py-1 rounded-full font-bold">
-            {SAMPLE_ENQUIRIES.filter(e => e.status === "new").length} New Leads Pending
-          </span>
-        </div>
-      </div>
+      {/* Reusable Header */}
+      <VendorPageHeader
+        title="Customer Wedding Enquiries"
+        subtitle="Direct enquiries and call-back requests from families in Narayanpet and Mahabubnagar"
+      >
+        <span className="text-xs bg-amber-50 text-amber-800 border border-amber-200 px-3 py-1 rounded-full font-bold">
+          {SAMPLE_ENQUIRIES.filter(e => e.status === "new").length} New Leads Pending
+        </span>
+      </VendorPageHeader>
 
       {/* Reusable Data Table */}
       <DataTable

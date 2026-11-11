@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar, Plus, CheckCircle2, XCircle, Clock, AlertCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { VendorPageHeader } from "@/components/ui/vendor-page-header";
 
 export default function VendorAvailabilityPage() {
   const [selectedMonth, setSelectedMonth] = useState("December 2026");
@@ -20,23 +21,16 @@ export default function VendorAvailabilityPage() {
 
   return (
     <div className="w-full space-y-6 font-body">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E7DECF]">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-heading font-bold text-[#292524]">
-            Calendar & Muhurtham Dates Availability
-          </h1>
-          <p className="text-xs text-[#57534E] mt-0.5">
-            Manage your service troupe, function hall, or catering calendar across auspicious Telugu wedding dates
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-          <Button variant="primary" size="sm" className="gap-1.5 shadow-sm">
-            <Plus className="w-3.5 h-3.5" />
-            <span>Block / Reserve Date</span>
-          </Button>
-        </div>
-      </div>
+      {/* Reusable Header */}
+      <VendorPageHeader
+        title="Calendar & Muhurtham Dates Availability"
+        subtitle="Manage your service troupe, function hall, or catering calendar across auspicious Telugu wedding dates"
+      >
+        <Button variant="primary" size="sm" className="gap-1.5 shadow-sm">
+          <Plus className="w-3.5 h-3.5" />
+          <span>Block / Reserve Date</span>
+        </Button>
+      </VendorPageHeader>
 
       {/* Grid Canvas across 100% full width */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full items-start">

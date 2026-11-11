@@ -6,22 +6,22 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plus, Edit, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { VendorPageHeader } from "@/components/ui/vendor-page-header";
 
 export default function VendorServicesPage() {
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between pb-3 border-b border-[#E7DECF]">
-        <div>
-          <h1 className="text-xl font-bold text-[#292524]">My Wedding Services & Packages</h1>
-          <p className="text-xs text-[#57534E]">Manage pricing, package inclusions and equipment descriptions</p>
-        </div>
+      <VendorPageHeader
+        title="My Wedding Services & Packages"
+        subtitle="Manage pricing, package inclusions and equipment descriptions"
+      >
         <Button variant="primary" size="sm" asChild>
           <Link href="/vendor/services/create">
             <Plus className="w-3.5 h-3.5 mr-1.5" />
             <span>Add New Package</span>
           </Link>
         </Button>
-      </div>
+      </VendorPageHeader>
 
       <div className="space-y-3">
         <Card className="p-4 bg-white border border-[#E7DECF] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">

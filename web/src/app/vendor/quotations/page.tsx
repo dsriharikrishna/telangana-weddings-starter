@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DataTable, Column } from "@/components/ui/data-table";
+import { VendorPageHeader } from "@/components/ui/vendor-page-header";
 import { Plus, Eye, Send, FileText } from "lucide-react";
 
 interface QuotationRecord {
@@ -136,23 +137,18 @@ export default function VendorQuotationsListPage() {
 
   return (
     <div className="w-full space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#E7DECF]">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-heading font-bold text-[#292524]">
-            Sent Quotations
-          </h1>
-          <p className="text-xs text-[#57534E] mt-0.5">
-            Formal price estimates and service packages submitted to prospective wedding families
-          </p>
-        </div>
-        <Button variant="primary" size="sm" asChild className="self-start sm:self-auto gap-1.5 shadow-sm">
+      {/* Reusable Header */}
+      <VendorPageHeader
+        title="Sent Quotations"
+        subtitle="Formal price estimates and service packages submitted to prospective wedding families"
+      >
+        <Button variant="primary" size="sm" asChild className="gap-1.5 shadow-sm">
           <Link href="/vendor/quotations/create">
             <Plus className="w-3.5 h-3.5" />
             <span>Create New Quotation</span>
           </Link>
         </Button>
-      </div>
+      </VendorPageHeader>
 
       {/* Reusable Data Table */}
       <DataTable
