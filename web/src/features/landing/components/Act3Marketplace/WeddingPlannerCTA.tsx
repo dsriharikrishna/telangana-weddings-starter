@@ -1,22 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 import { TELANGANA_LOCATIONS } from "@/data";
 import { AuspiciousToran, ZariBorderFrame } from "../shared/AuspiciousDecorations";
-import { WeddingMandalaAnimation } from "../shared/WeddingMandalaAnimation";
-import { 
-  Sparkles, 
-  MapPin, 
-  Calendar, 
-  PhoneCall, 
-  CheckCircle2, 
-  ArrowRight, 
-  Send, 
-  ShieldCheck, 
-  Clock 
-} from "lucide-react";
+
+import { Sparkles, MapPin, Calendar, CheckCircle2, Send, ShieldCheck, Clock } from "lucide-react";
 
 const POPULAR_SERVICES_OPTIONS = [
   { id: "hall", labelEn: "Function Hall / Mandapam", labelTe: "ఫంక్షన్ హాల్ / మండపం" },

@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Plus, Edit, Trash2 } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { VendorPageHeader } from "@/components/ui/vendor-page-header";
 

@@ -6,7 +6,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Grid, Layers, Edit, Eye } from 'lucide-react';
+import { Layers, Eye } from 'lucide-react';
 
 export default function AdminCategoriesPage() {
   const { language } = useLanguage();

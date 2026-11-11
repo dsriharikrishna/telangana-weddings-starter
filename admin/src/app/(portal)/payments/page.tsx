@@ -4,8 +4,8 @@ import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { CreditCard, CheckCircle2, ArrowDownLeft, ShieldCheck } from 'lucide-react';
+
+import { CheckCircle2 } from 'lucide-react';
 
 export default function AdminPaymentsPage() {
   const { language } = useLanguage();

@@ -1,10 +1,9 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import { SAMPLE_VENDORS } from "@/data";
 import { VendorCard } from "@/features/vendors";
-import { Button } from "@/components/ui/button";
+
 import { CustomerPageHeader } from "@/components/ui/customer-page-header";
 
 export default function SavedVendorsPage() {

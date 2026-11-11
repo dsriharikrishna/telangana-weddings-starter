@@ -1,18 +1,16 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 import { useAdminStore } from '@/store/useAdminStore';
 import { AdminLanguageToggle } from '@/components/AdminLanguageToggle';
-import {
-  LayoutDashboard, Users, Store, ShieldCheck, Grid, MapPin,
-  Layers, MessageSquare, CalendarCheck, CreditCard, DollarSign, Settings, ShieldAlert, FileText,
-  LogOut, PanelLeftClose, PanelLeft, Menu, X, ChevronRight
-} from 'lucide-react';
+import { LayoutDashboard, Users, Store, ShieldCheck, Grid, MapPin, Layers, MessageSquare, CreditCard, Settings, FileText, LogOut, PanelLeftClose, PanelLeft, Menu, X, ChevronRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+
+const emptySubscribe = () => () => {};
 
 export default function AdminLayoutShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -25,16 +23,15 @@ export default function AdminLayoutShell({ children }: { children: React.ReactNo
   const logout = useAdminStore((s) => s.logout);
 
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const [prevPathname, setPrevPathname] = useState(pathname);
 
   // Close mobile drawer upon route navigation
-  useEffect(() => {
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
     setMobileDrawerOpen(false);
-  }, [pathname]);
+  }
+
+  const mounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
 
   const handleLogout = () => {
     logout();
@@ -49,11 +46,8 @@ export default function AdminLayoutShell({ children }: { children: React.ReactNo
     { href: '/categories', icon: Grid, labelEn: 'Categories', labelTe: 'వర్గాలు (18)' },
     { href: '/subcategories', icon: Layers, labelEn: 'Subcategories', labelTe: 'ఉపవర్గాలు' },
     { href: '/locations', icon: MapPin, labelEn: 'Locations', labelTe: 'గ్రామాలు & మండలాలు' },
-    { href: '/enquiries', icon: MessageSquare, labelEn: 'Enquiries', labelTe: 'విచారణలు' },
-    { href: '/bookings', icon: CalendarCheck, labelEn: 'Bookings', labelTe: 'బుకింగ్‌లు' },
-    { href: '/payments', icon: CreditCard, labelEn: 'Payments', labelTe: 'చెల్లింపులు' },
-    { href: '/commissions', icon: DollarSign, labelEn: 'Commissions', labelTe: 'కమిషన్లు & సెటిల్మెంట్లు' },
-    { href: '/disputes', icon: ShieldAlert, labelEn: 'Disputes & Refunds', labelTe: 'వివాదాలు & రీఫండ్‌లు' },
+    { href: '/enquiries', icon: MessageSquare, labelEn: 'Enquiries', labelTe: 'విచారణలు & లీడ్స్' },
+    { href: '/payments', icon: CreditCard, labelEn: 'Subscriptions / Fees', labelTe: 'సభ్యత్వాలు & ఫీజులు' },
     { href: '/reports', icon: FileText, labelEn: 'Reports & Analytics', labelTe: 'నివేదికలు' },
     { href: '/settings', icon: Settings, labelEn: 'System Settings', labelTe: 'సెట్టింగులు' },
   ];

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Card } from "@/components/ui/card";
-import { ShieldCheck, CheckCircle2, UserCheck, MapPin, Award, Phone } from "lucide-react";
+import { ShieldCheck, CheckCircle2, UserCheck, Phone } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { VendorPageHeader } from "@/components/ui/vendor-page-header";
 

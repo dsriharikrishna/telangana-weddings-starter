@@ -1,17 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { 
-  Building, 
-  MapPin, 
-  Send, 
-  CheckCircle2, 
-  Sparkles, 
-  HelpCircle,
-  PhoneCall
-} from "lucide-react";
+import { Send, CheckCircle2, Sparkles } from "lucide-react";
 import { useApp } from "@/context/AppContext";
-import { TELANGANA_LOCATIONS, WEDDING_CATEGORIES } from "@/data";
+import { WEDDING_CATEGORIES } from "@/data";
 
 interface RequestVendorModalProps {
   isOpen: boolean;

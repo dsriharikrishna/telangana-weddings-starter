@@ -32,7 +32,7 @@ interface AppState {
 
 export const useAppStore = create<AppState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       language: 'te',
       setLanguage: (language) => set({ language }),
 

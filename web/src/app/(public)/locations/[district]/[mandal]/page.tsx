@@ -2,8 +2,7 @@
 
 import React, { use } from "react";
 import Link from "next/link";
-import { MapPin, ArrowRight } from "lucide-react";
-import { useApp } from "@/context/AppContext";
+
 import { TELANGANA_LOCATIONS, SAMPLE_VENDORS } from "@/data";
 import { Header } from "@/components/layout/Header";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
@@ -13,7 +12,6 @@ import { Footer } from "@/components/layout/Footer";
 export default function MandalLocationPage({ params }: { params: Promise<{ district: string; mandal: string }> }) {
   const resolvedParams = use(params);
   const { district: districtId, mandal: mandalId } = resolvedParams;
-  const { language } = useApp();
 
   const district = TELANGANA_LOCATIONS.districts.find(d => d.id === districtId) || TELANGANA_LOCATIONS.districts[0];
   const mandal = district.mandals.find(m => m.id === mandalId) || district.mandals[0];

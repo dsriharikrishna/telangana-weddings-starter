@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { SAMPLE_VENDORS, WEDDING_CATEGORIES, TELANGANA_LOCATIONS } from '@/data';
 import { useAdminStore } from '@/store/useAdminStore';
-import { Vendor, Category, AssistedEnquiry } from '@/types';
+import { Vendor, AssistedEnquiry } from '@/types';
 
 // Mock assisted enquiries for initial admin queue adhering strictly to AssistedEnquiry interface
 export const MOCK_ADMIN_ENQUIRIES: AssistedEnquiry[] = [

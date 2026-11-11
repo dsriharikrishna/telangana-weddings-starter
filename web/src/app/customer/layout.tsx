@@ -3,36 +3,15 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  LayoutDashboard,
-  Heart,
-  Calendar,
-  FileText,
-  Clock,
-  User,
-  LogOut,
-  Bell,
-  Settings,
-  CreditCard,
-  HelpCircle,
-  Menu,
-  X,
-  ExternalLink,
-  ChevronRight,
-  PanelLeftClose,
-  PanelLeftOpen
-} from "lucide-react";
+import { LayoutDashboard, Heart, FileText, User, LogOut, Bell, Settings, HelpCircle, Menu, X, ExternalLink, ChevronRight, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { useAppStore } from "@/store/useAppStore";
 import { cn } from "@/lib/utils";
 import { SignOutConfirmDialog } from "@/components/ui/sign-out-dialog";
 
 const CUSTOMER_NAV = [
   { label: "Dashboard", href: "/customer/dashboard", icon: LayoutDashboard },
-  { label: "My Weddings", href: "/customer/my-weddings", icon: Calendar },
-  { label: "Enquiries & Quotes", href: "/customer/enquiries", icon: FileText, badge: "2 Active" },
-  { label: "Bookings", href: "/customer/bookings", icon: Clock },
+  { label: "Enquiries & Leads", href: "/customer/enquiries", icon: FileText, badge: "2 Active" },
   { label: "Saved Vendors", href: "/customer/saved-vendors", icon: Heart },
-  { label: "Payments", href: "/customer/payments", icon: CreditCard },
   { label: "Notifications", href: "/customer/notifications", icon: Bell },
   { label: "Help & Support", href: "/customer/support", icon: HelpCircle },
   { label: "Profile & Settings", href: "/customer/profile", icon: Settings },

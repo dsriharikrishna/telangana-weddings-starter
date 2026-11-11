@@ -1,15 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
-import { 
-  Building2, 
-  MapPin, 
-  Search, 
-  PhoneCall, 
-  Compass,
-  ArrowRight
-} from "lucide-react";
+
+import { MapPin, Search, PhoneCall, Compass } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { TELANGANA_LOCATIONS, WEDDING_CATEGORIES, SAMPLE_VENDORS } from "@/data";
 import { VendorCard } from "@/features/vendors/VendorCard";
@@ -272,7 +265,7 @@ export function DiscoverySection() {
                 key={vendor.id} 
                 vendor={vendor}
                 coverageLabel={getVendorCoverageLabel(vendor)}
-                onEnquire={(v: any) => openAssistedModal({ id: v.id, name: v.businessName, categorySlug: v.categorySlug })}
+                onEnquire={(v) => openAssistedModal({ id: v.id, name: v.businessName, categorySlug: v.categorySlug })}
               />
             ))}
           </div>

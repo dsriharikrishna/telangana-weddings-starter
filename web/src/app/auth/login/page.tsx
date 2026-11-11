@@ -2,7 +2,7 @@
 
 import React, { useState, Suspense } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from '@/components/layout/Footer';
@@ -13,7 +13,6 @@ import { useAppStore } from "@/store/useAppStore";
 import { SAMPLE_WEB_ACCOUNTS, MockWebAccount } from "@/data/sample-users";
 
 function LoginFormContent() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const redirectPath = searchParams?.get("redirect");
   const requestedRole = searchParams?.get("role");
@@ -58,12 +57,6 @@ function LoginFormContent() {
     setSelectedAccount(acc);
     setPhone(acc.phone);
     setOtpSent(false);
-  };
-
-  const handleInstantQuickLogin = (acc: MockWebAccount) => {
-    setSelectedAccount(acc);
-    setPhone(acc.phone);
-    performLogin(acc);
   };
 
   const handleSendOtp = (e: React.FormEvent) => {

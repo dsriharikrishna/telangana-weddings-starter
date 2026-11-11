@@ -1,14 +1,16 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useSyncExternalStore } from "react";
 import { Lottie } from "lottie-react";
 
-export function WeddingMandalaAnimation({ className = "w-24 h-24" }: { className?: string }) {
-  const [isMounted, setIsMounted] = useState(false);
+const emptySubscribe = () => () => {};
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+export function WeddingMandalaAnimation({ className = "w-24 h-24" }: { className?: string }) {
+  const isMounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
   if (!isMounted) {
     return (

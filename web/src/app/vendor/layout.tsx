@@ -3,48 +3,21 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Store,
-  LayoutDashboard,
-  Layers,
-  MapPin,
-  FileText,
-  Calendar,
-  CreditCard,
-  ShieldCheck,
-  LogOut,
-  Image as ImageIcon,
-  Star,
-  Settings,
-  Bell,
-  HelpCircle,
-  Menu,
-  X,
-  ChevronRight,
-  ExternalLink,
-  ChevronLeft,
-  ChevronsLeft,
-  ChevronsRight,
-  PanelLeftOpen,
-  PanelLeftClose
-} from "lucide-react";
+import { Store, LayoutDashboard, Layers, MapPin, FileText, CreditCard, ShieldCheck, LogOut, Image as ImageIcon, Star, Settings, Bell, HelpCircle, Menu, X, ChevronRight, ExternalLink, PanelLeftOpen, PanelLeftClose } from "lucide-react";
 import { useAppStore } from "@/store/useAppStore";
 import { cn } from "@/lib/utils";
 import { SignOutConfirmDialog } from "@/components/ui/sign-out-dialog";
 
 const VENDOR_NAV = [
   { label: "Overview Dashboard", href: "/vendor/dashboard", icon: LayoutDashboard },
-  { label: "My Services & Packages", href: "/vendor/services", icon: Layers },
+  { label: "Customer Enquiries", href: "/vendor/enquiries", icon: FileText, badge: "3 New" },
+  { label: "My Services & Rates", href: "/vendor/services", icon: Layers },
   { label: "Categories Selection", href: "/vendor/categories", icon: Store },
   { label: "Service Areas (Villages)", href: "/vendor/service-areas", icon: MapPin },
-  { label: "Calendar Availability", href: "/vendor/availability", icon: Calendar },
   { label: "Portfolio Gallery", href: "/vendor/portfolio", icon: ImageIcon },
-  { label: "Customer Enquiries", href: "/vendor/enquiries", icon: FileText, badge: "3 New" },
-  { label: "Sent Quotations", href: "/vendor/quotations", icon: FileText },
-  { label: "Bookings", href: "/vendor/bookings", icon: Calendar },
-  { label: "Payments & Settlements", href: "/vendor/payments", icon: CreditCard },
   { label: "Field Verification", href: "/vendor/verification", icon: ShieldCheck, status: "Verified" },
   { label: "Customer Reviews", href: "/vendor/reviews", icon: Star },
+  { label: "Subscription & Plans", href: "/vendor/payments", icon: CreditCard },
   { label: "Support & Helpdesk", href: "/vendor/support", icon: HelpCircle },
   { label: "Portal Settings", href: "/vendor/settings", icon: Settings },
 ];
@@ -58,7 +31,6 @@ export default function VendorPortalLayout({ children }: { children: React.React
   const logoutUser = useAppStore((s) => s.logoutUser);
 
   const vendorDisplayName = currentUser?.vendorDetails?.businessName || currentUser?.name || "Sri Srinivasa Kalyana Mandapam";
-  const vendorInitials = currentUser?.avatarInitials || "SS";
 
   const handleConfirmSignOut = () => {
     logoutUser();

@@ -1,17 +1,8 @@
 "use client";
 
-import React, { use } from "react";
-import Link from "next/link";
-import {
-  Building2,
-  MapPin,
-  Search,
-  PhoneCall,
-  Sparkles,
-  ArrowRight,
-  ShieldCheck,
-  CheckCircle2
-} from "lucide-react";
+import React from "react";
+
+import { PhoneCall } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { WEDDING_CATEGORIES, SAMPLE_VENDORS } from "@/data";
 import { VendorCard } from "@/features/vendors";

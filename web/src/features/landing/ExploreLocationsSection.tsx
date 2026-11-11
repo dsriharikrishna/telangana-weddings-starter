@@ -2,14 +2,14 @@
 
 import React from "react";
 import Link from "next/link";
-import { MapPin, ArrowRight, Building, Users } from "lucide-react";
+import { MapPin, ArrowRight, Building } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { TELANGANA_LOCATIONS } from "@/data";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 export function ExploreLocationsSection() {
-  const { language, setLocation } = useApp();
+  const { language } = useApp();
 
   return (
     <section className="py-14 sm:py-16 bg-[#FAF7F2] border-b border-[#E7DECF] w-full">

@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Building, MapPin, Phone, Mail, Award, Save } from 'lucide-react';
+import { Award, Save } from 'lucide-react';
 
 export default function VendorProfilePage() {
   const { language } = useLanguage();

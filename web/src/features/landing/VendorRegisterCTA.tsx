@@ -2,13 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { 
-  Store, 
-  CheckCircle2, 
-  ShieldCheck, 
-  Send,
-  ArrowRight
-} from "lucide-react";
+import { Store, CheckCircle2, Send, ArrowRight } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { TELANGANA_LOCATIONS, WEDDING_CATEGORIES } from "@/data";
 import { Button } from "@/components/ui/button";

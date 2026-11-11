@@ -4,7 +4,7 @@ import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Star, MessageCircle, MapPin, CheckCircle } from 'lucide-react';
+import { Star, MapPin, CheckCircle } from 'lucide-react';
 import { VendorPageHeader } from '@/components/ui/vendor-page-header';
 
 export default function VendorReviewsPage() {

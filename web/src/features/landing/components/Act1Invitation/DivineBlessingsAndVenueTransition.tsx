@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 import { AuspiciousToran, BrassDeepamGlow } from "../shared/AuspiciousDecorations";
-import { Sparkles, ArrowRight, ShieldCheck, Flower2, Heart } from "lucide-react";
+import { Sparkles, ArrowRight, ShieldCheck, Flower2 } from "lucide-react";
 
 export function DivineBlessingsAndVenueTransition() {
   const { language } = useLanguage();
@@ -80,7 +80,7 @@ export function DivineBlessingsAndVenueTransition() {
 
             {/* Background Panorama of Grand Telugu Kalyana Mandapam */}
             <div className="absolute inset-0">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+              { }
               <img
                 src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1600&q=80"
                 alt="Telugu Wedding Kalyana Mandapam"

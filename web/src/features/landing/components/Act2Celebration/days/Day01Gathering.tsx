@@ -35,7 +35,7 @@ export function Day01Gathering() {
           {/* Photo Left */}
           <div className="md:col-span-5 relative">
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-md border border-amber-900/10">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+              { }
               <img
                 src={story.ceremonyImage}
                 alt={isTe ? story.themeTitleTe : story.themeTitleEn}

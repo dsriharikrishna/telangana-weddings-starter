@@ -2,20 +2,18 @@
 
 import React, { use } from "react";
 import Link from "next/link";
-import { MapPin, Building, ArrowRight, PhoneCall } from "lucide-react";
-import { useApp } from "@/context/AppContext";
+
 import { TELANGANA_LOCATIONS, SAMPLE_VENDORS } from "@/data";
 import { Header } from "@/components/layout/Header";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+
+
 import { VendorCard } from "@/features/vendors";
 import { Footer } from "@/components/layout/Footer";
 
 export default function DistrictLocationPage({ params }: { params: Promise<{ district: string }> }) {
   const resolvedParams = use(params);
   const districtId = resolvedParams.district;
-  const { language, openAssistedModal } = useApp();
 
   const district = TELANGANA_LOCATIONS.districts.find(d => d.id === districtId) || TELANGANA_LOCATIONS.districts[0];
   const districtVendors = SAMPLE_VENDORS.filter(v => v.district === district.id || v.willTravel);

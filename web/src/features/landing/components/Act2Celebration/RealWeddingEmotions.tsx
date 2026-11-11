@@ -82,7 +82,7 @@ export function RealWeddingEmotions() {
                 <div>
                   {/* Photo with Overlay */}
                   <div className="relative rounded-xl overflow-hidden aspect-[4/3] mb-3">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    { }
                     <img
                       src={emo.photoUrl}
                       alt={isTe ? emo.titleTe : emo.titleEn}

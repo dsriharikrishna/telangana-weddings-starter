@@ -1,14 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { 
-  Music, 
-  Sparkles, 
-  CheckCircle2, 
-  ArrowRight,
-  ShieldCheck
-} from "lucide-react";
+import { Music, CheckCircle2, ArrowRight } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { Button } from "@/components/ui/button";
 

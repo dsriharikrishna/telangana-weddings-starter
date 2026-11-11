@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { Card } from "@/components/ui/card";
+
 import { Button } from "@/components/ui/button";
 import { WEDDING_CATEGORIES } from "@/data";
-import { Check, Store, Info, CheckCircle2 } from "lucide-react";
+import { Check, Store, CheckCircle2 } from "lucide-react";
 
 export default function VendorCategoriesPage() {
   const [selectedCats, setSelectedCats] = useState<string[]>([

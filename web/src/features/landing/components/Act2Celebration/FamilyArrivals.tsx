@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 import { FAMILY_ARRIVALS_MEMORIES } from "../../data/family-data";
 import { AuspiciousToran } from "../shared/AuspiciousDecorations";
-import { Sparkles, ArrowRight, Heart } from "lucide-react";
+import { Sparkles, ArrowRight } from "lucide-react";
 
 export function FamilyArrivalsSection() {
   const { language } = useLanguage();
@@ -53,7 +53,7 @@ export function FamilyArrivalsSection() {
                 <div>
                   {/* Photo & Role Badge */}
                   <div className="relative rounded-xl overflow-hidden aspect-[4/3] mb-3 shadow">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    { }
                     <img
                       src={fam.photoUrl}
                       alt={isTe ? fam.nameTe : fam.nameEn}

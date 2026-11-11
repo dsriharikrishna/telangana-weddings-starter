@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Card } from "@/components/ui/card";
-import { Bell, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { CustomerPageHeader } from "@/components/ui/customer-page-header";
 
 export default function CustomerNotificationsPage() {

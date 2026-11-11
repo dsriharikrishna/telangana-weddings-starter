@@ -5,7 +5,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ShieldCheck, CheckCircle2, XCircle, MapPin, Phone, Eye, FileText } from 'lucide-react';
+import { CheckCircle2, XCircle, MapPin, FileText } from 'lucide-react';
 
 export default function VendorVerificationQueuePage() {
   const { language } = useLanguage();

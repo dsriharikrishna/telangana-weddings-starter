@@ -20,7 +20,7 @@ export default function VendorEnquiryDetailPage({ params }: { params: Promise<{ 
         <h1 className="text-xl font-bold text-[#292524]">Enquiry Details: {resolvedParams.enquiryId}</h1>
         <p className="text-xs text-[#57534E]">Customer Venkat Rao wants to book Kalyana Mandapam on 24 Dec 2026.</p>
         <Button variant="primary" size="sm" asChild>
-          <Link href="/vendor/quotations/create">Send Official Quotation</Link>
+          <a href="tel:+919849012345">Call Customer Directly</a>
         </Button>
       </Card>
     </div>

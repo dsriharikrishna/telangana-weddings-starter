@@ -1,16 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
-import {
-  Building2,
-  MapPin,
-  Search,
-  Filter,
-  PhoneCall,
-  Sparkles,
-  ArrowRight
-} from "lucide-react";
+import { Search, PhoneCall, Sparkles } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { TELANGANA_LOCATIONS, WEDDING_CATEGORIES, SAMPLE_VENDORS } from "@/data";
 import { VendorCard } from "@/features/vendors";

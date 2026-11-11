@@ -31,7 +31,7 @@ export interface DataTableProps<T> {
   className?: string;
 }
 
-export function DataTable<T extends Record<string, any>>({
+export function DataTable<T extends object>({
   data,
   columns,
   isLoading = false,

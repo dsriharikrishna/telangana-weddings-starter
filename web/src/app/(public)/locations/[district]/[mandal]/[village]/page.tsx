@@ -1,8 +1,7 @@
 "use client";
 
 import React, { use } from "react";
-import Link from "next/link";
-import { MapPin, PhoneCall } from "lucide-react";
+import { PhoneCall } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { TELANGANA_LOCATIONS, SAMPLE_VENDORS } from "@/data";
 import { Header } from "@/components/layout/Header";
@@ -14,7 +13,7 @@ import { Footer } from "@/components/layout/Footer";
 export default function VillageLocationPage({ params }: { params: Promise<{ district: string; mandal: string; village: string }> }) {
   const resolvedParams = use(params);
   const { district: districtId, mandal: mandalId, village: villageId } = resolvedParams;
-  const { language, openAssistedModal } = useApp();
+  const { openAssistedModal } = useApp();
 
   const district = TELANGANA_LOCATIONS.districts.find(d => d.id === districtId) || TELANGANA_LOCATIONS.districts[0];
   const mandal = district.mandals.find(m => m.id === mandalId) || district.mandals[0];

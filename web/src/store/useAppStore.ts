@@ -51,7 +51,7 @@ interface AppState {
 
 export const useAppStore = create<AppState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       language: 'te',
       setLanguage: (language) => set({ language }),
       toggleLanguage: () => set((state) => ({ language: state.language === 'en' ? 'te' : 'en' })),

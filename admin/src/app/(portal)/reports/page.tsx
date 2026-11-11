@@ -3,9 +3,9 @@
 import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+
 import { Button } from '@/components/ui/button';
-import { Download, FileText, TrendingUp, MapPin, Users } from 'lucide-react';
+import { Download, FileText } from 'lucide-react';
 
 export default function AdminReportsPage() {
   const { language } = useLanguage();

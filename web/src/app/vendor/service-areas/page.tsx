@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MapPin, Save, Check, CheckCircle2, Navigation, Truck } from "lucide-react";
+import { MapPin, Save, CheckCircle2, Truck } from "lucide-react";
 import { TELANGANA_LOCATIONS } from "@/data";
 
 export default function VendorServiceAreasPage() {

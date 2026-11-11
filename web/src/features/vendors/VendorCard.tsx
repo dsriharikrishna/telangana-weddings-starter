@@ -2,21 +2,11 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { 
-  Star, 
-  MapPin, 
-  ShieldCheck, 
-  PhoneCall, 
-  Heart, 
-  Share2, 
-  Check,
-  Award,
-  Sparkles
-} from "lucide-react";
+import { Star, MapPin, ShieldCheck, PhoneCall, Heart, Share2, Check, Award } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { Vendor, VendorCoverageType } from "@/types";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+
 
 interface VendorCardProps {
   vendor: Vendor;
@@ -28,7 +18,7 @@ interface VendorCardProps {
   onEnquire?: (vendor: Vendor) => void;
 }
 
-export function VendorCard({ vendor, coverageLabel, onEnquire }: VendorCardProps) {
+export function VendorCard({ vendor, onEnquire }: VendorCardProps) {
   const { language, formatCurrency, openAssistedModal } = useApp();
   const [saved, setSaved] = useState(false);
   const [copied, setCopied] = useState(false);

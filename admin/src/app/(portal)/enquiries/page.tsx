@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Phone, MessageSquare, MapPin, Calendar, Clock, CheckCircle } from 'lucide-react';
+import { Phone, MapPin } from 'lucide-react';
 
 export default function AdminEnquiriesPage() {
   const { language } = useLanguage();

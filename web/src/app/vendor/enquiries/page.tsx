@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DataTable, Column } from "@/components/ui/data-table";
 import { VendorPageHeader } from "@/components/ui/vendor-page-header";
-import { Calendar, Phone, MapPin, Send, Eye } from "lucide-react";
+import { Calendar, Phone, MapPin, Eye } from "lucide-react";
 
 interface EnquiryRecord {
   id: string;
@@ -140,21 +140,12 @@ export default function VendorEnquiriesPage() {
       header: "Actions",
       cell: (row) => (
         <div className="flex items-center gap-2">
-          {row.status === "new" ? (
-            <Button variant="primary" size="sm" asChild className="h-7 text-xs px-2.5">
-              <Link href={`/vendor/quotations/create?enquiryId=${row.enquiryCode}`}>
-                <Send className="w-3 h-3 mr-1" />
-                <span>Quote</span>
-              </Link>
-            </Button>
-          ) : (
-            <Button variant="secondary" size="sm" asChild className="h-7 text-xs px-2.5">
-              <Link href={`/vendor/enquiries/${row.id}`}>
-                <Eye className="w-3 h-3 mr-1" />
-                <span>View</span>
-              </Link>
-            </Button>
-          )}
+          <Button variant="primary" size="sm" asChild className="h-7 text-xs px-2.5">
+            <Link href={`/vendor/enquiries/${row.id}`}>
+              <Eye className="w-3 h-3 mr-1" />
+              <span>View Lead</span>
+            </Link>
+          </Button>
           <a
             href={`tel:${row.phone}`}
             className="p-1.5 rounded-lg border border-[#E7DECF] hover:bg-[#FAF7F2] text-[#762B46] transition-colors"

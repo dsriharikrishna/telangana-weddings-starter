@@ -6,10 +6,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Building, MapPin, Phone, Mail, Award, CheckCircle2, 
-  ArrowLeft, Calendar, ShieldCheck, FileText, Ban 
-} from 'lucide-react';
+import { MapPin, Phone, CheckCircle2, ArrowLeft, ShieldCheck, Ban } from 'lucide-react';
 
 export default function AdminVendorDetailPage({ params }: { params: Promise<{ vendorId: string }> }) {
   const resolvedParams = React.use(params);

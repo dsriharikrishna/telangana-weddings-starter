@@ -2,17 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { 
-  Search, 
-  MapPin, 
-  Sparkles, 
-  ArrowRight, 
-  ShieldCheck, 
-  Users, 
-  PhoneCall,
-  Store,
-  Compass
-} from "lucide-react";
+import { Search, MapPin, Sparkles, ShieldCheck, Users, PhoneCall, Store, Compass } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { TELANGANA_LOCATIONS, WEDDING_CATEGORIES } from "@/data";
 import { LocationSelectorModal } from "@/features/locations/LocationSelectorModal";

@@ -3,12 +3,11 @@ import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 
 import React from 'react';
-import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Phone, MessageSquare, HelpCircle, FileText, ShieldQuestion, MapPin } from 'lucide-react';
+import { Phone, MessageSquare, HelpCircle } from 'lucide-react';
 
 export default function HelpCenterPage() {
   const { language } = useLanguage();

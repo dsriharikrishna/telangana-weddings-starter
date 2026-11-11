@@ -69,7 +69,7 @@ export function Day04Muhurtham() {
           {/* Photo Right */}
           <div className="md:col-span-5 relative order-1 md:order-2">
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-md border border-[#762B46]/30">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+              { }
               <img
                 src={story.ceremonyImage}
                 alt={isTe ? story.themeTitleTe : story.themeTitleEn}

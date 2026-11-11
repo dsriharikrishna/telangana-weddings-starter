@@ -5,13 +5,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Plus, IndianRupee, Layers, Check, HelpCircle } from "lucide-react";
+import { ArrowLeft, IndianRupee, Layers, Check } from "lucide-react";
 
 export default function CreateServicePackagePage() {
   const router = useRouter();
   const [packageName, setPackageName] = useState("");
   const [price, setPrice] = useState("25000");
-  const [category, setCategory] = useState("band-melam-sannai");
   const [description, setDescription] = useState("");
   const [inclusions, setInclusions] = useState("Full Muhurtham Coverage, Traditional Uniforms, 8 Artists Troupe");
 

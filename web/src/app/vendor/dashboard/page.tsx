@@ -2,16 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { 
-  DollarSign, 
-  Users, 
-  Calendar, 
-  FileText, 
-  ShieldCheck, 
-  CheckCircle2, 
-  ArrowRight,
-  Plus
-} from "lucide-react";
+import { DollarSign, Users, Calendar, CheckCircle2, Plus } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -37,9 +28,9 @@ export default function VendorDashboardPage() {
 
         <div className="flex gap-2 flex-wrap">
           <Button variant="gold" size="sm" asChild>
-            <Link href="/vendor/quotations/create">
+            <Link href="/vendor/enquiries">
               <Plus className="w-3.5 h-3.5 mr-1.5" />
-              <span>Create Quotation</span>
+              <span>View Enquiries</span>
             </Link>
           </Button>
           <Button variant="secondary" size="sm" asChild>
@@ -102,8 +93,8 @@ export default function VendorDashboardPage() {
               <p className="text-[#57534E]">Requested AC Function Hall for 600 Guests on 24 Dec 2026</p>
             </div>
             <Button variant="primary" size="sm" asChild>
-              <Link href="/vendor/quotations/create?enquiryId=ENQ-NAR-7721">
-                Send Quotation
+              <Link href="/vendor/enquiries/ENQ-NAR-7721">
+                View Lead & Contact
               </Link>
             </Button>
           </div>

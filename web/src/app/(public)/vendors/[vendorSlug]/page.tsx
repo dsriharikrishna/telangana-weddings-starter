@@ -2,35 +2,21 @@
 
 import React, { use } from "react";
 import Link from "next/link";
-import {
-  MapPin,
-  PhoneCall,
-  ShieldCheck,
-  Star,
-  Share2,
-  Heart,
-  Car,
-  Calendar,
-  MessageSquare,
-  CheckCircle2,
-  ArrowLeft,
-  Send,
-  Building
-} from "lucide-react";
+import { MapPin, ShieldCheck, Star, Car, MessageSquare, CheckCircle2, ArrowLeft, Send } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { SAMPLE_VENDORS } from "@/data";
 import { Header } from "@/components/layout/Header";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { AssistedBookingModal } from "@/features/booking";
 import { Footer } from "@/components/layout/Footer";
 
 export default function VendorProfilePage({ params }: { params: Promise<{ vendorSlug: string }> }) {
   const resolvedParams = use(params);
   const vendorId = resolvedParams.vendorSlug;
-  const { language, formatCurrency, openAssistedModal, isAssistedModalOpen, setIsAssistedModalOpen } = useApp();
+  const { formatCurrency, openAssistedModal, isAssistedModalOpen, setIsAssistedModalOpen } = useApp();
 
   const vendor = SAMPLE_VENDORS.find(v => v.id === vendorId) || SAMPLE_VENDORS[0];
 

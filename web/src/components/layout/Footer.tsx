@@ -2,20 +2,12 @@
 
 import React from "react";
 import Link from "next/link";
-import { 
-  MapPin, 
-  Phone, 
-  Mail, 
-  ShieldCheck, 
-  Sparkles,
-  PhoneCall,
-  Clock
-} from "lucide-react";
+import { ShieldCheck, Sparkles, PhoneCall, Clock } from "lucide-react";
 import { useApp } from "@/context/AppContext";
-import { Button } from "@/components/ui/button";
+
 
 export function Footer() {
-  const { language, openAssistedModal } = useApp();
+  const { language } = useApp();
 
   return (
     <footer className="bg-[#292524] text-[#FAF7F2] pt-14 pb-10 border-t-4 border-[#C5A46D] w-full">

@@ -5,8 +5,8 @@ import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import { Settings, Save, Shield, Globe, Bell } from 'lucide-react';
+
+import { Save, Shield, Globe } from 'lucide-react';
 
 export default function AdminSettingsPage() {
   const { language } = useLanguage();

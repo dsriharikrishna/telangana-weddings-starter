@@ -35,7 +35,7 @@ export function Day05Farewell() {
           {/* Photo Left on Day 5 */}
           <div className="md:col-span-5 relative">
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-md border border-stone-300">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+              { }
               <img
                 src={story.ceremonyImage}
                 alt={isTe ? story.themeTitleTe : story.themeTitleEn}

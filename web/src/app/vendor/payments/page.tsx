@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { Card } from "@/components/ui/card";
+
 import { Badge } from "@/components/ui/badge";
 import { DataTable, Column } from "@/components/ui/data-table";
-import { ShieldCheck, Download, ArrowUpRight, DollarSign, Wallet } from "lucide-react";
+import { ShieldCheck, Download, DollarSign, Wallet } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { VendorPageHeader } from "@/components/ui/vendor-page-header";
 import { VendorMetricCard } from "@/components/ui/vendor-metric-card";

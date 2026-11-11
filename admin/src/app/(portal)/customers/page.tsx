@@ -3,10 +3,10 @@
 import React, { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Search, MapPin, Phone, Calendar, UserCheck } from 'lucide-react';
+import { Search, MapPin } from 'lucide-react';
 
 export default function AdminCustomersPage() {
   const { language } = useLanguage();

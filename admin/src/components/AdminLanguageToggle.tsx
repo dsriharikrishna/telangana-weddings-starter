@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Languages, Check } from 'lucide-react';
+
 import { useLanguage } from '@/hooks/useLanguage';
 import { cn } from '@/lib/utils';
 

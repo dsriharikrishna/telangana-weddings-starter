@@ -4,8 +4,8 @@ import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Phone, MessageSquare, Headphones, HelpCircle, FileText } from 'lucide-react';
+
+import { Phone, MessageSquare, Headphones, HelpCircle } from 'lucide-react';
 import { VendorPageHeader } from '@/components/ui/vendor-page-header';
 
 export default function VendorSupportPage() {

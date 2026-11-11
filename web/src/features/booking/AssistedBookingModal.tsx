@@ -1,19 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { 
-  PhoneCall, 
-  MessageSquare, 
-  HelpCircle, 
-  Users, 
-  CheckCircle2, 
-  Calendar, 
-  MapPin, 
-  X, 
-  Sparkles,
-  ShieldCheck,
-  Send
-} from "lucide-react";
+import { PhoneCall, MessageSquare, HelpCircle, Users, CheckCircle2, X, ShieldCheck, Send } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { TELANGANA_LOCATIONS, WEDDING_CATEGORIES } from "@/data";
 import { AssistedEnquirySource } from "@/types";
@@ -49,7 +37,6 @@ export function AssistedBookingModal({ isOpen, onClose, defaultVendorInfo }: Ass
   if (!isOpen) return null;
 
   const currentDistrictObj = TELANGANA_LOCATIONS.districts.find(d => d.id === district);
-  const currentMandalObj = currentDistrictObj?.mandals.find(m => m.id === mandal);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -342,7 +329,7 @@ Wedding Date: ${weddingDate || "To be decided"}`;
                     onChange={e => setMandal(e.target.value)}
                     className="w-full px-2.5 py-2 text-xs rounded-xl border border-gray-300 bg-white font-semibold text-gray-800"
                   >
-                    {currentDistrictObj?.mandals.map(m => (
+                    { currentDistrictObj?.mandals.map(m => (
                       <option key={m.id} value={m.id}>
                         {language === "te" ? m.nameTe : m.nameEn}
                       </option>

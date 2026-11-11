@@ -1,15 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { MapPin, Building, ArrowRight, PhoneCall } from "lucide-react";
+import { MapPin, PhoneCall } from "lucide-react";
 import { useApp } from "@/context/AppContext";
-import { TELANGANA_LOCATIONS, SAMPLE_VENDORS } from "@/data";
+import { TELANGANA_LOCATIONS } from "@/data";
 import { Header } from "@/components/layout/Header";
 import { Footer } from '@/components/layout/Footer';
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { AssistedBookingModal } from "@/features/booking";
 
 export default function LocationsDirectoryPage() {

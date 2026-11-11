@@ -38,9 +38,9 @@ export default function CustomerDashboardPage() {
 
         <div className="flex gap-2 flex-wrap">
           <Button variant="gold" size="sm" asChild>
-            <Link href="/customer/my-weddings/create">
+            <Link href="/vendors">
               <Plus className="w-3.5 h-3.5 mr-1.5" />
-              <span>Create Wedding Event</span>
+              <span>Browse Vendors</span>
             </Link>
           </Button>
           <Button variant="secondary" size="sm" onClick={() => openAssistedModal()}>

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export default function CustomerProfilePage() {
   const [name, setName] = useState("Ramesh Reddy");
-  const [phone, setPhone] = useState("+91 94401 XXXXX");
+  const [phone] = useState("+91 94401 XXXXX");
   const [saved, setSaved] = useState(false);
 
   const handleSave = (e: React.FormEvent) => {

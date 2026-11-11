@@ -77,7 +77,7 @@ export function HeritageTraditionsSection() {
               <div>
                 {/* Photo & Number Indicator */}
                 <div className="relative rounded-xl overflow-hidden aspect-[16/10] mb-4">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  { }
                   <img
                     src={trad.photoUrl}
                     alt={isTe ? trad.nameTe : trad.nameEn}
