@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+:root {
+  /* Telangana Weddings Brand Palette — Strictly Aligned to Master Specification */
+  --primary-burgundy: #762B46;       /* Deep Burgundy / Wine */
+  --primary-burgundy-dark: #542034;  /* Dark Burgundy */
+  --primary-burgundy-light: #8e3756;
+  --accent-gold: #C5A46D;            /* Muted Gold */
+  --accent-gold-light: #dfb265;
+  --accent-gold-dark: #9f7021;
+  --bg-ivory: #FAF7F2;               /* Warm Ivory */
+  --bg-cream: #F4EDE3;               /* Soft Cream */
+  --text-charcoal: #292524;          /* Charcoal */
+  --text-muted: #57534E;             /* Secondary text */
+  --card-white: #FFFFFF;
+  --border-subtle: #E7DECF;
+
+  --font-heading: 'Sora', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+body {
+  background-color: var(--bg-ivory);
+  color: var(--text-charcoal);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Master Typography Constraint: Maximum font size across entire application is text-3xl (30px) */
+h1 {
+  font-family: var(--font-heading);
+  font-size: 1.875rem !important; /* 30px max */
+  line-height: 2.25rem !important;
+}
+
+h2 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem !important;   /* 24px */
+  line-height: 2rem !important;
+}
+
+h3 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem !important;  /* 20px */
+  line-height: 1.75rem !important;
+}
+
+h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-size: 1.125rem !important; /* 18px */
+  line-height: 1.5rem !important;
+}
+
+/* Master Full-Width Horizontal Padding Utility */
+.layout-fullwidth {
+  width: 100%;
+  padding-left: 1rem;    /* 16px mobile */
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .layout-fullwidth {
+    padding-left: 1.5rem; /* 24px tablet */
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .layout-fullwidth {
+    padding-left: 2.5rem; /* 40px desktop */
+    padding-right: 2.5rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .layout-fullwidth {
+    padding-left: 3.5rem; /* 56px large desktop */
+    padding-right: 3.5rem;
+  }
+}
+
+/* Interactive Button Hover & Motion System */
+.btn-interactive {
+  transition: all 200ms ease-in-out;
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn-interactive:hover:not(:disabled) {
+  transform: scale(1.02);
+}
+
+.btn-interactive:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn-interactive:focus-visible {
+  outline: 2px solid #C5A46D;
+  outline-offset: 2px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F4EDE3;
+}
+::-webkit-scrollbar-thumb {
+  background: #C5A46D;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #762B46;
+}
