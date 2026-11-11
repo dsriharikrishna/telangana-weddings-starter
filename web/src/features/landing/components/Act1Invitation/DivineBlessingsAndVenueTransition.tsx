@@ -20,10 +20,7 @@ export function DivineBlessingsAndVenueTransition() {
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#762B46]/20 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* ======================================================== */}
-        /* PART 1: SCENE 02 — DIVINE BLESSINGS (శుభం కలగాలి)          */
-        /* ======================================================== */
+
         <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FAF7F2]/10 border border-[#C5A46D]/40 text-[#DFCA9B] text-xs font-semibold tracking-wide uppercase mb-3 backdrop-blur-sm">
             <Sparkles className="w-3.5 h-3.5 text-[#C5A46D]" />
@@ -78,12 +75,9 @@ export function DivineBlessingsAndVenueTransition() {
           </div>
         </div>
 
-        {/* ======================================================== */}
-        /* PART 2: SCENE 03 — VENUE TRANSFORMATION (పందిరి సిద్ధం)     */
-        /* ======================================================== */
         <div className="relative rounded-3xl p-1 bg-gradient-to-r from-[#C5A46D] via-[#DFCA9B] to-[#9E7D46] shadow-2xl overflow-hidden">
           <div className="relative rounded-[22px] bg-[#1C1917] p-6 sm:p-10 md:p-12 overflow-hidden">
-            
+
             {/* Background Panorama of Grand Telugu Kalyana Mandapam */}
             <div className="absolute inset-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}

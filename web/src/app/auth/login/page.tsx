@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { 
@@ -14,7 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { useAppStore } from "@/store/useAppStore";
 import { SAMPLE_WEB_ACCOUNTS, MockWebAccount } from "@/data/sample-users";
 
-export default function LoginPage() {
+function LoginFormContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectPath = searchParams?.get("redirect");
@@ -236,5 +236,14 @@ export default function LoginPage() {
 
       <Footer />
     </div>
+  );
+}
+
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-xs">Loading...</div>}>
+      <LoginFormContent />
+    </Suspense>
   );
 }

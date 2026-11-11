@@ -11,5 +11,7 @@ export * from './components/Act2Celebration/FamilyArrivals';
 export * from './components/Act2Celebration/FiveDayTimeline';
 export * from './components/Act2Celebration/RealWeddingEmotions';
 export * from './components/Act2Celebration/HeritageTraditions';
+export * from './components/Act3Marketplace/WeddingPlannerCTA';
 export * from './components/shared/AuspiciousDecorations';
+export * from './components/shared/WeddingMandalaAnimation';
 

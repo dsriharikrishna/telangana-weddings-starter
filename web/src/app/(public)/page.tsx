@@ -8,6 +8,7 @@ import {
   FiveDayWeddingTimeline,
   RealWeddingEmotions,
   HeritageTraditionsSection,
+  WeddingPlannerJourneyCTA,
   CategoriesSection,
   DiscoverySection,
   ExploreLocationsSection
@@ -42,16 +43,19 @@ export default function HomePage() {
       {/* 4.7 ACT 2 — SCENE 07: Traditional Wedding Heritage (మన సంప్రదాయాలు — జీలకర్ర బెల్లం, తలంబ్రాలు) */}
       <HeritageTraditionsSection />
 
+      {/* 4.9 ACT 3 — SCENE 10: Start Your Wedding Journey (Interactive 4-Step Planner CTA) */}
+      <WeddingPlannerJourneyCTA />
+
       {/* 5. ACT 3 — SCENE 08: Curated Wedding Categories Showcase */}
       <div id="marketplace-directory">
-        {/* <CategoriesSection /> */}
+        <CategoriesSection />
       </div>
 
       {/* 6. ACT 3 — SCENE 09: Hyperlocal Village & Mandal Vendor Discovery */}
-      {/* <DiscoverySection /> */}
+      <DiscoverySection />
 
       {/* 7. Regional District Drilldown (Narayanpet, Mahabubnagar, etc.) */}
-      {/* <ExploreLocationsSection /> */}
+      <ExploreLocationsSection />
 
       {/* 8. Global Localized Footer (includes Links to dedicated /how-it-works & /become-a-vendor pages) */}
       <Footer />
