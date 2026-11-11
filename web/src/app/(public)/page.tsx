@@ -1,13 +1,17 @@
 "use client";
 
 import { Header } from "@/components/layout/Header";
-import { HeroSection } from "@/features/landing";
-import { CategoriesSection } from "@/features/landing";
-import { BandMelamSpecialSection } from "@/features/landing";
-import { DiscoverySection } from "@/features/landing";
-import { ExploreLocationsSection } from "@/features/landing";
-import { HowItWorks } from "@/features/landing";
-import { VendorRegisterCTA } from "@/features/landing";
+import { 
+  InvitationEntrance, 
+  DivineBlessingsAndVenueTransition, 
+  FamilyArrivalsSection,
+  FiveDayWeddingTimeline,
+  RealWeddingEmotions,
+  HeritageTraditionsSection,
+  CategoriesSection,
+  DiscoverySection,
+  ExploreLocationsSection
+} from "@/features/landing";
 import { AssistedBookingModal } from "@/features/booking";
 import { useApp } from "@/context/AppContext";
 import { Footer } from "@/components/layout/Footer";
@@ -17,34 +21,42 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen flex flex-col bg-[#FAF7F2] w-full overflow-x-hidden">
-      {/* 1. Sticky Desktop & Mobile Navbar with Searchable Locations & Dropdowns */}
+      {/* 1. Sticky Navigation Bar */}
       <Header />
 
-      {/* 2. Full-Width Hero Section with Compact Typography & Rural Positioning */}
-      <HeroSection />
+      {/* 2. ACT 1 — SCENE 01: The Royal Wedding Invitation Entrance (శ్రీ శుభారంభం) */}
+      <InvitationEntrance />
 
-      {/* 3. Section 2: Quick Service Categories (All 18 Main Categories in Responsive Grid) */}
-      <CategoriesSection />
+      {/* 3. ACT 1 — SCENE 02 & 03: Divine Blessings & Venue Transformation (పందిరి సిద్ధం) */}
+      <DivineBlessingsAndVenueTransition />
 
-      {/* 4. Category #18 Spotlight (Band Melam & Sannai Melam Independent Subcategories) */}
-      <BandMelamSpecialSection />
+      {/* 3.5 ACT 2 — SCENE 04: Family Arrivals & Banter (బంధువులు వచ్చారు... సందడి మొదలైంది!) */}
+      <FamilyArrivalsSection />
 
-      {/* 5. Section 3: Explore Vendors Near You with Filter Toolbar & Proximity Labels */}
-      <DiscoverySection />
+      {/* 4. ACT 2 — SCENE 05: The Five-Day Wedding Journey Timeline (ఐదు రోజుల పండుగ) */}
+      <FiveDayWeddingTimeline />
 
-      {/* 6. Section 4: Explore by Location (Narayanpet, Mahabubnagar, Mandals & Villages) */}
-      <ExploreLocationsSection />
+      {/* 4.5 ACT 2 — SCENE 06: Real Wedding Emotions (నవ్వులు, ఆకలి, కన్నీళ్లు) */}
+      <RealWeddingEmotions />
 
-      {/* 7. Section 5: How It Works (Simple 4-Step Process) */}
-      <HowItWorks />
+      {/* 4.7 ACT 2 — SCENE 07: Traditional Wedding Heritage (మన సంప్రదాయాలు — జీలకర్ర బెల్లం, తలంబ్రాలు) */}
+      <HeritageTraditionsSection />
 
-      {/* 8. Section 6: Become a Vendor (Full-Width Registration CTA) */}
-      <VendorRegisterCTA />
+      {/* 5. ACT 3 — SCENE 08: Curated Wedding Categories Showcase */}
+      <div id="marketplace-directory">
+        {/* <CategoriesSection /> */}
+      </div>
 
-      {/* 9. Section 7: Full-Width Localized Footer */}
+      {/* 6. ACT 3 — SCENE 09: Hyperlocal Village & Mandal Vendor Discovery */}
+      {/* <DiscoverySection /> */}
+
+      {/* 7. Regional District Drilldown (Narayanpet, Mahabubnagar, etc.) */}
+      {/* <ExploreLocationsSection /> */}
+
+      {/* 8. Global Localized Footer (includes Links to dedicated /how-it-works & /become-a-vendor pages) */}
       <Footer />
 
-      {/* 10. Global Assisted Booking Modal (Callback / WhatsApp / Family Contact) */}
+      {/* 9. Global Assisted Booking / Concierge Modal */}
       <AssistedBookingModal
         isOpen={isAssistedModalOpen}
         onClose={() => setIsAssistedModalOpen(false)}
@@ -53,3 +65,4 @@ export default function HomePage() {
     </main>
   );
 }
+

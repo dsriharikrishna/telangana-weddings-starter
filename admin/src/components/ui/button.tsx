@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { Slot } from '@radix-ui/react-slot';
+import { Slot, Slottable } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
@@ -57,7 +57,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ) : (
           leftIcon && <span className="mr-1.5 flex items-center">{leftIcon}</span>
         )}
-        {children}
+        <Slottable>{children}</Slottable>
         {!loading && rightIcon && <span className="ml-1.5 flex items-center">{rightIcon}</span>}
       </Comp>
     );
