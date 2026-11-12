@@ -76,7 +76,7 @@ export default function VendorPortalLayout({ children }: { children: React.React
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] flex flex-col md:flex-row font-body w-full">
+    <div className="h-screen bg-[#FAF7F2] flex flex-col md:flex-row font-body w-full overflow-hidden">
       {/* Mobile Top App Bar */}
       <header className="md:hidden bg-[#542034] text-white px-4 py-3 border-b border-white/10 flex items-center justify-between sticky top-0 z-30 shadow-sm w-full">
         <div className="flex items-center gap-2.5">
@@ -241,8 +241,8 @@ export default function VendorPortalLayout({ children }: { children: React.React
           </div>
         </header>
 
-        {/* Vendor Page Body - Full-Width Layout */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 w-full overflow-x-hidden">
+        {/* Vendor Page Body - Fixed Navbar & Sidebar, Scrollable Main Area */}
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 w-full overflow-y-auto">
           {children}
         </main>
       </div>

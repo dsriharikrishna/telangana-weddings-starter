@@ -59,7 +59,7 @@ export default function AdminLayoutShell({ children }: { children: React.ReactNo
   const collapsed = mounted ? isDesktopCollapsed : false;
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] flex flex-col md:flex-row relative w-full overflow-x-hidden">
+    <div className="h-screen bg-[#FAF7F2] flex flex-col md:flex-row relative w-full overflow-hidden">
       {/* =========================================
           1. MOBILE DRAWER OVERLAY & ASIDE (< md)
       ========================================= */}
@@ -256,7 +256,7 @@ export default function AdminLayoutShell({ children }: { children: React.ReactNo
       {/* =========================================
           3. MAIN WORKSPACE CONTENT & NAVBAR
       ========================================= */}
-      <div className="flex-1 flex flex-col min-w-0 w-full">
+      <div className="flex-1 flex flex-col min-w-0 h-full w-full overflow-hidden">
         {/* Top Header Navbar */}
         <header className="h-16 bg-white/95 backdrop-blur-md border-b border-stone-200/80 px-4 sm:px-6 md:px-8 flex items-center justify-between sticky top-0 z-20 shrink-0">
           <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
@@ -309,8 +309,8 @@ export default function AdminLayoutShell({ children }: { children: React.ReactNo
           </div>
         </header>
 
-        {/* Content Region */}
-        <main className="flex-1 p-3.5 sm:p-6 md:p-8 w-full">
+        {/* Content Region - scrolls inside fixed sidebar and navbar */}
+        <main className="flex-1 overflow-y-auto p-3.5 sm:p-6 md:p-8 w-full">
           {children}
         </main>
       </div>

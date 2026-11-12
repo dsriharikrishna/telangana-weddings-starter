@@ -1,6 +1,6 @@
 import apiService from '@/services/apiService';
 import { VENDOR_ENDPOINTS } from './vendorEndpoints';
-import { Vendor, VendorQueryParams } from '../types/vendor.types';
+import { Vendor, VendorQueryParams, VendorLeadsData, UnlockLeadResponse } from '../types/vendor.types';
 import { ApiResponse, PaginatedData } from '@/types/api';
 
 export const vendorApi = {
@@ -26,5 +26,16 @@ export const vendorApi = {
     const res = await apiService.post<ApiResponse<Vendor>>(VENDOR_ENDPOINTS.REGISTER, data);
     return res.data;
   },
+
+  getVendorLeads: async (): Promise<VendorLeadsData> => {
+    const res = await apiService.get<ApiResponse<VendorLeadsData>>(VENDOR_ENDPOINTS.LEADS);
+    return res.data;
+  },
+
+  unlockLead: async (assignmentId: string): Promise<UnlockLeadResponse> => {
+    const res = await apiService.post<ApiResponse<UnlockLeadResponse>>(VENDOR_ENDPOINTS.UNLOCK_LEAD(assignmentId));
+    return res.data;
+  },
 };
+
 

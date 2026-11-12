@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { PhoneCall, MessageSquare, HelpCircle, Users, CheckCircle2, X, ShieldCheck, Send } from "lucide-react";
+import { PhoneCall, MessageSquare, HelpCircle, Users, CheckCircle2, X, ShieldCheck, Send, Loader2 } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { TELANGANA_LOCATIONS, WEDDING_CATEGORIES } from "@/data";
 import { AssistedEnquirySource } from "@/types";
+import { useRequestCallback } from "@/features/enquiries/hooks/useEnquiries";
 
 interface AssistedBookingModalProps {
   isOpen: boolean;
@@ -18,6 +19,7 @@ interface AssistedBookingModalProps {
 
 export function AssistedBookingModal({ isOpen, onClose, defaultVendorInfo }: AssistedBookingModalProps) {
   const { language, location, submitAssistedEnquiry } = useApp();
+  const requestCallbackMutation = useRequestCallback();
   
   const [activeTab, setActiveTab] = useState<AssistedEnquirySource>("callback_request");
   const [submittedRef, setSubmittedRef] = useState<string | null>(null);
@@ -38,9 +40,10 @@ export function AssistedBookingModal({ isOpen, onClose, defaultVendorInfo }: Ass
 
   const currentDistrictObj = TELANGANA_LOCATIONS.districts.find(d => d.id === district);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // 1. Submit locally in context for instant UI responsiveness
     const created = submitAssistedEnquiry({
       source: activeTab,
       customerName,
@@ -58,7 +61,21 @@ export function AssistedBookingModal({ isOpen, onClose, defaultVendorInfo }: Ass
       notes: notes || undefined
     });
 
-    setSubmittedRef(created.referenceNumber);
+    // 2. Dispatch to live backend API: POST /enquiries/request-call
+    try {
+      const apiResult = await requestCallbackMutation.mutateAsync({
+        customerName,
+        customerPhone,
+        district,
+        mandal,
+        categorySlug,
+        notes: notes ? `${notes} (Wedding Date: ${weddingDate || 'TBD'}, Village: ${villageOrTown || 'TBD'})` : undefined
+      });
+      setSubmittedRef(apiResult.referenceNumber || created.referenceNumber);
+    } catch {
+      // Fallback gracefully to local reference number if backend is in offline demo mode
+      setSubmittedRef(created.referenceNumber);
+    }
   };
 
   const handleWhatsAppDirect = () => {

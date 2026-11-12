@@ -35,7 +35,7 @@ export default function CustomerDashboardLayout({ children }: { children: React.
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2] flex flex-col md:flex-row font-body">
+    <div className="h-screen bg-[#FAF7F2] flex flex-col md:flex-row font-body w-full overflow-hidden">
       {/* Mobile Top App Bar */}
       <header className="md:hidden bg-[#542034] text-white px-4 py-3 border-b border-white/10 flex items-center justify-between sticky top-0 z-30 shadow-sm">
         <div className="flex items-center gap-2.5">
@@ -197,8 +197,8 @@ export default function CustomerDashboardLayout({ children }: { children: React.
           </div>
         </header>
 
-        {/* Customer Page Body */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full">
+        {/* Customer Page Body - Scrollable inside Fixed Sidebar & Navbar */}
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full overflow-y-auto">
           {children}
         </main>
       </div>

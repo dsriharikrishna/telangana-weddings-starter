@@ -6,6 +6,7 @@ export const VENDOR_QUERY_KEYS = {
   all: ['vendors'] as const,
   list: (params: VendorQueryParams) => ['vendors', 'list', params] as const,
   detail: (slug: string) => ['vendors', 'detail', slug] as const,
+  leads: ['vendor', 'leads'] as const,
 };
 
 export function useVendors(params: VendorQueryParams = {}) {
@@ -29,6 +30,23 @@ export function useRegisterVendor() {
     mutationFn: (data: any) => vendorApi.registerVendor(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: VENDOR_QUERY_KEYS.all });
+    },
+  });
+}
+
+export function useVendorLeads() {
+  return useQuery({
+    queryKey: VENDOR_QUERY_KEYS.leads,
+    queryFn: () => vendorApi.getVendorLeads(),
+  });
+}
+
+export function useUnlockLead() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (assignmentId: string) => vendorApi.unlockLead(assignmentId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: VENDOR_QUERY_KEYS.leads });
     },
   });
 }

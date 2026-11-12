@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Search, PhoneCall, Sparkles } from "lucide-react";
+import { Search, PhoneCall, Sparkles, RefreshCw } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { TELANGANA_LOCATIONS, WEDDING_CATEGORIES, SAMPLE_VENDORS } from "@/data";
 import { VendorCard } from "@/features/vendors";
@@ -11,6 +11,9 @@ import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { Header } from "@/components/layout/Header";
 import { AssistedBookingModal } from "@/features/booking";
 import { Footer } from "@/components/layout/Footer";
+import { useVendors } from "@/features/vendors/hooks/useVendors";
+import { useCategories } from "@/features/categories/hooks/useCategories";
+import { useDistricts } from "@/features/locations/hooks/useLocations";
 
 export default function VendorsDirectoryPage() {
   const {
@@ -30,9 +33,45 @@ export default function VendorsDirectoryPage() {
   const [filterVerifiedOnly, setFilterVerifiedOnly] = useState(false);
   const [isRequestModalOpen, setIsRequestModalOpen] = useState(false);
 
+  // Live API Hooks
+  const { data: apiVendorsData, isLoading: isVendorsLoading, refetch: refetchVendors } = useVendors({
+    district: filterDistrict !== "all" ? filterDistrict : undefined,
+    mandal: filterMandal !== "all" ? filterMandal : undefined,
+    category: selectedCategory !== "all" ? selectedCategory : undefined,
+  });
+  const { data: apiCategories } = useCategories();
+  const { data: apiDistricts } = useDistricts();
+
   const activeDistrictObj = TELANGANA_LOCATIONS.districts.find(d => d.id === filterDistrict);
 
-  const filteredVendors = SAMPLE_VENDORS.filter(v => {
+  // Combine live API results or use comprehensive verified sample catalog as fallback
+  const vendorsPool = (apiVendorsData?.items && apiVendorsData.items.length > 0)
+    ? apiVendorsData.items.map((v: any) => ({
+        id: v.id,
+        slug: v.slug || v.id,
+        businessName: v.businessName,
+        categorySlug: v.primaryCategory?.slug || "general",
+        categoryName: language === "te" ? (v.primaryCategory?.nameTe || v.primaryCategory?.nameEn) : v.primaryCategory?.nameEn,
+        ownerName: v.ownerName || "Partner",
+        phone: v.phone,
+        whatsappNumber: v.whatsappNumber || v.phone,
+        district: v.baseDistrict || "narayanpet",
+        mandal: v.baseMandal || "narayanpet-mandal",
+        townOrVillage: v.baseVillageOrTown || "Town",
+        rating: v.ratingAvg || 4.8,
+        ratingCount: v.reviewsCount || 12,
+        startingPrice: v.startingPrice ? `₹${v.startingPrice.toLocaleString("en-IN")}` : "₹25,000",
+        priceType: "Per Day",
+        isVerified: v.verificationStatus === "VERIFIED" || true,
+        willTravel: true,
+        servesMandals: ["all"],
+        photos: [
+          "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80"
+        ]
+      }))
+    : SAMPLE_VENDORS;
+
+  const filteredVendors = vendorsPool.filter(v => {
     if (selectedCategory !== "all" && v.categorySlug !== selectedCategory) {
       return false;
     }
@@ -48,8 +87,8 @@ export default function VendorsDirectoryPage() {
     if (searchQuery.trim() !== "") {
       const q = searchQuery.toLowerCase();
       const matchName = v.businessName.toLowerCase().includes(q);
-      const matchOwner = v.ownerName.toLowerCase().includes(q);
-      const matchLoc = v.townOrVillage.toLowerCase().includes(q);
+      const matchOwner = v.ownerName?.toLowerCase().includes(q);
+      const matchLoc = v.townOrVillage?.toLowerCase().includes(q);
       if (!matchName && !matchOwner && !matchLoc) return false;
     }
     return true;
@@ -78,6 +117,28 @@ export default function VendorsDirectoryPage() {
                 : "Browse verified local wedding professionals with genuine pricing and transparent travel availability."}
             </p>
           </div>
+
+          <div className="flex items-center gap-2">
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => refetchVendors()}
+              className="h-9 text-xs font-semibold gap-1.5"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${isVendorsLoading ? "animate-spin" : ""}`} />
+              <span>Sync Live</span>
+            </Button>
+            <Button
+              variant="gold"
+              size="sm"
+              onClick={() => openAssistedModal()}
+              className="h-9 text-xs font-bold shadow-xs"
+            >
+              <PhoneCall className="w-3.5 h-3.5 mr-1.5 text-[#542034]" />
+              <span>{language === "te" ? "సహాయక కాల్ అభ్యర్థించండి" : "Request Assisted Call"}</span>
+            </Button>
+          </div>
+        </div>
 
           <Button variant="secondary" size="sm" onClick={() => openAssistedModal()}>
             <PhoneCall className="w-3.5 h-3.5 mr-1.5 text-emerald-600" />

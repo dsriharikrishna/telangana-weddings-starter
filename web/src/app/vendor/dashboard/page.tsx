@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { DollarSign, Users, Calendar, CheckCircle2, Plus } from "lucide-react";
+import { DollarSign, Users, Calendar, CheckCircle2, Plus, Coins, Sparkles, Phone, MessageCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -20,7 +20,7 @@ export default function VendorDashboardPage() {
       <div className="p-6 rounded-3xl bg-[#762B46] text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm">
         <div>
           <span className="text-xs uppercase font-bold text-[#C5A46D]">Vendor Partner Portal</span>
-          <h1 className="text-xl sm:text-2xl font-bold">{vendorName}</h1>
+          <h1 className="text-xl sm:text-2xl font-bold font-heading">{vendorName}</h1>
           <p className="text-xs text-gray-200 mt-0.5">
             Base: {vendorLocation} • Serving Narayanpet & Mahabubnagar Mandals
           </p>
@@ -41,6 +41,30 @@ export default function VendorDashboardPage() {
         </div>
       </div>
 
+      {/* Wallet Credits Banner */}
+      <div className="p-4 rounded-2xl bg-white border border-[#E7DECF] shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-800 border border-amber-200 flex items-center justify-center font-bold shrink-0">
+            <Coins className="w-5 h-5 text-[#C5A46D]" />
+          </div>
+          <div>
+            <div className="text-[11px] font-bold text-stone-500 uppercase tracking-wider">
+              Matchmaking Credits
+            </div>
+            <div className="text-sm font-bold text-stone-900 flex items-center gap-2">
+              <span>5 Lead Credits Balance</span>
+              <span className="text-xs font-normal text-stone-500">(1 Credit = 1 Direct Customer Unlock)</span>
+            </div>
+          </div>
+        </div>
+        <Button variant="gold" size="sm" asChild className="h-8 text-xs font-bold shrink-0">
+          <Link href="/vendor/payments">
+            <Sparkles className="w-3.5 h-3.5 mr-1.5" />
+            <span>Top-up Wallet</span>
+          </Link>
+        </Button>
+      </div>
+
       {/* Metrics Row using Reusable VendorMetricCard */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <VendorMetricCard
@@ -58,16 +82,16 @@ export default function VendorDashboardPage() {
           variant="gold"
         />
         <VendorMetricCard
-          label="Gross Booking Value"
-          value="₹6,00,000"
-          sublabel="100% Direct to Vendor"
-          icon={DollarSign}
+          label="Active Leads"
+          value="6 Leads"
+          sublabel="Available to Unlock"
+          icon={Coins}
           variant="emerald"
         />
         <VendorMetricCard
           label="Platform Commission"
           value="₹0"
-          trend="Zero Commission Pilot"
+          trend="100% Direct Matchmaking"
           icon={CheckCircle2}
           variant="default"
         />
