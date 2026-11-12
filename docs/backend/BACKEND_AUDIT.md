@@ -227,10 +227,18 @@ flowchart TD
 
 ## 8. Database Entity Inventory & ER Diagram
 
+> **Multi-Role User Architecture (`roles: UserRole[]`)**:  
+> In local Telangana communities, a wedding vendor (e.g. a decorator, caterer, or mandap owner) will also organize weddings in their family and need to discover other vendors as a customer.  
+> Therefore, `User.roles` is an array: `roles: UserRole[]` (e.g., `["CUSTOMER", "VENDOR_OWNER"]`).  
+> - A user can have **both a `CustomerProfile` and a `VendorProfile`** attached to the same phone number.
+> - When using the **Customer Android App**, they interact through their `CustomerProfile`.
+> - When logging into the **Vendor Portal (`web`)**, they manage their business through their `VendorProfile`.
+> - The same phone number is never duplicated.
+
 ```mermaid
 erDiagram
-    User ||--o| CustomerProfile : "has"
-    User ||--o| VendorProfile : "owns/operates"
+    User ||--o| CustomerProfile : "has (optional customer view)"
+    User ||--o| VendorProfile : "owns/operates (optional vendor view)"
     User ||--o{ RefreshToken : "possesses"
     User ||--o{ OtpVerification : "receives"
 
@@ -261,10 +269,10 @@ erDiagram
 ```
 
 ### Key Models Defined in Prisma:
-1. **`User`**: `id`, `phone`, `email`, `role`, `status`, `createdAt`, `updatedAt`.
+1. **`User`**: `id`, `phone`, `email`, `roles` (`UserRole[]`, e.g. `["CUSTOMER", "VENDOR_OWNER"]`), `status`, `createdAt`, `updatedAt`.
 2. **`OtpVerification`**: `id`, `phone`, `otpHash`, `attempts`, `expiresAt`, `verifiedAt`.
-3. **`CustomerProfile`**: `id`, `userId`, `name`, `preferredLanguage`, `districtId`, `mandalId`, `villageId`.
-4. **`VendorProfile`**: `id`, `userId`, `businessName`, `slug`, `categoryId`, `description`, `phone`, `whatsapp`, `status` (APPROVED, etc.), `verificationStatus` (VERIFIED, etc.), `startingPricePaise`.
+3. **`CustomerProfile`**: `id`, `userId` (unique), `name`, `preferredLanguage`, `districtId`, `mandalId`, `villageId`.
+4. **`VendorProfile`**: `id`, `userId` (owner), `businessName`, `slug`, `categoryId`, `description`, `phone`, `whatsapp`, `status` (APPROVED, etc.), `verificationStatus` (VERIFIED, etc.), `startingPricePaise`.
 5. **`VendorServiceArea`**: `id`, `vendorId`, `districtId`, `mandalId`, `villageId`.
 6. **`Category` & `Subcategory`**: `id`, `slug`, `nameEn`, `nameTe`, `iconUrl`, `sortOrder`, `isActive`.
 7. **`District`, `Mandal`, `Village`**: Normalised geographical tables with parent FKs.

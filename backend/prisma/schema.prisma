@@ -1,0 +1,438 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// -------------------------------------------------------------
+// ENUMS
+// -------------------------------------------------------------
+
+enum UserRole {
+  CUSTOMER
+  VENDOR_OWNER
+  VENDOR_STAFF
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  DEACTIVATED
+}
+
+enum VendorStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  REJECTED
+  SUSPENDED
+  INACTIVE
+}
+
+enum VerificationStatus {
+  NOT_SUBMITTED
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+enum EnquirySource {
+  WEBSITE
+  ANDROID_APP
+  ADMIN_CREATED
+  PHONE_ASSISTED
+}
+
+enum EnquiryStatus {
+  NEW
+  PROCESSING
+  MATCHING
+  ASSIGNED
+  CONTACTED
+  COMPLETED
+  CANCELLED
+}
+
+enum LeadAssignmentStatus {
+  AVAILABLE
+  UNLOCKED
+  CONTACTED
+  EXPIRED
+  CANCELLED
+}
+
+enum TransactionType {
+  PURCHASE
+  UNLOCK_DEBIT
+  ADMIN_ADJUSTMENT
+  REFUND_CREDIT
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  REFUNDED
+}
+
+// -------------------------------------------------------------
+// IDENTITY & USERS (Unified Multi-Role)
+// -------------------------------------------------------------
+
+model User {
+  id              String            @id @default(uuid())
+  phone           String            @unique
+  email           String?
+  roles           UserRole[]        @default([CUSTOMER])
+  status          UserStatus        @default(ACTIVE)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  customerProfile CustomerProfile?
+  vendorProfile   VendorProfile?
+  refreshTokens   RefreshToken[]
+  otpRequests     OtpVerification[]
+
+  @@index([phone])
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  tokenHash String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  isRevoked Boolean  @default(false)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model OtpVerification {
+  id         String    @id @default(uuid())
+  phone      String
+  otpHash    String
+  attempts   Int       @default(0)
+  isUsed     Boolean   @default(false)
+  expiresAt  DateTime
+  verifiedAt DateTime?
+  userId     String?
+  user       User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime  @default(now())
+
+  @@index([phone, isUsed])
+}
+
+// -------------------------------------------------------------
+// CUSTOMER PROFILE
+// -------------------------------------------------------------
+
+model CustomerProfile {
+  id                String            @id @default(uuid())
+  userId            String            @unique
+  user              User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fullName          String
+  preferredLanguage String            @default("te")
+  districtId        String?
+  mandalId          String?
+  villageName       String?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  favourites        FavouriteVendor[]
+  enquiries         Enquiry[]
+
+  @@index([userId])
+}
+
+model FavouriteVendor {
+  id         String          @id @default(uuid())
+  customerId String
+  customer   CustomerProfile @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  vendorId   String
+  vendor     VendorProfile   @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  createdAt  DateTime        @default(now())
+
+  @@unique([customerId, vendorId])
+}
+
+// -------------------------------------------------------------
+// GEOGRAPHY / LOCATIONS (Telangana)
+// -------------------------------------------------------------
+
+model District {
+  id          String              @id
+  nameEn      String
+  nameTe      String
+  isActive    Boolean             @default(true)
+  mandals     Mandal[]
+  vendorAreas VendorServiceArea[]
+
+  createdAt   DateTime            @default(now())
+}
+
+model Mandal {
+  id          String              @id
+  districtId  String
+  district    District            @relation(fields: [districtId], references: [id], onDelete: Cascade)
+  nameEn      String
+  nameTe      String
+  isActive    Boolean             @default(true)
+  villages    Village[]
+  vendorAreas VendorServiceArea[]
+
+  createdAt   DateTime            @default(now())
+}
+
+model Village {
+  id          String              @id
+  mandalId    String
+  mandal      Mandal              @relation(fields: [mandalId], references: [id], onDelete: Cascade)
+  nameEn      String
+  nameTe      String
+  isTown      Boolean             @default(false)
+  isActive    Boolean             @default(true)
+  vendorAreas VendorServiceArea[]
+
+  createdAt   DateTime            @default(now())
+}
+
+// -------------------------------------------------------------
+// CATEGORIES & SERVICES
+// -------------------------------------------------------------
+
+model Category {
+  id             String          @id
+  slug           String          @unique
+  nameEn         String
+  nameTe         String
+  iconName       String?
+  sortOrder      Int             @default(0)
+  isActive       Boolean         @default(true)
+  subcategories  Subcategory[]
+  vendorProfiles VendorProfile[]
+
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  @@index([slug])
+}
+
+model Subcategory {
+  id         String          @id
+  categoryId String
+  category   Category        @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  slug       String
+  nameEn     String
+  nameTe     String
+  isActive   Boolean         @default(true)
+  services   VendorService[]
+
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+
+  @@unique([categoryId, slug])
+}
+
+// -------------------------------------------------------------
+// VENDOR PROFILE & SERVICES
+// -------------------------------------------------------------
+
+model VendorProfile {
+  id                 String              @id @default(uuid())
+  userId             String              @unique
+  user               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  businessName       String
+  slug               String              @unique
+  primaryCategoryId  String
+  primaryCategory    Category            @relation(fields: [primaryCategoryId], references: [id])
+  description        String?
+  phone              String
+  whatsappNumber     String?
+  baseVillageOrTown  String
+  baseMandal         String
+  baseDistrict       String
+  startingPricePaise Int                 @default(0)
+  status             VendorStatus        @default(PENDING_APPROVAL)
+  verificationStatus VerificationStatus  @default(NOT_SUBMITTED)
+  verifiedAt         DateTime?
+  ratingAverage      Float               @default(5.0)
+  ratingCount        Int                 @default(0)
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+
+  services           VendorService[]
+  serviceAreas       VendorServiceArea[]
+  portfolioMedia     VendorPortfolio[]
+  leadWallet         VendorLeadWallet?
+  leadAssignments    LeadAssignment[]
+  favourites         FavouriteVendor[]
+  reviews            VendorReview[]
+
+  @@index([slug])
+  @@index([primaryCategoryId, status])
+}
+
+model VendorService {
+  id            String       @id @default(uuid())
+  vendorId      String
+  vendor        VendorProfile @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  subcategoryId String?
+  subcategory   Subcategory? @relation(fields: [subcategoryId], references: [id])
+  title         String
+  description   String?
+  pricePaise    Int
+  inclusions    String?
+  isActive      Boolean      @default(true)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  @@index([vendorId])
+}
+
+model VendorServiceArea {
+  id         String        @id @default(uuid())
+  vendorId   String
+  vendor     VendorProfile @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  districtId String
+  district   District      @relation(fields: [districtId], references: [id])
+  mandalId   String?
+  mandal     Mandal?       @relation(fields: [mandalId], references: [id])
+  villageId  String?
+  village    Village?      @relation(fields: [villageId], references: [id])
+  createdAt  DateTime      @default(now())
+
+  @@index([vendorId])
+  @@index([districtId, mandalId, villageId])
+}
+
+model VendorPortfolio {
+  id        String        @id @default(uuid())
+  vendorId  String
+  vendor    VendorProfile @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  mediaUrl  String
+  mediaType String        @default("image") // image | video
+  caption   String?
+  sortOrder Int           @default(0)
+  createdAt DateTime      @default(now())
+
+  @@index([vendorId])
+}
+
+model VendorReview {
+  id         String        @id @default(uuid())
+  vendorId   String
+  vendor     VendorProfile @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  authorName String
+  rating     Int           @default(5)
+  comment    String
+  village    String?
+  createdAt  DateTime      @default(now())
+
+  @@index([vendorId])
+}
+
+// -------------------------------------------------------------
+// ENQUIRIES & LEAD MATCHMAKING ENGINE
+// -------------------------------------------------------------
+
+model Enquiry {
+  id               String           @id @default(uuid())
+  referenceNumber  String           @unique
+  customerId       String?
+  customer         CustomerProfile? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  customerName     String
+  customerPhone    String
+  familyMemberName String?
+  categorySlug     String
+  eventDate        DateTime?
+  eventType        String?
+  district         String
+  mandal           String
+  villageOrTown    String
+  budgetPaise      Int?
+  notes            String?
+  source           EnquirySource    @default(WEBSITE)
+  status           EnquiryStatus    @default(NEW)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  assignments      LeadAssignment[]
+
+  @@index([referenceNumber])
+  @@index([categorySlug, district, mandal])
+}
+
+model LeadAssignment {
+  id         String               @id @default(uuid())
+  enquiryId  String
+  enquiry    Enquiry              @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+  vendorId   String
+  vendor     VendorProfile        @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  status     LeadAssignmentStatus @default(AVAILABLE)
+  assignedAt DateTime             @default(now())
+  unlockedAt DateTime?
+
+  unlock     LeadUnlock?
+
+  @@unique([enquiryId, vendorId])
+  @@index([vendorId, status])
+}
+
+model LeadUnlock {
+  id           String         @id @default(uuid())
+  assignmentId String         @unique
+  assignment   LeadAssignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  creditsSpent Int            @default(1)
+  unlockedAt   DateTime       @default(now())
+}
+
+// -------------------------------------------------------------
+// MONETIZATION: WALLET & CREDITS
+// -------------------------------------------------------------
+
+model VendorLeadWallet {
+  id             String                  @id @default(uuid())
+  vendorId       String                  @unique
+  vendor         VendorProfile           @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  balanceCredits Int                     @default(3) // 3 Free Starter Credits on verification
+  version        Int                     @default(0) // Optimistic locking
+  updatedAt      DateTime                @updatedAt
+
+  transactions   LeadCreditTransaction[]
+}
+
+model LeadCreditTransaction {
+  id          String           @id @default(uuid())
+  walletId    String
+  wallet      VendorLeadWallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  type        TransactionType
+  amount      Int              // Positive for credit addition, negative for deduction
+  balanceAfter Int
+  description String
+  referenceId String?          // paymentTransactionId or leadUnlockId
+  createdAt   DateTime         @default(now())
+
+  @@index([walletId])
+}
+
+model PaymentTransaction {
+  id               String        @id @default(uuid())
+  vendorId         String
+  gateway          String        @default("RAZORPAY")
+  gatewayOrderId   String        @unique
+  gatewayPaymentId String?
+  amountPaise      Int
+  status           PaymentStatus @default(PENDING)
+  receiptNumber    String        @unique
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  @@index([gatewayOrderId])
+}
+

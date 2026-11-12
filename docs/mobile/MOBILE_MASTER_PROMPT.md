@@ -1,295 +1,271 @@
-# TELANGANA WEDDINGS — CUSTOMER ANDROID APPLICATION
-# MOBILE ARCHITECTURE & DEVELOPMENT MASTER PROMPT
+# TELANGANA WEDDINGS — FINAL MASTER PROMPT
+## Customer Android Application | Product, UI/UX, Architecture & Implementation
 
-## 1. ROLE AND RESPONSIBILITY
+Act as a **Senior React Native Architect, Mobile Product Engineer, UI/UX Designer, and Technical Lead**.
 
-Act as a Senior React Native Engineer, Mobile Application Architect, Product Designer, UX Architect and Android Application Developer.
+Your task is to plan and build the official Android customer application for **Telangana Weddings**, a hyperlocal wedding services discovery and matchmaking marketplace.
 
-Your responsibility is to design and develop the production-ready customer Android application for Telangana Weddings.
+This is a production-oriented application, not a demo or a basic UI prototype.
 
-Build a high-quality, culturally authentic, responsive and user-friendly mobile experience.
+You must inspect the existing repository, understand the product requirements, preserve established architecture, and integrate with the existing NestJS backend.
 
-The application must connect to the existing Telangana Weddings NestJS backend.
-
-Think like an engineer building a real commercial marketplace, not a demo application.
-
-Responsibilities:
-
-- Audit the existing repository.
-- Understand the existing web application and backend.
-- Define mobile architecture.
-- Design navigation and user journeys.
-- Build reusable UI components.
-- Integrate NestJS APIs.
-- Implement authentication.
-- Build vendor discovery.
-- Implement location-based search.
-- Implement enquiry workflows.
-- Implement favourites.
-- Implement customer profile and support.
-- Integrate notifications.
-- Handle loading, empty, error and offline states.
-- Write tests.
-- Prepare Android builds and release documentation.
-
-Do not start coding immediately.
-
-First inspect the repository and prepare the mobile architecture and UI/UX plan.
+**Important: Do not start implementation immediately. First perform a complete audit and present your findings and implementation plan. Wait for approval before modifying code.**
 
 ---
 
-# 2. PRODUCT CONTEXT
+# 1. PRODUCT CONTEXT
 
-## Product
+Telangana Weddings connects families with trusted local wedding service providers.
 
-Telangana Weddings
+The initial target market is:
 
-## Product Vision
+- Narayanpet district, Telangana.
+- Mahabubnagar district, Telangana.
+- Expansion to other Telangana districts later.
+- Telugu-speaking families and English-speaking users.
+- Urban, semi-urban, and rural customers.
 
-Build a hyperlocal wedding services discovery and matchmaking platform connecting wedding families with local service providers across Telangana.
+The product should make discovering and contacting wedding vendors simple, trustworthy, and accessible.
 
-The mobile application is primarily for customers and families who want to discover, compare and contact wedding vendors.
+### Core customer journey
 
-The experience must be simple enough for customers who may not be highly familiar with digital applications.
+1. Customer opens the application.
+2. Selects preferred language and location.
+3. Discovers wedding service categories.
+4. Explores local vendors.
+5. Views vendor profiles, portfolios, starting prices, and reviews.
+6. Submits an enquiry or requests a callback.
+7. Platform facilitates matching with suitable vendors.
+8. Customer and vendor communicate directly.
+9. Customer can track enquiry status and save preferred vendors.
 
-## Target Audience
+The application is a **discovery and matchmaking marketplace**, not a wedding execution or booking-management platform.
 
-- Wedding families.
-- Brides and grooms.
-- Parents and relatives.
-- Customers in towns and villages.
-- Telugu-speaking customers.
-- English-speaking customers.
+### Product positioning
 
-## Initial geographical focus
-
-- Narayanpet district.
-- Mahabubnagar district.
-- Expandable to other Telangana districts.
-
-Support:
-
-- State.
-- District.
-- Mandal.
-- Village / Town.
-
-Do not hardcode the initial districts into application business logic.
-
-## Application Ecosystem
-
-The product contains:
-
-1. Customer Website.
-2. Customer Android Application.
-3. Vendor Portal.
-4. Admin Dashboard.
-5. NestJS Backend.
-
-This task is specifically for the CUSTOMER ANDROID APPLICATION.
-
-Do not build vendor or admin mobile applications as part of this task.
+- Local vendors.
+- Local communities.
+- Authentic wedding traditions.
+- Trusted discovery.
+- Easy enquiries.
+- Assisted support for families who are not comfortable using digital platforms.
 
 ---
 
-# 3. MVP BUSINESS MODEL
+# 2. STRICT MVP SCOPE
 
-Telangana Weddings is a hyperlocal discovery and lead-generation marketplace.
+Build only the features required for the initial marketplace launch.
 
-The customer application must support the following journey:
+### Included
 
-1. Customer opens the app.
-2. Customer discovers wedding service categories.
-3. Customer selects a category.
-4. Customer chooses their location.
-5. Customer explores relevant vendors.
-6. Customer views vendor profiles and portfolios.
-7. Customer saves favourite vendors.
-8. Customer contacts vendors or submits an enquiry.
-9. Platform matches the enquiry with eligible vendors.
-10. Vendors receive the lead through their vendor portal.
-11. Vendors unlock customer contact details according to platform rules.
-12. Customer and vendor communicate directly.
+- Public vendor discovery.
+- Dynamic wedding service categories.
+- District, mandal, and village/town-based discovery.
+- Vendor profiles.
+- Vendor portfolios and images.
+- Vendor starting prices.
+- Vendor reviews and ratings.
+- Customer registration and authentication.
+- Customer profile management.
+- Enquiry submission.
+- Assisted call and callback requests.
+- Enquiry history and status tracking.
+- Favourite vendors.
+- Notifications.
+- Customer support.
+- Telugu and English language support.
+- Location preferences.
 
-## Important MVP boundaries
+### Explicitly excluded from the customer app MVP
 
-Do not implement active workflows for:
+Do not build:
 
-- Wedding service booking management.
+- Formal wedding booking workflows.
+- Wedding event management.
+- Full service fulfilment tracking.
+- Customer payment collection.
 - Escrow.
-- In-app contract signing.
-- Full service fulfillment tracking.
-- Complex quotations.
-- Wedding event project management.
-- Customer payment for wedding services.
+- In-app contracts.
 - Dispute arbitration.
+- Complex quotation approval.
+- Complex wedding planning calendars.
+- Multi-party settlements.
+- Vendor commission management.
+- Advanced analytics dashboards.
 
-Vendor subscriptions and lead-credit purchases are vendor-side operations. Do not build vendor payment management into the customer app.
+Do not reintroduce archived features simply because they exist in the old repository.
 
-Do not add features simply because they are common in other wedding applications.
-
-Focus on customer discovery and enquiry conversion.
+If an excluded feature is present in the backend or archived code, treat it as out of scope unless explicitly approved.
 
 ---
 
-# 4. MANDATORY MOBILE TECHNOLOGY STACK
+# 3. TECHNOLOGY STACK
 
-Use the following stack.
+Use the following stack unless the existing repository has a justified compatible decision.
 
-## Core
+| Area | Technology |
+|---|---|
+| Mobile framework | React Native |
+| Development platform | Expo |
+| Language | TypeScript |
+| Navigation | Expo Router |
+| API state | TanStack Query |
+| Client state | Zustand |
+| Forms | React Hook Form |
+| Validation | Zod |
+| Secure token storage | Expo SecureStore |
+| Styling | NativeWind, where compatible |
+| Native styling | React Native StyleSheet |
+| Icons | Lucide React Native or compatible icon library |
+| Image selection | Expo Image Picker |
+| Notifications | Expo Notifications |
+| Testing | Jest |
+| Component testing | React Native Testing Library |
+| Build and release | EAS Build |
 
-- React Native.
-- Expo.
+Use stable, compatible package versions.
+
+Do not install unnecessary dependencies.
+
+Do not mix multiple libraries for the same responsibility.
+
+---
+
+# 4. BACKEND INTEGRATION
+
+The mobile application must consume the existing backend.
+
+### Backend architecture
+
+- Node.js.
+- NestJS.
 - TypeScript.
-- Expo Router.
-- Android-first development.
+- PostgreSQL.
+- Prisma ORM.
+- REST APIs.
+- API versioning: `/api/v1`.
+- JWT authentication.
+- Refresh token rotation.
+- Role-based access control.
+- Redis and BullMQ where required.
+- AWS S3 for media storage.
 
-Use a stable Expo SDK compatible with the existing repository and dependencies.
+### Integration rules
 
-## Navigation
+1. Inspect existing backend API contracts before building screens.
+2. Reuse existing endpoint paths, DTOs, enums, and response structures.
+3. Never invent endpoints without identifying the missing backend capability.
+4. Create a typed API client.
+5. Centralize API configuration and error handling.
+6. Use TanStack Query for server state.
+7. Use Zustand only for appropriate client-side state.
+8. Handle loading, empty, error, retry, and success states.
+9. Implement pagination and filtering according to backend contracts.
+10. Do not place secrets or privileged credentials in the mobile application.
 
-- Expo Router.
-- File-based routing.
-- Protected route groups.
-- Deep linking.
+### Suggested API organization
 
-## Server State
+```text
+/api/v1/auth
+/api/v1/users
+/api/v1/customers
+/api/v1/categories
+/api/v1/locations
+/api/v1/vendors
+/api/v1/vendor-discovery
+/api/v1/enquiries
+/api/v1/favourites
+/api/v1/reviews
+/api/v1/notifications
+/api/v1/uploads
+/api/v1/support
+```
 
-- TanStack Query.
-- Query caching.
-- Mutations.
-- Pagination.
-- Query invalidation.
-- API error handling.
-
-## Client State
-
-- Zustand.
-
-Use Zustand only for shared client-side state such as:
-
-- Selected location.
-- User preferences.
-- Temporary enquiry state.
-- Application-level UI state.
-
-Do not duplicate server data in Zustand when TanStack Query already manages it.
-
-## Forms and Validation
-
-- React Hook Form.
-- Zod.
-- Appropriate React Native form components.
-
-## Styling
-
-- NativeWind for Tailwind-style styling, if compatible with the existing Expo setup.
-- Reusable design tokens.
-- Shared component variants.
-- React Native StyleSheet where it is more suitable.
-
-Do not assume web-only components or CSS APIs work in React Native.
-
-## Secure Storage
-
-- Expo SecureStore for sensitive tokens.
-- Appropriate local persistence for non-sensitive preferences.
-
-Never store access or refresh tokens in plain AsyncStorage.
-
-## Device Integrations
-
-- Expo Image Picker.
-- Expo Notifications.
-- Expo Location only where location-based functionality requires permission.
-- Expo Linking.
-- Expo Haptics where useful.
-- Expo Application configuration.
-
-Do not request unnecessary device permissions.
-
-## Testing
-
-- Jest.
-- React Native Testing Library.
-- API integration tests where appropriate.
-- Expo-compatible testing tools.
-
-## Build and Distribution
-
-- EAS Build.
-- EAS Submit when configured.
-- Android APK for internal testing.
-- Android AAB for Play Store distribution.
-
-Do not assume store credentials or accounts already exist.
+These are logical API groups, not permission to create duplicate or incompatible endpoints. Verify the actual backend before implementation.
 
 ---
 
-# 5. FIRST TASK — REPOSITORY AUDIT
+# 5. UNIFIED IDENTITY AND RBAC
 
-Inspect the existing repository before implementation.
+The platform must use **one unified identity system** for customers and vendors.
 
-Identify:
+Do not create separate authentication identities for the same phone number.
 
-- Root monorepo structure.
-- Existing web application.
-- Existing admin application.
-- Existing NestJS backend.
-- Existing shared types.
-- Existing API client.
-- Existing authentication contracts.
-- Existing category taxonomy.
-- Existing geographical data.
-- Existing brand identity.
-- Existing design tokens.
-- Existing documentation.
-- Existing mobile application, if any.
+### Identity model
 
-Check:
+A single User can have multiple roles.
 
-- AGENTS.md.
-- APPLICATION.md.
-- Existing package.json files.
-- Backend Swagger specification.
-- API endpoint contracts.
-- Existing frontend components.
-- Existing assets and images.
+Supported roles:
 
-## Audit questions
+- CUSTOMER
+- VENDOR_OWNER
+- VENDOR_STAFF
+- ADMIN
+- SUPER_ADMIN
 
-1. Does a mobile application already exist?
-2. Can any shared types or API clients be reused?
-3. Are API contracts already implemented?
-4. Which backend endpoints are missing?
-5. What design assets can be reused?
-6. What navigation and feature modules are required?
-7. Are there compatibility issues with the current Expo SDK?
-8. What dependencies are already installed?
+A user may be both:
 
-Create:
+- A customer.
+- A vendor owner.
 
-`docs/mobile/MOBILE_AUDIT.md`
+Customer and vendor profiles must remain separate.
 
-Clearly identify:
+### Expected identity relationships
 
-- Already implemented.
-- Missing.
-- Reusable.
-- Recommended.
-- Requires approval.
+```text
+User
+ ├── UserRole
+ ├── CustomerProfile
+ └── VendorMembership
+       └── VendorProfile
+```
 
-Do not replace existing applications or technologies blindly.
+A vendor membership relationship should support multiple users managing a business when required.
+
+Do not assume that a vendor business must permanently belong to exactly one user.
+
+### Customer app behavior
+
+- A new customer registers using the unified authentication system.
+- The backend assigns the CUSTOMER role when appropriate.
+- A customer can browse vendors without registering.
+- Protected actions require authentication.
+- A customer who wants to become a vendor can use a "Register as Vendor" entry point.
+- Vendor registration should create or associate a vendor profile with the existing user identity.
+- Do not create another account for an existing phone number.
+- Do not expose vendor management functionality inside the customer app MVP.
+
+### Authorization rules
+
+The backend is the source of truth for authorization.
+
+Never trust a client-provided role, vendor ID, permission, or active application mode.
+
+A user interface mode such as Customer Mode or Vendor Mode is only a navigation preference. It is not authorization.
+
+The backend must validate:
+
+- Authenticated identity.
+- Assigned role.
+- Vendor membership.
+- Vendor membership status.
+- Resource ownership.
+- Lead assignment and lead access permissions.
+- Vendor approval and verification requirements.
+
+The mobile app should handle unauthorized responses gracefully.
+
+Do not use frontend role checks as a replacement for backend authorization.
 
 ---
 
-# 6. MOBILE FEATURE-BASED ARCHITECTURE
+# 6. APPLICATION ARCHITECTURE
 
-Use Feature-Based Architecture.
+Use a **feature-based architecture**.
 
-Organize the application by business features rather than putting all screens, hooks and services into global technical folders.
+Avoid a giant components folder or a monolithic screen structure.
 
-Suggested structure:
+Suggested architecture:
 
 ```text
 mobile/
@@ -298,13 +274,14 @@ mobile/
 │   ├── index.tsx
 │   │
 │   ├── (public)/
-│   │   ├── welcome.tsx
+│   │   ├── index.tsx
 │   │   ├── categories/
-│   │   ├── vendors/
-│   │   └── locations/
+│   │   ├── locations/
+│   │   └── vendor/
 │   │
 │   ├── (auth)/
-│   │   ├── login.tsx
+│   │   ├── welcome.tsx
+│   │   ├── phone.tsx
 │   │   ├── verify-otp.tsx
 │   │   └── profile-setup.tsx
 │   │
@@ -316,25 +293,22 @@ mobile/
 │   │   ├── saved.tsx
 │   │   └── profile.tsx
 │   │
+│   ├── category/
 │   ├── vendor/
 │   │   └── [vendorSlug].tsx
-│   │
-│   ├── category/
-│   │   └── [categorySlug].tsx
-│   │
 │   ├── enquiry/
-│   │   ├── create.tsx
-│   │   └── [enquiryId].tsx
-│   │
+│   ├── notifications/
 │   └── settings/
 │
 ├── src/
 │   ├── core/
 │   │   ├── api/
+│   │   ├── auth/
+│   │   ├── config/
+│   │   ├── errors/
 │   │   ├── query/
 │   │   ├── storage/
-│   │   ├── config/
-│   │   └── errors/
+│   │   └── providers/
 │   │
 │   ├── common/
 │   │   ├── components/
@@ -346,6 +320,7 @@ mobile/
 │   │
 │   ├── features/
 │   │   ├── auth/
+│   │   ├── onboarding/
 │   │   ├── home/
 │   │   ├── categories/
 │   │   ├── locations/
@@ -353,622 +328,278 @@ mobile/
 │   │   ├── vendor-profile/
 │   │   ├── enquiries/
 │   │   ├── favourites/
+│   │   ├── reviews/
 │   │   ├── notifications/
 │   │   ├── customer-profile/
 │   │   └── support/
 │   │
-│   ├── providers/
 │   ├── store/
-│   └── navigation/
+│   └── assets/
 │
-├── assets/
-│   ├── images/
-│   ├── icons/
-│   ├── fonts/
-│   └── animations/
-│
+├── components/
+├── tests/
 ├── app.json
 ├── eas.json
-├── tsconfig.json
-└── package.json
+├── package.json
+└── tsconfig.json
 ```
 
-This is a recommended structure. Adapt it to the existing monorepo.
+Adapt the structure to the existing repository rather than forcing a duplicate architecture.
 
-## Internal feature structure
+### Architecture rules
 
-Example:
-
-```text
-features/
-└── vendor-discovery/
-    ├── components/
-    ├── screens/
-    ├── hooks/
-    ├── services/
-    ├── api/
-    ├── types/
-    ├── utils/
-    ├── constants/
-    └── __tests__/
-```
-
-Rules:
-
-- Features own their business-specific UI and logic.
-- Shared components belong in common.
-- Shared API infrastructure belongs in core.
-- Use TanStack Query for server state.
-- Use Zustand for shared client state.
-- Avoid circular dependencies.
-- Avoid giant global components.
+- Keep route files lightweight.
+- Keep business logic inside feature modules.
+- Separate API calls from screen components.
+- Use reusable components.
+- Use typed navigation.
+- Use shared query keys.
+- Keep forms and validation schemas organized.
+- Avoid duplicate API clients.
 - Avoid unnecessary abstractions.
+- Avoid circular dependencies.
+- Keep feature boundaries clear.
+- Use environment-based API configuration.
 
 ---
 
-# 7. BRAND IDENTITY AND DESIGN SYSTEM
+# 7. CUSTOMER APP NAVIGATION
 
-The application must follow the Telangana Weddings brand identity.
+Use five primary bottom navigation items.
 
-## Visual direction
+1. Home
+2. Explore
+3. Enquiries
+4. Saved
+5. Profile
 
-Combine:
+### Home
 
-- Traditional Telugu wedding invitation aesthetics.
-- Contemporary mobile marketplace usability.
-- Warm and premium visual presentation.
-- Authentic Telangana cultural references.
-- Simple navigation.
+The home screen should include:
 
-The app must feel culturally familiar without sacrificing usability.
+- Brand identity.
+- Current location selector.
+- Search wedding services.
+- Popular categories.
+- Recommended local vendors.
+- Recently viewed vendors.
+- Trusted/verified vendor highlights.
+- Local wedding inspiration.
+- Assisted enquiry CTA.
+- Support entry point.
 
-## Brand colours
+Keep the homepage useful and discovery-oriented.
 
-Use these proposed brand tokens:
+Do not turn it into a long marketing landing page.
 
-```text
-Royal Crimson: #762B46
-Deep Wine:     #542034
-Zari Gold:     #C5A46D
-Warm Ivory:    #FAF7F2
-Sandalwood:    #F4EDE3
-Charcoal:      #292524
-Emerald:       #047857
-Marigold:      #D9894C
-```
+### Explore
 
-Use maroon and ivory as dominant colours.
+Include:
 
-Use gold as a controlled accent.
-
-Avoid excessive gradients, gold borders and decorative elements.
-
-## Typography
-
-- English headings: Sora.
-- English body: Inter.
-- Telugu headings: Noto Serif Telugu.
-- Telugu body: Noto Sans Telugu.
-
-Verify Telugu font rendering on actual Android devices.
-
-Use appropriate fallback fonts.
-
-## UI components
-
-Build reusable components:
-
-- PrimaryButton.
-- SecondaryButton.
-- AppHeader.
-- BottomTabBar.
-- SearchBar.
-- LocationSelector.
-- CategoryCard.
-- VendorCard.
-- VendorProfileHeader.
-- VerifiedBadge.
-- PriceLabel.
-- RatingDisplay.
-- PortfolioGallery.
-- FilterSheet.
-- EmptyState.
-- ErrorState.
-- LoadingSkeleton.
-- EnquiryForm.
-- PhoneNumberInput.
-- OTPInput.
-- ConfirmationDialog.
-- Toast / Feedback.
-- SectionHeader.
-
-Use accessible touch targets.
-
-Respect Android safe areas and system navigation.
-
----
-
-# 8. CUSTOMER APP SCREENS
-
-Design the complete mobile screen hierarchy before implementation.
-
-## A. Welcome and onboarding
-
-Screens:
-
-- Splash screen.
-- Welcome screen.
-- Language selection.
-- Location selection.
-- Optional onboarding explanation.
-
-Requirements:
-
-- Telugu and English support.
-- Explain the platform simply.
-- Allow users to skip non-essential onboarding.
-- Do not force login before vendor discovery.
-- Provide clear entry into the marketplace.
-
-## B. Home
-
-The home screen should combine wedding storytelling and practical discovery.
-
-Sections:
-
-1. Brand header.
-2. Current location.
-3. Search vendors.
-4. Main wedding banner.
-5. Wedding service categories.
-6. Popular local vendors.
-7. Verified vendors where verification exists.
-8. Explore by location.
-9. Recently added vendors.
-10. Assisted enquiry / call support.
-11. Trust and how-it-works information.
-
-The home screen must not become an extremely long decorative landing page.
-
-Prioritize vendor discovery and enquiry conversion.
-
-## C. Explore categories
-
-Requirements:
-
-- Display categories from the backend.
-- Support category images and icons.
-- Telugu and English category labels.
-- Dynamic category pages.
-- Search categories.
-- Subcategory navigation where applicable.
-
-Do not hardcode category counts.
-
-Use existing backend category taxonomy.
-
-## D. Vendor discovery
-
-Requirements:
-
-- Vendor listing.
 - Search.
 - Category filters.
-- District filters.
-- Mandal filters.
-- Village filters.
-- Price filters.
-- Verified-only filter.
-- Sorting.
-- Pagination or infinite scrolling.
-
-Vendor cards should display available information such as:
-
-- Business name.
-- Main category.
-- Location.
-- Starting price.
-- Genuine rating, when available.
-- Verification badge, when verified.
-- Portfolio preview.
-
-Never invent ratings, reviews, prices or verification.
-
-## E. Vendor details
-
-Create a detailed vendor profile screen.
-
-Sections:
-
-1. Cover image.
-2. Business logo/profile image.
-3. Business name.
-4. Verification status.
-5. Category.
-6. Location.
-7. Description.
-8. Services offered.
-9. Starting prices.
-10. Portfolio gallery.
-11. Genuine customer reviews.
-12. Service coverage.
-13. Contact/enquiry actions.
-
-Primary actions:
-
-- Send Enquiry.
-- Request a Call.
-- Call Vendor where the public contact number is authorized.
-- Save Vendor.
-- Share Vendor.
-
-Respect phone visibility rules and backend authorization.
-
-## F. Location discovery
-
-Implement:
-
-- State selection.
 - District selection.
 - Mandal selection.
 - Village/town selection.
+- Vendor cards.
+- Price filters, if supported.
+- Rating filters, if supported.
+- Verified vendor filter.
+- Sort options.
+- Pagination or infinite scrolling.
 
-Support dependent selection.
+### Vendor details
 
-Example:
+Show:
 
-```text
-Telangana
-  → Narayanpet
-     → Narayanpet Mandal
-        → Selected Village
-```
+- Business name.
+- Verification status.
+- Vendor description.
+- Location and service areas.
+- Portfolio gallery.
+- Services offered.
+- Starting prices.
+- Reviews and ratings.
+- Contact/enquiry actions.
+- Save vendor action.
+- Share vendor action.
 
-Use backend location APIs.
+Clearly distinguish verified vendors from unverified vendors.
 
-Persist the customer's selected location where appropriate.
+Do not invent trust badges or verification claims.
 
-Allow users to change location at any time.
+### Enquiries
 
-Do not force GPS access.
-
-Manual location selection must always be available.
-
-## G. Enquiry creation
-
-Build a simple, user-friendly enquiry flow.
-
-Collect:
-
-- Customer name.
-- Phone number.
-- Service category.
-- Requested service.
-- Event date.
-- Event type.
-- District.
-- Mandal.
-- Village.
-- Approximate budget.
-- Additional requirements.
-- Preferred contact method.
-
-Requirements:
-
-- Validate inputs.
-- Support Telugu and English.
-- Allow users to understand why information is requested.
-- Avoid unnecessarily long forms.
-- Support OTP verification where required.
-- Submit to NestJS backend.
-- Show success confirmation.
-- Provide enquiry reference ID.
-- Prevent accidental duplicate submissions.
-
-Do not create wedding bookings or formal quotations.
-
-## H. Customer enquiries
-
-Screens:
+Include:
 
 - Enquiry list.
-- Enquiry details.
 - Enquiry status.
-- Enquiry activity.
-
-Display:
-
-- Enquiry reference.
-- Requested service.
-- Event date.
-- Location.
-- Submission date.
-- Current status.
-- Available contact actions.
-
-Support statuses returned by the backend.
-
-Do not invent a booking or quotation lifecycle.
-
-## I. Saved vendors
-
-Requirements:
-
-- Add favourite.
-- Remove favourite.
-- List saved vendors.
-- Navigate to vendor profile.
-- Handle unauthenticated users gracefully.
-
-Use backend APIs for persistent favourites.
-
-## J. Notifications
-
-Support:
-
-- Enquiry confirmation.
-- Enquiry status updates.
-- Vendor response notifications.
-- Important account updates.
-- Support updates.
-
-Use Expo Notifications when configured.
-
-Ask permission only when appropriate.
-
-Handle notification deep links safely.
-
-## K. Customer profile
-
-Screens:
-
-- Profile overview.
-- Edit profile.
-- Contact details.
-- Preferred language.
-- Selected location.
-- Notification preferences.
-- Account settings.
-- Logout.
-
-## L. Customer support
-
-Support:
-
-- Phone helpline.
-- WhatsApp contact where configured.
-- Request a callback.
-- FAQ.
-- How it works.
-
-Support Telugu and English communication.
-
-Do not hardcode phone numbers or WhatsApp links.
-
-Use backend configuration or environment-controlled application settings.
-
----
-
-# 9. NAVIGATION ARCHITECTURE
-
-Use Expo Router.
-
-Suggested bottom navigation:
-
-1. Home.
-2. Explore.
-3. Enquiries.
-4. Saved.
-5. Profile.
-
-Additional routes:
-
-- Vendor details.
-- Category details.
-- Location selection.
-- Search results.
-- Enquiry form.
 - Enquiry details.
-- Notifications.
-- Support.
-- Settings.
-
-Requirements:
-
-- Correct back navigation.
-- Deep links.
-- Protected authenticated screens.
-- Guest access for public discovery.
-- Login redirects for protected actions.
-- Preserve user context when navigating to authentication.
-
-Do not create multiple competing navigation systems.
-
----
-
-# 10. NESTJS BACKEND INTEGRATION
-
-The mobile application must consume the existing NestJS REST API.
-
-Base API:
-
-`/api/v1`
-
-Do not recreate backend business logic in the mobile application.
-
-## API architecture
-
-Create:
-
-- Central API client.
-- Request interceptors or equivalent middleware.
-- Authentication handling.
-- Refresh token management.
-- Standard response parsing.
-- Error normalization.
-- Network error handling.
-- API environment configuration.
-
-Use typed API contracts.
-
-If the backend exposes Swagger/OpenAPI, evaluate generating TypeScript API types or a client from the specification.
-
-Avoid duplicating API interfaces manually across applications when a reliable shared contract can be reused.
-
-## Authentication APIs
-
-```text
-POST /auth/send-otp
-POST /auth/verify-otp
-POST /auth/refresh
-POST /auth/logout
-GET  /auth/me
-```
-
-## Public discovery APIs
-
-```text
-GET /categories
-GET /categories/:slug
-
-GET /vendors
-GET /vendors/:slug
-GET /vendors/:id/services
-GET /vendors/:id/portfolio
-GET /vendors/:id/reviews
-
-GET /locations/states
-GET /locations/districts
-GET /locations/mandals
-GET /locations/villages
-```
-
-## Customer APIs
-
-```text
-GET   /customers/profile
-PATCH /customers/profile
-
-GET    /customers/enquiries
-GET    /customers/enquiries/:id
-
-GET    /customers/favourites
-POST   /customers/favourites
-DELETE /customers/favourites/:vendorId
-```
-
-## Enquiry APIs
-
-```text
-POST /enquiries
-GET  /enquiries/:id
-GET  /enquiries/:id/status
-POST /enquiries/:id/request-call
-```
-
-Actual routes must match the implemented backend contracts.
-
-Do not assume an endpoint exists simply because it is listed here.
-
-Identify missing endpoints and document them for backend implementation.
-
----
-
-# 11. AUTHENTICATION AND SESSION MANAGEMENT
-
-Implement phone OTP authentication.
-
-Flow:
-
-1. Customer enters phone number.
-2. App requests OTP.
-3. Customer enters OTP.
-4. Backend verifies OTP.
-5. App receives authentication tokens.
-6. Tokens are stored securely.
-7. Customer enters the authenticated application.
-
-Requirements:
-
-- OTP input validation.
-- Resend cooldown.
-- Expired OTP handling.
-- Incorrect OTP handling.
-- Loading state.
-- Network failure handling.
-- Refresh token rotation.
-- Logout.
-- Session expiration handling.
-
-Use Expo SecureStore for sensitive tokens.
-
-Never log OTPs or tokens.
-
-Handle concurrent API requests during token refresh safely.
-
-Do not create infinite refresh loops.
-
----
-
-# 12. STATE MANAGEMENT
-
-Use TanStack Query for server state.
-
-Examples:
-
-- Vendor lists.
-- Categories.
-- Locations.
-- Vendor details.
-- Enquiries.
-- Favourites.
-- Customer profile.
-- Notifications.
-
-Use Zustand for shared client state.
-
-Examples:
-
-- Selected location.
-- Selected language.
-- Temporary enquiry state.
-- UI preferences.
-
-Rules:
-
-- Do not duplicate API data in Zustand.
-- Invalidate queries after successful mutations.
-- Use pagination correctly.
-- Configure sensible cache stale times.
-- Handle retries carefully.
-- Avoid unnecessary network requests.
-
----
-
-# 13. OFFLINE AND NETWORK EXPERIENCE
-
-The app must work reasonably well on inconsistent mobile networks.
-
-Implement:
-
-- Loading skeletons.
+- Related vendor information.
+- Submission date.
+- Contact or callback status, when available.
 - Empty states.
-- Error states.
-- Retry actions.
-- Network error messages.
-- Image placeholders.
-- Cached public discovery data where appropriate.
-- Safe form submission retry behavior.
+- Retry states.
 
-Do not promise offline enquiry submission unless an actual queued submission mechanism exists.
+Use backend-defined enquiry statuses.
 
-Avoid duplicate enquiries when the network response is uncertain.
+### Saved vendors
 
-Use idempotency support where the backend provides it.
+Include:
+
+- Favourite vendor list.
+- Remove from favourites.
+- Open vendor details.
+- Empty state with discovery CTA.
+
+### Profile
+
+Include:
+
+- Customer information.
+- Phone number.
+- Preferred language.
+- Preferred location.
+- Account settings.
+- Notification preferences.
+- Support.
+- Privacy policy.
+- Terms and conditions.
+- Logout.
 
 ---
 
-# 14. LOCALIZATION
+# 8. AUTHENTICATION AND ONBOARDING
+
+Use phone-number-based authentication with OTP.
+
+Expected flow:
+
+```text
+Welcome
+  ↓
+Select Language
+  ↓
+Select Location (optional)
+  ↓
+Enter Phone Number
+  ↓
+Request OTP
+  ↓
+Verify OTP
+  ↓
+Check Existing User
+  ↓
+Create or Retrieve Customer Profile
+  ↓
+Home
+```
+
+### Authentication requirements
+
+- Secure OTP verification.
+- OTP resend cooldown.
+- OTP expiry handling.
+- Invalid OTP handling.
+- Rate-limit feedback.
+- Refresh token rotation.
+- Secure token storage.
+- Logout and session cleanup.
+- Expired session handling.
+- Account deactivation handling.
+
+Use Expo SecureStore for sensitive session tokens.
+
+Never store authentication tokens in AsyncStorage.
+
+Do not log OTPs, tokens, or sensitive personal information.
+
+If the backend supports an existing account with multiple roles, preserve those roles and do not create a duplicate identity.
+
+---
+
+# 9. UI/UX AND BRAND DESIGN SYSTEM
+
+The application must feel like an authentic Telangana wedding platform.
+
+The visual direction should combine:
+
+- Traditional Telugu wedding aesthetics.
+- Modern mobile usability.
+- Premium marketplace design.
+- Local cultural authenticity.
+- Clean, trustworthy interfaces.
+
+### Brand palette
+
+| Token | Color |
+|---|---|
+| Royal Crimson | `#762B46` |
+| Deep Wine | `#542034` |
+| Zari Gold | `#C5A46D` |
+| Warm Ivory | `#FAF7F2` |
+| Sandalwood | `#F4EDE3` |
+| Charcoal | `#292524` |
+| Emerald | `#047857` |
+| Marigold | `#D9894C` |
+
+Use semantic theme tokens rather than hardcoding colors throughout components.
+
+### Typography
+
+English:
+- Sora for headings.
+- Inter for body text.
+
+Telugu:
+- Noto Serif Telugu for selected traditional headings.
+- Noto Sans Telugu for readable body content.
+
+Ensure fonts render correctly on Android.
+
+### Design characteristics
+
+- Spacious layouts.
+- Clear visual hierarchy.
+- Consistent spacing.
+- Rounded cards.
+- Subtle borders.
+- Restrained shadows.
+- High-quality photography.
+- Readable typography.
+- Clear primary actions.
+- Accessible contrast.
+- Consistent icon sizing.
+
+### Component standards
+
+Create reusable components for:
+
+- Primary and secondary buttons.
+- Search bars.
+- Location selectors.
+- Category cards.
+- Vendor cards.
+- Rating displays.
+- Verification indicators.
+- Price displays.
+- Image galleries.
+- Filter chips.
+- Bottom sheets.
+- Empty states.
+- Loading skeletons.
+- Error states.
+- Confirmation dialogs.
+- Form fields.
+- Toast messages.
+
+Use native-feeling interactions and Android-friendly patterns.
+
+Avoid excessive gradients, unnecessary animations, oversized typography, and decorative UI that harms usability.
+
+---
+
+# 10. TELUGU AND ENGLISH LOCALIZATION
 
 Support:
 
@@ -977,373 +608,422 @@ Support:
 
 Requirements:
 
-- Translation dictionaries.
-- Language selection.
-- Persistent language preference.
-- Localized labels.
-- Localized validation messages.
-- Localized empty states.
-- Localized notifications where supported.
+- Language selection during onboarding.
+- Language switching from profile/settings.
+- Centralized translation files.
+- No hardcoded user-facing strings inside screens.
+- Correct Telugu font rendering.
+- Localized date and number formatting.
+- Consistent terminology across the app.
 
-Use correct Telugu fonts.
+Example:
 
-Avoid hardcoded English strings inside reusable components.
+```text
+translations/
+├── en.json
+└── te.json
+```
 
-Do not machine-translate culturally specific content without review.
+Do not machine-translate important wedding terminology without reviewing its meaning and cultural suitability.
 
 ---
 
-# 15. PERFORMANCE AND ANDROID EXPERIENCE
+# 11. LOCATION AND LOCAL DISCOVERY
 
-Optimize for ordinary Android devices and mobile networks.
+Location is a core product capability.
+
+Support the hierarchy:
+
+```text
+State
+  └── District
+       └── Mandal
+            └── Village / Town
+```
+
+Initial market:
+
+- Narayanpet.
+- Mahabubnagar.
 
 Requirements:
 
-- Lazy loading.
-- FlatList optimization.
-- Image resizing.
-- Image caching.
-- Avoid unnecessary re-renders.
-- Avoid excessive animations.
-- Keep app startup fast.
-- Minimize bundle size.
-- Use pagination.
-- Avoid oversized image downloads.
-- Handle Android back navigation.
-- Respect safe areas.
-- Handle keyboard behavior correctly.
+- Manual location selection.
+- Remember selected location.
+- Allow location changes.
+- Filter vendors by service area.
+- Display vendor service areas.
+- Avoid forcing GPS permissions.
+- Request location permission only when it provides a clear benefit.
+- Provide manual fallback.
 
-Use optimized image variants from the backend/CDN.
+Use backend location master data.
 
-Do not autoplay large videos on the home screen.
-
-Respect reduced-motion preferences where practical.
+Do not hardcode district, mandal, or village lists in application components.
 
 ---
 
-# 16. SECURITY AND PRIVACY
+# 12. ENQUIRY AND MATCHMAKING EXPERIENCE
+
+This is the most important conversion flow.
+
+### Customer enquiry flow
+
+```text
+Select Category
+      ↓
+Explore Vendors
+      ↓
+Select Vendor or Request Assistance
+      ↓
+Enter Enquiry Details
+      ↓
+Submit Enquiry
+      ↓
+Backend Validates and Matches
+      ↓
+Enquiry Confirmation
+      ↓
+Track Enquiry
+```
+
+### Enquiry form
+
+Only request necessary information.
+
+Potential fields:
+
+- Customer name.
+- Phone number.
+- Wedding date, if known.
+- Preferred location.
+- Service category.
+- Requirements/message.
+- Preferred contact method.
+
+Do not force users to provide every optional detail.
+
+### Assisted enquiry
+
+Provide an accessible callback/request-assistance option.
+
+This is important for families who may prefer speaking with a person instead of completing a digital form.
+
+### Enquiry behavior
+
+- Prevent accidental duplicate submissions.
+- Show submission progress.
+- Display success confirmation.
+- Handle network interruptions.
+- Preserve entered information when reasonable.
+- Show backend-defined enquiry status.
+- Do not expose private vendor or customer information.
+- Do not promise a match before the backend confirms one.
+
+The platform facilitates the introduction. The family and vendor finalize arrangements directly.
+
+---
+
+# 13. PERFORMANCE AND RELIABILITY
+
+Build for real-world Android devices and varying network conditions.
+
+Requirements:
+
+- Optimize image sizes.
+- Use image caching.
+- Lazy-load long lists.
+- Use pagination.
+- Avoid unnecessary re-renders.
+- Use stable list keys.
+- Keep navigation responsive.
+- Handle slow networks.
+- Add request timeouts.
+- Support retry for recoverable errors.
+- Avoid blocking the main UI thread.
+- Minimize application startup time.
+- Use skeleton loaders.
+- Handle offline and reconnect states gracefully.
+
+Do not add complex offline synchronization unless a concrete requirement exists.
+
+---
+
+# 14. SECURITY AND PRIVACY
 
 Implement:
 
 - Secure token storage.
-- API authorization handling.
+- Backend-enforced RBAC.
 - Input validation.
-- Safe deep links.
-- Secure logging.
-- No hardcoded secrets.
-- No exposed AWS credentials.
-- Minimal device permissions.
-- Safe contact handling.
-- User consent where required.
-- Sensitive information redaction.
+- Safe API error handling.
+- Secure media upload flow.
+- No exposed secret keys.
+- No sensitive information in logs.
+- Safe logout.
+- Session expiry handling.
+- Appropriate permission requests.
+- Privacy-conscious analytics.
 
-Never rely on the mobile UI to enforce backend authorization.
+Do not trust the mobile client for authorization or pricing decisions.
 
-The NestJS backend remains the authority for:
+Do not expose vendor lead information to unauthorized customers.
 
-- User roles.
-- Vendor approval.
-- Lead visibility.
-- Customer contact access.
-- Enquiry ownership.
-- Payment status.
+Do not store payment credentials or sensitive authentication data locally.
 
 ---
 
-# 17. ACCESSIBILITY AND USABILITY
+# 15. TESTING
 
-Design for a broad audience.
+Add tests for important product flows.
 
-Requirements:
+### Unit tests
 
-- Readable text.
-- Clear labels.
-- Good contrast.
-- Large touch targets.
-- Screen-reader labels.
-- Keyboard-friendly forms.
-- Clear button states.
-- Helpful error messages.
-- Simple navigation.
-- Consistent interaction patterns.
+- Validation schemas.
+- Formatting utilities.
+- Query key utilities.
+- State logic.
+- Authentication helpers.
 
-Avoid tiny icons without labels for critical actions.
+### Component tests
 
-Do not make essential features dependent only on color.
+- Vendor cards.
+- Category cards.
+- Search components.
+- Enquiry forms.
+- Empty states.
+- Loading states.
+- Error states.
 
----
+### Integration tests
 
-# 18. TESTING
-
-Write tests for:
-
-## Authentication
-
-- OTP request.
-- OTP verification.
-- Invalid OTP.
-- Expired OTP.
-- Refresh token.
+- Authentication flow.
+- Vendor discovery.
+- Vendor profile.
+- Favourite management.
+- Enquiry submission.
+- Enquiry history.
 - Logout.
 
-## Vendor discovery
+### Manual Android testing
 
-- Category filtering.
-- Location filtering.
-- Search.
-- Pagination.
-- Empty results.
-- API failure.
+Test:
 
-## Vendor profiles
-
-- Profile loading.
-- Portfolio loading.
-- Missing information.
-- Contact actions.
-- Favourite action.
-
-## Enquiries
-
-- Form validation.
-- Successful submission.
-- Duplicate prevention.
-- Network interruption.
-- Enquiry details.
-- Status display.
-
-## Favourites
-
-- Add.
-- Remove.
-- Persistence.
-- Unauthenticated access.
-
-## Navigation
-
-- Protected routes.
-- Guest routes.
-- Authentication redirect.
+- Small-screen devices.
+- Different Android screen sizes.
+- Slow network.
+- Failed network.
+- Expired sessions.
+- OTP errors.
+- Telugu rendering.
+- Keyboard behavior.
 - Deep links.
-- Android back navigation.
+- Back navigation.
+- App background/resume.
+- Image loading.
 
-Use Jest and React Native Testing Library.
-
-Test important flows on actual Android devices or emulators.
-
----
-
-# 19. DOCUMENTATION
-
-Create:
-
-```text
-docs/mobile/
-├── MOBILE_AUDIT.md
-├── MOBILE_ARCHITECTURE.md
-├── NAVIGATION.md
-├── DESIGN_SYSTEM.md
-├── API_INTEGRATION.md
-├── AUTHENTICATION.md
-├── LOCALIZATION.md
-├── TESTING.md
-└── ANDROID_RELEASE.md
-```
-
-Include:
-
-- Folder architecture.
-- Feature responsibilities.
-- Navigation flow.
-- API integration.
-- Authentication flow.
-- State management.
-- Design tokens.
-- Testing procedures.
-- Android build instructions.
-
-Keep documentation aligned with actual implementation.
+Do not claim production readiness without meaningful test results.
 
 ---
 
-# 20. IMPLEMENTATION PHASES
+# 16. DEVELOPMENT PHASES
 
-## Phase 0 — Repository audit and planning
+Implement in controlled phases.
 
-- Inspect existing repository.
-- Review backend API contracts.
-- Review existing web design.
-- Review brand identity.
-- Identify reusable assets.
-- Define mobile feature architecture.
-- Define navigation.
-- Create screen inventory.
-- Identify missing backend APIs.
+## Phase 0 — Repository and Product Audit
 
-Deliverable: Mobile architecture approval.
+No code modifications.
 
-## Phase 1 — UI/UX foundation
+Inspect:
 
-- Define mobile design tokens.
-- Configure fonts.
-- Build reusable components.
-- Configure Expo Router.
-- Implement theme.
+- Existing repository structure.
+- Existing mobile application, if any.
+- Backend API contracts.
+- Authentication implementation.
+- User and role models.
+- Customer profile models.
+- Vendor membership and profile models.
+- Category and location APIs.
+- Vendor discovery APIs.
+- Enquiry APIs.
+- Notification APIs.
+- Existing design references.
+- Environment configuration.
+- Existing tests and build configuration.
+
+Deliver:
+
+1. Current architecture report.
+2. Existing implementation inventory.
+3. Missing capabilities.
+4. API integration gap analysis.
+5. Identity/RBAC compatibility analysis.
+6. Proposed mobile architecture.
+7. Screen inventory.
+8. Navigation map.
+9. Design system proposal.
+10. Development phases.
+11. Risks and dependencies.
+
+**Stop after presenting the audit. Wait for explicit approval.**
+
+## Phase 1 — UI/UX Foundation
+
+After approval:
+
+- Establish design tokens.
+- Configure typography.
+- Build shared components.
+- Configure navigation.
+- Implement theme support.
 - Implement localization.
-- Build loading and empty states.
+- Build reusable layouts.
 
-Deliverable: Mobile design system.
-
-## Phase 2 — App foundation
+## Phase 2 — Application Foundation
 
 - Configure Expo.
-- Set up TypeScript.
-- Configure API client.
+- Configure TypeScript.
+- Configure environment variables.
+- Set up API client.
 - Configure TanStack Query.
 - Configure Zustand.
-- Configure SecureStore.
-- Configure environment settings.
+- Configure secure storage.
+- Configure error handling.
+- Configure application providers.
 
-Deliverable: Working mobile foundation.
+## Phase 3 — Authentication and Identity
 
-## Phase 3 — Authentication and onboarding
-
-- Welcome.
-- Language selection.
-- Location selection.
-- OTP login.
+- Phone authentication.
+- OTP verification.
 - Session management.
 - Customer profile setup.
+- Unified identity integration.
+- Role-aware navigation where required.
 
-Deliverable: Authentication flow.
+## Phase 4 — Discovery
 
-## Phase 4 — Customer discovery
-
-- Home screen.
+- Home.
 - Categories.
-- Location discovery.
-- Vendor search.
+- Locations.
+- Search.
+- Vendor listing.
 - Filters.
-- Vendor profiles.
-- Portfolio.
+- Vendor details.
+- Portfolio gallery.
 
-Deliverable: Vendor discovery experience.
+## Phase 5 — Customer Engagement
 
-## Phase 5 — Customer engagement
-
-- Enquiry creation.
-- Assisted call request.
+- Enquiry form.
+- Assisted callback.
+- Enquiry confirmation.
 - Enquiry history.
-- Enquiry details.
-- Favourites.
-- Customer profile.
+- Favourite vendors.
+- Reviews, where supported.
 
-Deliverable: Complete customer marketplace journey.
+## Phase 6 — Notifications and Support
 
-## Phase 6 — Notifications and support
+- Push notification registration.
+- Notification list.
+- Notification preferences.
+- Customer support.
+- Profile settings.
+- Language switching.
 
-- In-app notifications.
-- Push notifications.
-- Deep links.
-- Phone support.
-- WhatsApp support.
-- FAQ.
+## Phase 7 — Quality and Release
 
-Deliverable: Customer engagement features.
-
-## Phase 7 — Quality and Android release
-
-- Functional testing.
-- UI testing.
-- API testing.
+- Testing.
 - Performance optimization.
-- Security review.
-- Android permissions review.
-- EAS configuration.
-- APK testing.
-- AAB production build preparation.
-
-Deliverable: Android release-ready application.
-
----
-
-# 21. DEVELOPMENT RULES
-
-1. Inspect before modifying.
-2. Plan before coding.
-3. Follow feature-based architecture.
-4. Use strict TypeScript.
-5. Use Expo Router.
-6. Use TanStack Query for server state.
-7. Use Zustand for shared client state only.
-8. Use SecureStore for sensitive tokens.
-9. Keep business logic in the backend.
-10. Reuse existing API contracts.
-11. Do not duplicate backend business logic.
-12. Do not hardcode vendor categories or locations.
-13. Do not invent ratings or verification.
-14. Do not force login for public discovery.
-15. Do not add out-of-scope booking features.
-16. Keep UI components reusable.
-17. Optimize for Android devices.
-18. Support Telugu and English.
-19. Write tests for critical user journeys.
-20. Preserve existing repository architecture.
-21. Keep documentation updated.
-22. Report actual testing and build status honestly.
+- Android compatibility.
+- Accessibility.
+- Error monitoring.
+- EAS development build.
+- EAS production build.
+- Release documentation.
 
 ---
 
-# 22. FIRST RESPONSE REQUIRED FROM THE AI AGENT
+# 17. CODING STANDARDS
 
-When this prompt is provided, do not immediately generate the application.
+Follow these rules throughout implementation:
 
-First:
+1. TypeScript strict mode.
+2. Avoid `any`.
+3. Prefer explicit types and interfaces.
+4. Keep screens small and focused.
+5. Extract reusable business logic.
+6. Avoid duplicated components.
+7. Keep API contracts typed.
+8. Use centralized error handling.
+9. Use consistent naming conventions.
+10. Follow feature-based architecture.
+11. Avoid unnecessary dependencies.
+12. Do not introduce microservices or complex architecture into the mobile application.
+13. Do not rewrite working backend functionality without a clear reason.
+14. Preserve existing working features.
+15. Do not delete archived modules or documentation.
+16. Update documentation when architecture or API integration changes.
+17. Run relevant tests and type checks after each implementation phase.
 
-1. Audit the existing repository.
-2. Identify whether a mobile app already exists.
-3. Review the NestJS API contracts.
-4. Identify missing mobile APIs.
-5. Present the feature-based folder architecture.
-6. Present the navigation structure.
-7. Prepare a complete screen inventory.
-8. Define the mobile design system.
-9. Define authentication and state management.
-10. Map screens to backend APIs.
-11. Identify technical risks.
-12. Provide implementation phases.
+For every important implementation, explain:
 
-Clearly separate:
-
-- Already implemented.
-- Missing.
-- Reusable.
-- Recommended.
-- Requires approval.
-
-Do not modify files during the initial audit unless explicitly requested.
-
-Wait for approval before Phase 1 implementation.
+- What was implemented.
+- Why it was implemented.
+- Files created or modified.
+- API dependencies.
+- Tests performed.
+- Known limitations.
 
 ---
 
-# FINAL PRODUCT PRINCIPLE
+# 18. DEFINITION OF DONE
 
-Build Telangana Weddings as an accessible, culturally authentic and reliable Android marketplace for wedding families.
+The customer Android application is considered MVP-ready only when:
 
-The customer must be able to:
+- A customer can browse vendors without signing in.
+- A customer can register and authenticate.
+- A customer can discover vendors by category and location.
+- Vendor profiles display accurate backend information.
+- A customer can save and remove favourite vendors.
+- A customer can submit an enquiry.
+- A customer can request assisted contact.
+- A customer can view enquiry history.
+- Notifications work where backend support exists.
+- Telugu and English are supported.
+- The application handles loading, empty, error, and network states.
+- Authentication tokens are stored securely.
+- Backend authorization is respected.
+- No excluded booking or fulfilment functionality has been introduced.
+- Important flows have automated tests.
+- The Android build succeeds.
+- Setup and release documentation is available.
 
-1. Discover wedding services.
-2. Find vendors near their village or town.
-3. Understand vendor services and pricing.
-4. View authentic vendor portfolios.
-5. Submit enquiries easily.
-6. Contact suitable vendors.
-7. Track their enquiries.
+---
 
-Prioritize discovery, simplicity, trust, local relevance and enquiry conversion.
+# 19. FINAL INSTRUCTIONS TO THE CODING AGENT
 
-Do not turn the MVP into a complicated wedding management application.
+Think like a technical lead responsible for launching a real marketplace.
 
-**A beautiful wedding experience. A simple discovery journey. A reliable connection between families and local vendors.**
+Prioritize:
 
+1. Correct product scope.
+2. Existing backend compatibility.
+3. Unified identity and authorization.
+4. Simple customer experience.
+5. Local discovery.
+6. Enquiry conversion.
+7. Performance and reliability.
+8. Maintainability.
+9. Security.
+10. Production readiness.
+
+Do not over-engineer.
+
+Do not build features merely because they are common in other wedding applications.
+
+Do not make assumptions about existing backend capabilities.
+
+Do not replace established repository architecture without justification.
+
+**YOUR FIRST RESPONSE MUST CONTAIN ONLY THE PHASE 0 AUDIT REPORT AND RECOMMENDED IMPLEMENTATION PLAN. DO NOT MODIFY FILES, INSTALL PACKAGES, CREATE SCREENS, OR WRITE IMPLEMENTATION CODE UNTIL I REVIEW AND APPROVE THE PLAN.**
+
+After approval, implement one phase at a time and report progress with test results.

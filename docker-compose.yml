@@ -1,0 +1,121 @@
+services:
+  # ---------------------------------------------------------------------------
+  # Database Service (PostgreSQL 16) with Volume Persistence
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: telangana_weddings_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+      POSTGRES_DB: telangana_weddings
+    ports:
+      - '5433:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - tw_network
+
+  # ---------------------------------------------------------------------------
+  # Cache & Rate-Limiting Service (Redis 7) with Volume Persistence
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: telangana_weddings_redis
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - tw_network
+
+  # ---------------------------------------------------------------------------
+  # Central NestJS Backend API (Port 3002)
+  # ---------------------------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: telangana_weddings_backend
+    restart: always
+    environment:
+      NODE_ENV: production
+      PORT: 3002
+      API_PREFIX: api/v1
+      DATABASE_URL: postgresql://postgres:postgrespassword@postgres:5432/telangana_weddings?schema=public
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      JWT_SECRET: telangana-weddings-jwt-secret-2025-prod-ready
+      JWT_REFRESH_SECRET: telangana-weddings-refresh-secret-2025
+      CORS_ORIGINS: http://localhost:3000,http://localhost:3001
+    ports:
+      - '3002:3002'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - tw_network
+
+  # ---------------------------------------------------------------------------
+  # Customer Website & Vendor Portal (Next.js - Port 3000)
+  # ---------------------------------------------------------------------------
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: telangana_weddings_web
+    restart: always
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: http://localhost:3002/api/v1
+    ports:
+      - '3000:3000'
+    depends_on:
+      - backend
+    networks:
+      - tw_network
+
+  # ---------------------------------------------------------------------------
+  # Administrative Dashboard (Next.js - Port 3001)
+  # ---------------------------------------------------------------------------
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+    container_name: telangana_weddings_admin
+    restart: always
+    environment:
+      NODE_ENV: production
+      NEXT_PUBLIC_API_URL: http://localhost:3002/api/v1
+    ports:
+      - '3001:3001'
+    depends_on:
+      - backend
+    networks:
+      - tw_network
+
+# -----------------------------------------------------------------------------
+# Persistent Volumes & Network Definitions
+# -----------------------------------------------------------------------------
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  tw_network:
+    driver: bridge
+
