@@ -3,17 +3,22 @@
 import React from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
+import { PageHeader } from '@/components/common/PageHeader';
+import { StatusBadge } from '@/components/common/StatusBadge';
+import { SearchInput } from '@/components/common/SearchInput';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Select } from '@/components/ui/form';
 import { DataTable, Column } from '@/components/ui/data-table';
 import { 
   Search, MapPin, Phone, ExternalLink 
 } from 'lucide-react';
-import { useAdminVendors, useAdminCategories, useAdminLocations } from '@/hooks/useAdminQueries';
+import { useAdminVendors } from './hooks/useAdminVendors';
+import { useAdminCategories } from '@/features/categories/hooks/useCategories';
+import { useAdminLocations } from '@/features/locations/hooks/useLocations';
 import { useAdminStore } from '@/store/useAdminStore';
-import { Vendor, Category } from '@/types';
+import { Vendor } from '@/types';
+import { AdminCategory } from '@/features/categories/types/category.types';
 
 export function VendorsListView() {
   const { language } = useLanguage();
@@ -70,16 +75,12 @@ export function VendorsListView() {
     },
     {
       header: 'KYC Status',
-      cell: (v: Vendor) =>
-        v.isVerified ? (
-          <Badge className="bg-emerald-100 text-emerald-800 border-emerald-200 text-[10px]">
-            Verified
-          </Badge>
-        ) : (
-          <Badge className="bg-amber-100 text-amber-800 border-amber-200 text-[10px]">
-            Pending KYC
-          </Badge>
-        ),
+      cell: (v: Vendor) => (
+        <StatusBadge 
+          status={v.isVerified ? 'verified' : 'pending'} 
+          label={v.isVerified ? 'Verified' : 'Pending KYC'}
+        />
+      ),
     },
     {
       header: 'Actions',
@@ -97,23 +98,19 @@ export function VendorsListView() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold font-heading text-[#292524]">
-            {language === 'te' ? 'వెండర్ల నిర్వహణ' : 'Vendor Management'}
-          </h1>
-          <p className="text-xs text-stone-500 font-body">
-            {language === 'te' 
-              ? 'నారాయణపేట & మహబూబ్ నగర్ జిల్లాలలోని నమోదిత వ్యాపారులు.' 
-              : 'Registered wedding service vendors across Telangana districts.'}
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
+      <PageHeader
+        title={language === 'te' ? 'వెండర్ల నిర్వహణ' : 'Vendor Management'}
+        description={
+          language === 'te' 
+            ? 'నారాయణపేట & మహబూబ్ నగర్ జిల్లాలలోని నమోదిత వ్యాపారులు.' 
+            : 'Registered wedding service vendors across Telangana districts.'
+        }
+        actions={
           <Badge className="bg-[#542034] text-white">
             {vendors?.length ?? 0} Total Vendors Listed
           </Badge>
-        </div>
-      </div>
+        }
+      />
 
       {/* Reusable DataTable with integrated Search & Dropdowns */}
       <DataTable<Vendor>
@@ -144,7 +141,7 @@ export function VendorsListView() {
                 onChange={(e) => setSelectedCategory(e.target.value)}
               >
                 <option value="all">All 18 Categories</option>
-                {categories?.map((c: Category) => (
+                {categories?.map((c: AdminCategory) => (
                   <option key={c.slug} value={c.slug}>
                     {c.number}. {c.nameEn}
                   </option>
@@ -155,12 +152,10 @@ export function VendorsListView() {
         }
         headerActions={
           <div className="w-64">
-            <Input
-              type="text"
+            <SearchInput
               placeholder="Search vendor name or phone..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              leftIcon={<Search className="w-3.5 h-3.5 text-stone-400" />}
+              onChange={setSearchQuery}
             />
           </div>
         }

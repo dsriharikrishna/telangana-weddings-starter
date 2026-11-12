@@ -4,7 +4,7 @@ import { ReactQueryProvider } from '@/lib/query-client';
 
 export const metadata: Metadata = {
   title: 'Telangana Weddings — Admin Backoffice',
-  description: 'Operations, Vendor Verification, Bookings & Commission Management',
+  description: 'Operations, Vendor Verification, Enquiries & Subscription Management',
 };
 
 export default function RootLayout({

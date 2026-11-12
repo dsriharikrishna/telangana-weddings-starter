@@ -10,12 +10,15 @@ import {
   Store, CalendarCheck, ShieldCheck, 
   MapPin, ArrowUpRight, PhoneCall, Loader2, CreditCard
 } from 'lucide-react';
-import { useAdminDashboardMetrics, useAdminEnquiries } from '@/hooks/useAdminQueries';
-import { AssistedEnquiry } from '@/types';
+import { usePlatformMetrics } from '../hooks/useDashboard';
+import { useAdminEnquiries } from '@/features/enquiries/hooks/useEnquiries';
+import { PageHeader } from '@/components/common/PageHeader';
+import { StatusBadge } from '@/components/common/StatusBadge';
+import { StatCard } from '@/components/data-display/StatCard';
 
 export function DashboardView() {
   const { language } = useLanguage();
-  const { data: metrics, isLoading } = useAdminDashboardMetrics();
+  const { data: metrics, isLoading } = usePlatformMetrics();
   const { data: enquiries } = useAdminEnquiries();
 
   const stats = [
@@ -30,23 +33,23 @@ export function DashboardView() {
     { 
       titleEn: 'Pending Verification', 
       titleTe: 'ధృవీకరణ పెండింగ్', 
-      value: isLoading ? '...' : (metrics?.pendingVerification?.toString() ?? '14'), 
+      value: isLoading ? '...' : (metrics?.pendingVerifications?.toString() ?? '14'), 
       sub: 'Action required in KYC queue', 
       icon: ShieldCheck, 
       color: 'text-amber-600' 
     },
     { 
-      titleEn: 'Gross Bookings', 
-      titleTe: 'మొత్తం బుకింగ్‌లు', 
-      value: isLoading ? '...' : (metrics?.totalBookings?.toString() ?? '312'), 
-      sub: '₹48.6L Gross Volume', 
+      titleEn: 'Total Enquiries', 
+      titleTe: 'మొత్తం విచారణలు', 
+      value: isLoading ? '...' : (metrics?.totalEnquiries?.toString() ?? '312'), 
+      sub: 'Customer Matchmaking Leads', 
       icon: CalendarCheck, 
       color: 'text-emerald-700' 
     },
     { 
       titleEn: 'Assisted Rural Enquiries', 
       titleTe: 'అసిస్టెడ్ విచారణలు', 
-      value: isLoading ? '...' : (metrics?.assistedEnquiriesCount?.toString() ?? '86'), 
+      value: isLoading ? '...' : (metrics?.leadsUnlocked?.toString() ?? '86'), 
       sub: 'Phone callbacks pending', 
       icon: PhoneCall, 
       color: 'text-[#C5A46D]' 
@@ -55,44 +58,35 @@ export function DashboardView() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold font-heading text-[#292524]">
-            {language === 'te' ? 'అడ్మిన్ డాష్‌బోర్డ్' : 'Platform Operations Overview'}
-          </h1>
-          <p className="text-xs text-stone-500 font-body">
-            {language === 'te' ? 'నారాయణపేట మరియు మహబూబ్ నగర్ జిల్లాల ప్రత్యక్ష విశ్లేషణ.' : 'Real-time wedding bookings and vendor operations across Telangana districts.'}
-          </p>
-        </div>
-        <div className="flex items-center gap-2">
-          {isLoading && <Loader2 className="w-4 h-4 animate-spin text-[#762B46]" />}
-          <Badge className="bg-emerald-100 text-emerald-800 border-emerald-300">
-            System Live: {metrics?.activeDistricts ?? 2} Districts Active
-          </Badge>
-        </div>
-      </div>
+      <PageHeader
+        title={language === 'te' ? 'అడ్మిన్ డాష్‌బోర్డ్' : 'Platform Operations Overview'}
+        description={
+          language === 'te'
+            ? 'నారాయణపేట మరియు మహబూబ్ నగర్ జిల్లాల ప్రత్యక్ష విశ్లేషణ.'
+            : 'Real-time wedding bookings and vendor operations across Telangana districts.'
+        }
+        actions={
+          <div className="flex items-center gap-2">
+            {isLoading && <Loader2 className="w-4 h-4 animate-spin text-[#762B46]" />}
+            <Badge className="bg-emerald-100 text-emerald-800 border-emerald-300">
+              System Live: {metrics?.activeDistricts ?? 2} Districts Active
+            </Badge>
+          </div>
+        }
+      />
 
-      {/* KPI Cards */}
+      {/* KPI Cards using reusable StatCard */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {stats.map((s, i) => {
-          const Icon = s.icon;
-          return (
-            <Card key={i} className="border border-[#E7DECF] bg-white shadow-sm">
-              <CardContent className="p-4 flex items-start justify-between">
-                <div>
-                  <p className="text-xs font-semibold text-stone-500">
-                    {language === 'te' ? s.titleTe : s.titleEn}
-                  </p>
-                  <p className="text-2xl font-bold text-[#292524] mt-1 font-heading">{s.value}</p>
-                  <p className="text-[11px] text-stone-400 mt-0.5">{s.sub}</p>
-                </div>
-                <div className={`p-2.5 rounded-xl bg-stone-50 ${s.color}`}>
-                  <Icon className="w-5 h-5" />
-                </div>
-              </CardContent>
-            </Card>
-          );
-        })}
+        {stats.map((s, i) => (
+          <StatCard
+            key={i}
+            title={language === 'te' ? s.titleTe : s.titleEn}
+            value={s.value}
+            subtitle={s.sub}
+            icon={s.icon}
+            iconColor={s.color}
+          />
+        ))}
       </div>
 
       {/* Main Grid: Priority Queues & Recent Enquiries */}
@@ -109,14 +103,12 @@ export function DashboardView() {
           </div>
 
           <Card className="border border-[#E7DECF] bg-white shadow-sm divide-y divide-stone-100">
-            {(enquiries?.slice(0, 4) ?? []).map((enq: AssistedEnquiry) => (
+            {(enquiries?.slice(0, 4) ?? []).map((enq: any) => (
               <div key={enq.id} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-stone-800">{enq.customerName}</span>
-                    <Badge variant="outline" className="text-[10px] text-amber-700 bg-amber-50 border-amber-200">
-                      {enq.status}
-                    </Badge>
+                    <StatusBadge status={enq.status} />
                   </div>
                   <div className="text-stone-500 flex items-center gap-2 text-[11px]">
                     <span className="flex items-center gap-1">
@@ -168,15 +160,15 @@ export function DashboardView() {
               <p className="text-[11px] text-stone-500 mt-1">148 vendors across 18 distinct categories</p>
             </Link>
 
-            <Link href="/commissions" className="block p-3 rounded-xl border border-stone-100 hover:border-[#C5A46D] hover:bg-stone-50 transition-colors">
+            <Link href="/payments" className="block p-3 rounded-xl border border-stone-100 hover:border-[#C5A46D] hover:bg-stone-50 transition-colors">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2.5">
                   <CreditCard className="w-4 h-4 text-emerald-600" />
-                  <span className="text-xs font-semibold text-stone-800">Process Weekly Settlements</span>
+                  <span className="text-xs font-semibold text-stone-800">Review Fee Collections</span>
                 </div>
                 <ArrowUpRight className="w-3.5 h-3.5 text-stone-400" />
               </div>
-              <p className="text-[11px] text-stone-500 mt-1">Direct NEFT/UPI payouts to vendor bank accounts</p>
+              <p className="text-[11px] text-stone-500 mt-1">Vendor subscription & matchmaking fee receipts</p>
             </Link>
           </Card>
         </div>

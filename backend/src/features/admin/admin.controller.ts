@@ -73,6 +73,22 @@ export class AdminController {
     };
   }
 
+  @Get('enquiries')
+  @ApiOperation({ summary: 'List all customer enquiries and callbacks for admin dispatch desk' })
+  async getEnquiries() {
+    return this.prisma.enquiry.findMany({
+      include: {
+        customer: true,
+        assignments: {
+          include: {
+            vendor: true,
+          },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+
   @Get('vendors')
   @ApiOperation({ summary: 'List all vendors with verification status' })
   async getVendors() {

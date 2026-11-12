@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
-import { apiClient } from '@/services/apiClient';
+import apiService, { API_ENDPOINTS } from '@/services/apiService';
 import { useAuthStore } from '@/stores/authStore';
 import { colors } from '@/theme/colors';
 import { ArrowLeft, ShieldCheck, KeyRound } from 'lucide-react-native';
@@ -22,10 +22,10 @@ export default function LoginModal() {
     }
     setLoading(true);
     try {
-      await apiClient.post('/auth/send-otp', { phone });
+      await apiService.post(API_ENDPOINTS.SEND_OTP, { phone });
       setStep('OTP');
     } catch (err: any) {
-      Alert.alert('Error', err?.response?.data?.message || 'Could not send OTP.');
+      Alert.alert('Error', err?.message || 'Could not send OTP.');
     } finally {
       setLoading(false);
     }
@@ -38,14 +38,15 @@ export default function LoginModal() {
     }
     setLoading(true);
     try {
-      const res = await apiClient.post('/auth/verify-otp', {
+      const res = await apiService.post<any>(API_ENDPOINTS.VERIFY_OTP, {
         phone,
         otp,
         role: 'CUSTOMER',
       });
+      const data = res.data || res;
       setAuth({
-        accessToken: res.data.accessToken,
-        user: res.data.user,
+        accessToken: data.accessToken,
+        user: data.user,
       });
       Alert.alert('Success', 'Logged in successfully!');
       router.back();

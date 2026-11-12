@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useLanguage } from '@/context/LanguageContext';
 import { useAdminStore } from '@/store/useAdminStore';
-import { AdminLanguageToggle } from '@/components/AdminLanguageToggle';
+import { AdminLanguageToggle } from '@/components/common/AdminLanguageToggle';
 import { LayoutDashboard, Users, Store, ShieldCheck, Grid, MapPin, Layers, MessageSquare, CreditCard, Settings, FileText, LogOut, PanelLeftClose, PanelLeft, Menu, X, ChevronRight } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';

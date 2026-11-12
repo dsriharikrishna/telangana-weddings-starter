@@ -3,25 +3,19 @@
 import React from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
-
 import { Button } from '@/components/ui/button';
 import { Download, FileText } from 'lucide-react';
+import { PageHeader } from '@/components/common/PageHeader';
 
 export default function AdminReportsPage() {
   const { language } = useLanguage();
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold font-heading text-[#292524]">
-            {language === 'te' ? 'నివేదికలు & విశ్లేషణ' : 'District Wedding Reports & Export'}
-          </h1>
-          <p className="text-xs text-stone-500 font-body">
-            Download wedding season metrics, vendor density, and assisted enquiry audit trails.
-          </p>
-        </div>
-      </div>
+      <PageHeader
+        title={language === 'te' ? 'నివేదికలు & విశ్లేషణ' : 'District Wedding Reports & Export'}
+        description="Download wedding season metrics, vendor density, and assisted enquiry audit trails."
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card className="border-stone-200 bg-white shadow-sm">

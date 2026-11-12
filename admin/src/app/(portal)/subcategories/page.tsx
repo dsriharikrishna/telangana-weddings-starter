@@ -4,9 +4,9 @@ import React from 'react';
 import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
-
 import { Button } from '@/components/ui/button';
 import { Eye } from 'lucide-react';
+import { PageHeader } from '@/components/common/PageHeader';
 
 export default function AdminSubcategoriesPage() {
   const { language } = useLanguage();
@@ -36,14 +36,10 @@ export default function AdminSubcategoriesPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold font-heading text-[#292524]">
-          {language === 'te' ? 'ఉపవర్గాల నిర్వహణ (Subcategories)' : 'Subcategory Configuration'}
-        </h1>
-        <p className="text-xs text-stone-500 font-body">
-          Special category 18 contains two strictly separated cultural subcategories: Band Melam and Sannai Melam.
-        </p>
-      </div>
+      <PageHeader
+        title={language === 'te' ? 'ఉపవర్గాల నిర్వహణ (Subcategories)' : 'Subcategory Configuration'}
+        description="Special category 18 contains two strictly separated cultural subcategories: Band Melam and Sannai Melam."
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {specialSubcategories.map((sub) => (

@@ -1,37 +1,49 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useLanguage } from '@/context/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-
 import { Save, Shield, Globe } from 'lucide-react';
+import { PageHeader } from '@/components/common/PageHeader';
+import { FormInput } from '@/components/forms/FormInput';
+import { adminSettingsSchema, AdminSettingsFormValues } from '@/lib/validations/settings.schema';
 
 export default function AdminSettingsPage() {
   const { language } = useLanguage();
   const [saved, setSaved] = useState(false);
 
-  const handleSave = (e: React.FormEvent) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<AdminSettingsFormValues>({
+    resolver: zodResolver(adminSettingsSchema),
+    defaultValues: {
+      officialHelpline: '+91 98765 43210',
+      whatsappNumber: '+91 98765 43210',
+      publicEmail: 'support@telanganaweddings.com',
+      listingFeePaise: 99,
+    },
+  });
+
+  const onSubmit = async () => {
     setSaved(true);
     setTimeout(() => setSaved(false), 3000);
   };
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold font-heading text-[#292524]">
-          {language === 'te' ? 'సిస్టమ్ సెట్టింగులు' : 'Platform Configuration & Settings'}
-        </h1>
-        <p className="text-xs text-stone-500 font-body">
-          Manage platform parameters, support helpline numbers, and district rollout flags.
-        </p>
-      </div>
+      <PageHeader
+        title={language === 'te' ? 'సిస్టమ్ సెట్టింగులు' : 'Platform Configuration & Settings'}
+        description="Manage platform parameters, support helpline numbers, and district rollout flags."
+      />
 
       <Card className="border-stone-200 bg-white shadow-sm">
         <CardContent className="p-6">
-          <form onSubmit={handleSave} className="space-y-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-4">
               <h2 className="text-base font-bold font-heading text-[#292524] flex items-center gap-2">
                 <Globe className="w-4 h-4 text-[#762B46]" />
@@ -39,22 +51,30 @@ export default function AdminSettingsPage() {
               </h2>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-stone-700">Official Toll-Free / Helpline</label>
-                  <Input defaultValue="+91 98765 43210" className="text-xs" />
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-stone-700">WhatsApp Support Number</label>
-                  <Input defaultValue="+91 98765 43210" className="text-xs" />
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-stone-700">Public Contact Email</label>
-                  <Input defaultValue="support@telanganaweddings.com" className="text-xs" />
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-stone-700">Platform Commission Rate (%)</label>
-                  <Input defaultValue="5" className="text-xs" />
-                </div>
+                <FormInput
+                  label="Official Toll-Free / Helpline"
+                  type="text"
+                  error={errors.officialHelpline?.message}
+                  {...register('officialHelpline')}
+                />
+                <FormInput
+                  label="WhatsApp Support Number"
+                  type="text"
+                  error={errors.whatsappNumber?.message}
+                  {...register('whatsappNumber')}
+                />
+                <FormInput
+                  label="Public Contact Email"
+                  type="email"
+                  error={errors.publicEmail?.message}
+                  {...register('publicEmail')}
+                />
+                <FormInput
+                  label="Matchmaking Lead Fee (₹)"
+                  type="number"
+                  error={errors.listingFeePaise?.message}
+                  {...register('listingFeePaise')}
+                />
               </div>
             </div>
 
@@ -89,7 +109,7 @@ export default function AdminSettingsPage() {
                   System settings saved successfully!
                 </span>
               )}
-              <Button type="submit" variant="primary" className="ml-auto text-sm font-medium">
+              <Button type="submit" disabled={isSubmitting} variant="primary" className="ml-auto text-sm font-medium">
                 <Save className="w-4 h-4 mr-2" /> Save Configuration
               </Button>
             </div>
@@ -99,4 +119,3 @@ export default function AdminSettingsPage() {
     </div>
   );
 }
-

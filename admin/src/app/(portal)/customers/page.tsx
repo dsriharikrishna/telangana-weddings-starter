@@ -2,17 +2,30 @@
 
 import React, { useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
-import { Card, CardContent } from '@/components/ui/card';
-
-import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Search, MapPin } from 'lucide-react';
+import { MapPin } from 'lucide-react';
+import { PageHeader } from '@/components/common/PageHeader';
+import { SearchInput } from '@/components/common/SearchInput';
+import { DataTable, Column } from '@/components/ui/data-table';
+
+interface CustomerItem {
+  id: string;
+  name: string;
+  phone: string;
+  district: string;
+  mandal: string;
+  village: string;
+  weddingDate: string;
+  enquiriesCount: number;
+  bookingsCount: number;
+  joined: string;
+}
 
 export default function AdminCustomersPage() {
   const { language } = useLanguage();
   const [search, setSearch] = useState('');
 
-  const customers = [
+  const customers: CustomerItem[] = [
     {
       id: 'CUST-1001',
       name: 'Ramesh Reddy',
@@ -63,6 +76,59 @@ export default function AdminCustomersPage() {
     },
   ];
 
+  const columns: Column<CustomerItem>[] = [
+    {
+      header: 'Customer Name & ID',
+      accessorKey: 'name',
+      sortable: true,
+      cell: (c) => (
+        <div>
+          <div className="font-bold text-[#292524]">{c.name}</div>
+          <div className="text-[10px] text-stone-400 font-mono">{c.id}</div>
+        </div>
+      ),
+    },
+    {
+      header: 'Phone Contact',
+      accessorKey: 'phone',
+      cell: (c) => <span className="font-mono text-stone-600">+91 {c.phone}</span>,
+    },
+    {
+      header: 'Wedding Village / Location',
+      cell: (c) => (
+        <div>
+          <div className="flex items-center gap-1 font-medium text-stone-800">
+            <MapPin className="w-3.5 h-3.5 text-[#762B46]" />
+            {c.village}
+          </div>
+          <div className="text-[11px] text-stone-400">{c.mandal}, {c.district}</div>
+        </div>
+      ),
+    },
+    {
+      header: 'Upcoming Wedding Date',
+      accessorKey: 'weddingDate',
+      sortable: true,
+      cell: (c) => <span className="font-semibold text-[#762B46]">{c.weddingDate}</span>,
+    },
+    {
+      header: 'Enquiries',
+      accessorKey: 'enquiriesCount',
+      cell: (c) => <span className="font-semibold text-stone-700">{c.enquiriesCount}</span>,
+    },
+    {
+      header: 'Leads Matched',
+      accessorKey: 'bookingsCount',
+      cell: (c) => <span className="font-semibold text-emerald-700">{c.bookingsCount}</span>,
+    },
+    {
+      header: 'Registered',
+      accessorKey: 'joined',
+      className: 'text-right',
+      cell: (c) => <span className="text-stone-400">{c.joined}</span>,
+    },
+  ];
+
   const filtered = customers.filter(c => 
     c.name.toLowerCase().includes(search.toLowerCase()) ||
     c.village.toLowerCase().includes(search.toLowerCase()) ||
@@ -71,83 +137,31 @@ export default function AdminCustomersPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold font-heading text-[#292524]">
-            {language === 'te' ? 'కస్టమర్ల నిర్వహణ' : 'Customer Registry'}
-          </h1>
-          <p className="text-xs text-stone-500 font-body">
-            Families planning rural weddings in Narayanpet & Mahabubnagar.
-          </p>
-        </div>
-        <Badge variant="outline" className="text-xs font-semibold">
-          {customers.length} Registered Accounts
-        </Badge>
-      </div>
+      <PageHeader
+        title={language === 'te' ? 'కస్టమర్ల నిర్వహణ' : 'Customer Registry'}
+        description="Families planning rural weddings in Narayanpet & Mahabubnagar."
+        actions={
+          <Badge variant="outline" className="text-xs font-semibold">
+            {customers.length} Registered Accounts
+          </Badge>
+        }
+      />
 
-      <Card className="border-stone-200 bg-white shadow-sm">
-        <CardContent className="p-4">
-          <div className="relative w-full sm:w-80">
-            <Search className="w-4 h-4 text-stone-400 absolute left-3 top-3" />
-            <Input
+      <DataTable<CustomerItem>
+        data={filtered}
+        columns={columns}
+        pageSize={10}
+        emptyMessage="No customer accounts found."
+        headerActions={
+          <div className="w-72">
+            <SearchInput
               placeholder="Search by customer name, phone, village..."
-              className="pl-9 text-xs"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={setSearch}
             />
           </div>
-        </CardContent>
-      </Card>
-
-      <Card className="border-stone-200 bg-white shadow-sm overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs font-body">
-            <thead className="bg-[#FAF7F2] text-stone-600 font-semibold border-b">
-              <tr>
-                <th className="p-3.5">Customer Name & ID</th>
-                <th className="p-3.5">Phone Contact</th>
-                <th className="p-3.5">Wedding Village / Location</th>
-                <th className="p-3.5">Upcoming Wedding Date</th>
-                <th className="p-3.5">Enquiries</th>
-                <th className="p-3.5">Bookings</th>
-                <th className="p-3.5 text-right">Registered</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-stone-100">
-              {filtered.map((c) => (
-                <tr key={c.id} className="hover:bg-stone-50">
-                  <td className="p-3.5 font-bold text-[#292524]">
-                    <div>{c.name}</div>
-                    <div className="text-[10px] text-stone-400 font-mono">{c.id}</div>
-                  </td>
-                  <td className="p-3.5 font-mono text-stone-600">
-                    +91 {c.phone}
-                  </td>
-                  <td className="p-3.5 text-stone-600">
-                    <div className="flex items-center gap-1 font-medium text-stone-800">
-                      <MapPin className="w-3 h-3 text-[#762B46]" />
-                      {c.village}
-                    </div>
-                    <div className="text-[11px] text-stone-400">{c.mandal}, {c.district}</div>
-                  </td>
-                  <td className="p-3.5">
-                    <span className="font-semibold text-[#762B46]">{c.weddingDate}</span>
-                  </td>
-                  <td className="p-3.5 font-semibold text-stone-700">
-                    {c.enquiriesCount}
-                  </td>
-                  <td className="p-3.5 font-semibold text-emerald-700">
-                    {c.bookingsCount}
-                  </td>
-                  <td className="p-3.5 text-stone-400 text-right">
-                    {c.joined}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Card>
+        }
+      />
     </div>
   );
 }

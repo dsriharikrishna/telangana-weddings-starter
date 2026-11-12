@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Eye } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import { PageHeader } from '@/components/common/PageHeader';
 
 export default function AdminLocationsPage() {
   const { language } = useLanguage();
@@ -34,21 +35,17 @@ export default function AdminLocationsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold font-heading text-[#292524]">
-            {language === 'te' ? 'జిల్లాల & గ్రామాల నిర్వహణ' : 'Location Hierarchy (Districts, Mandals & Villages)'}
-          </h1>
-          <p className="text-xs text-stone-500 font-body">
-            State → District → Mandal → Village mapping for rural-first wedding discovery.
-          </p>
-        </div>
-        <Link href="/locations" target="_blank">
-          <Button variant="outline" className="text-xs">
-            <Eye className="w-3.5 h-3.5 mr-1" /> View Public Directory
-          </Button>
-        </Link>
-      </div>
+      <PageHeader
+        title={language === 'te' ? 'జిల్లాల & గ్రామాల నిర్వహణ' : 'Location Hierarchy (Districts, Mandals & Villages)'}
+        description="State → District → Mandal → Village mapping for rural-first wedding discovery."
+        actions={
+          <Link href="/locations" target="_blank">
+            <Button variant="outline" className="text-xs">
+              <Eye className="w-3.5 h-3.5 mr-1" /> View Public Directory
+            </Button>
+          </Link>
+        }
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {districts.map((d) => (

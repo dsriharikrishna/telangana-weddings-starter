@@ -46,8 +46,8 @@ export const SAMPLE_ADMIN_USERS: MockAdminAccount[] = [
     email: 'finance@telanganaweddings.com',
     role: 'finance',
     avatarInitials: 'LN',
-    badgeLabel: 'Finance & Payouts',
-    description: 'Vendor settlements, commission reports & UPI disbursements',
+    badgeLabel: 'Finance & Subscriptions',
+    description: 'Vendor subscriptions, lead credit packages & invoice records',
     password: 'finance@telangana2026',
   },
 ];
