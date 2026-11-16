@@ -1,36 +1,173 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Telangana Weddings — Monorepo Architecture & Build Context
 
-## Getting Started
+Telangana Weddings is an end-to-end matchmaking & discovery platform for rural and tier-2/3 weddings in Telangana. The monorepo consists of 4 main applications, a central database, and caching infrastructure.
 
-First, run the development server:
+---
+
+## 🏗️ Architecture & Port Mapping
+
+| Service | Directory | Tech Stack | Default Port | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| **Database** | — | PostgreSQL 16 | `5433` (host) / `5432` (internal) | Main relational database |
+| **Cache** | — | Redis 7 Alpine | `6379` | Rate limiting & fast caching |
+| **Backend API** | `/backend` | NestJS 11, Prisma ORM, JWT, Swagger | `3002` | REST API (`/api/v1`) |
+| **Customer & Vendor Web** | `/web` | Next.js 16 (App Router), Tailwind v4, React 19 | `3000` | Public Marketplace + Vendor + Customer Portals |
+| **Operations Admin** | `/admin` | Next.js 16 (App Router), Tailwind v4, React 19 | `3001` | Super Admin, KYC Verification, & Lead Monitoring |
+| **Mobile App** | `/app` | Expo 52, React Native 0.76, NativeWind | Expo Dev Server | Mobile App for Android & iOS |
+
+---
+
+## ⚡ Quick Start: Full Stack via Docker
+
+To start the database, Redis, NestJS backend, customer/vendor web portal, and admin portal together:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# 1. Start all containerized services in background
+docker compose up -d
+
+# 2. View streaming logs
+docker compose logs -f
+
+# 3. Stop all services
+docker compose down
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 💻 Local Development Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Database & Cache (Docker Prerequisites)
+If running apps locally without Dockerizing Next.js/NestJS, start just Postgres & Redis:
+```bash
+docker compose up -d postgres redis
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+### 2. Backend Service (`/backend`)
+```bash
+# Navigate to backend
+cd backend
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Install dependencies
+npm install
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Generate Prisma Client
+npm run prisma:generate
 
-## Deploy on Vercel
+# Run DB Migrations
+npm run prisma:migrate
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Seed Initial Master Data (Categories, Districts, Mandals, Admin)
+npm run prisma:seed
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Start in Development Mode (Watch) - http://localhost:3002/api/v1
+npm run start:dev
+
+# Interactive Swagger Documentation
+# Open in browser: http://localhost:3002/api/v1/docs
+
+# Build Production Output
+npm run build
+
+# Run Unit / E2E Tests
+npm run test
+npm run test:e2e
+```
+
+---
+
+### 3. Customer & Vendor Web Portal (`/web`)
+```bash
+# Navigate to web directory
+cd web
+
+# Install dependencies
+npm install
+
+# Start Development Server - http://localhost:3000
+npm run dev
+
+# Build Production Bundle
+npm run build
+
+# Start Production Server
+npm run start
+```
+
+---
+
+### 4. Admin Portal (`/admin`)
+```bash
+# Navigate to admin directory
+cd admin
+
+# Install dependencies
+npm install
+
+# Start Development Server - http://localhost:3001
+npm run dev
+
+# Build Production Bundle
+npm run build
+
+# Start Production Server
+npm run start
+```
+
+---
+
+### 5. Mobile App (`/app`)
+```bash
+# Navigate to app directory
+cd app
+
+# Install dependencies
+npm install
+
+# Start Expo Development Server
+npm run start
+
+# Launch on Android Emulator / Device
+npm run android
+
+# Launch on iOS Simulator
+npm run ios
+```
+
+---
+
+### 6. End-to-End (E2E) Testing (`/e2e`)
+```bash
+# Run Playwright tests from root
+npx playwright test
+
+# Run Playwright with UI Inspector
+npx playwright test --ui
+```
+
+---
+
+## 🔑 Default Environment Variables
+
+### Backend (`backend/.env`)
+```env
+PORT=3002
+API_PREFIX=api/v1
+DATABASE_URL=postgresql://postgres:postgrespassword@localhost:5433/telangana_weddings?schema=public
+REDIS_HOST=localhost
+REDIS_PORT=6379
+JWT_SECRET=telangana-weddings-jwt-secret-2025-prod-ready
+JWT_REFRESH_SECRET=telangana-weddings-refresh-secret-2025
+CORS_ORIGINS=http://localhost:3000,http://localhost:3001
+```
+
+### Web (`web/.env.local`)
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3002/api/v1
+```
+
+### Admin (`admin/.env.local`)
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3002/api/v1
+```

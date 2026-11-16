@@ -24,7 +24,8 @@
     "plugins": [
       "expo-router"
     ],
-    "scheme": "telanganaweddings"
+    "scheme": "telanganaweddings",
+    "newArchEnabled": true
   }
 }
 
