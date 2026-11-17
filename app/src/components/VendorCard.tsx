@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
-import { Star, MapPin, PhoneCall } from 'lucide-react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { Star, MapPin, PhoneCall, Bookmark } from 'lucide-react-native';
 import { Vendor } from '../services/marketplaceApi';
 import { colors } from '../theme/colors';
+import { useFavouritesStore } from '../stores/favouritesStore';
 
 interface VendorCardProps {
   vendor: Vendor;
@@ -18,6 +19,8 @@ export const VendorCard: React.FC<VendorCardProps> = ({
   language,
 }) => {
   const priceInRupees = Math.round(vendor.startingPricePaise / 100);
+  const { isSaved, toggleSaveVendor } = useFavouritesStore();
+  const saved = isSaved(vendor.id);
 
   return (
     <TouchableOpacity
@@ -48,12 +51,34 @@ export const VendorCard: React.FC<VendorCardProps> = ({
           </View>
         </View>
 
-        {/* Rating Badge */}
-        <View className="flex-row items-center bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full">
-          <Star size={13} color="#D4AF37" fill="#D4AF37" />
-          <Text className="text-amber-900 font-bold text-xs ml-1">
-            {vendor.ratingAverage.toFixed(1)}
-          </Text>
+        {/* Action Controls: Rating & Bookmark/Save */}
+        <View className="flex-row items-center gap-1.5">
+          <View className="flex-row items-center bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full">
+            <Star size={13} color="#D4AF37" fill="#D4AF37" />
+            <Text className="text-amber-900 font-bold text-xs ml-1">
+              {vendor.ratingAverage.toFixed(1)}
+            </Text>
+          </View>
+
+          {/* Save / Bookmark Button */}
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={(e) => {
+              e.stopPropagation();
+              toggleSaveVendor(vendor);
+            }}
+            className={`p-1.5 rounded-full border ${
+              saved
+                ? 'bg-amber-100 border-amber-300'
+                : 'bg-stone-50 border-stone-200'
+            }`}
+          >
+            <Bookmark
+              size={15}
+              color={saved ? colors.primary : '#6B7280'}
+              fill={saved ? colors.primary : 'transparent'}
+            />
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -82,4 +107,5 @@ export const VendorCard: React.FC<VendorCardProps> = ({
     </TouchableOpacity>
   );
 };
+
 

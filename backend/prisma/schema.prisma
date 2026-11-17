@@ -69,6 +69,7 @@ enum LeadAssignmentStatus {
 enum TransactionType {
   PURCHASE
   UNLOCK_DEBIT
+  SERVICE_LISTING_FEE
   ADMIN_ADJUSTMENT
   REFUND_CREDIT
 }
@@ -279,18 +280,21 @@ model VendorProfile {
 }
 
 model VendorService {
-  id            String       @id @default(uuid())
-  vendorId      String
-  vendor        VendorProfile @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  subcategoryId String?
-  subcategory   Subcategory? @relation(fields: [subcategoryId], references: [id])
-  title         String
-  description   String?
-  pricePaise    Int
-  inclusions    String?
-  isActive      Boolean      @default(true)
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  id             String        @id @default(uuid())
+  vendorId       String
+  vendor         VendorProfile @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  subcategoryId  String?
+  subcategory    Subcategory?  @relation(fields: [subcategoryId], references: [id])
+  title          String
+  description    String?
+  pricePaise     Int
+  inclusions     String?
+  experienceYrs  Int?          @default(1) // Experience in years (e.g. 5+ years)
+  completedDeals Int?          @default(0) // How many deals / events closed (e.g. 50+ events)
+  sampleImages   String[]      @default([]) // URLs or sample photos of past work
+  isActive       Boolean       @default(true)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
 
   @@index([vendorId])
 }
@@ -400,23 +404,25 @@ model VendorLeadWallet {
   id             String                  @id @default(uuid())
   vendorId       String                  @unique
   vendor         VendorProfile           @relation(fields: [vendorId], references: [id], onDelete: Cascade)
-  balanceCredits Int                     @default(3) // 3 Free Starter Credits on verification
-  version        Int                     @default(0) // Optimistic locking
+  balanceCredits Int                     @default(5)     // 5 Free Starter Credits on verification
+  balancePaise   Int                     @default(10000) // ₹100 Free Starter Rupee Balance (10000 paise)
+  version        Int                     @default(0)     // Optimistic locking
   updatedAt      DateTime                @updatedAt
 
   transactions   LeadCreditTransaction[]
 }
 
 model LeadCreditTransaction {
-  id          String           @id @default(uuid())
-  walletId    String
-  wallet      VendorLeadWallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
-  type        TransactionType
-  amount      Int              // Positive for credit addition, negative for deduction
-  balanceAfter Int
-  description String
-  referenceId String?          // paymentTransactionId or leadUnlockId
-  createdAt   DateTime         @default(now())
+  id           String           @id @default(uuid())
+  walletId     String
+  wallet       VendorLeadWallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  type         TransactionType
+  amount       Int              // Credit changes (e.g. -1 for lead unlock) or 0
+  amountPaise  Int              @default(0) // Rupee changes (e.g. -2100 for ₹21 service listing fee)
+  balanceAfter Int              // Credit balance after transaction
+  description  String
+  referenceId  String?          // paymentTransactionId, serviceId, or leadUnlockId
+  createdAt    DateTime         @default(now())
 
   @@index([walletId])
 }

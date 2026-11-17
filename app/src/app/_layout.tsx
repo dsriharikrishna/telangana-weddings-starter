@@ -22,6 +22,8 @@ export default function RootLayout() {
           headerShown: false,
         }}
       >
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="mode-select" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="vendor/[slug]" options={{ presentation: 'card', headerShown: false }} />
         <Stack.Screen name="enquiry/new" options={{ presentation: 'modal', headerShown: false }} />

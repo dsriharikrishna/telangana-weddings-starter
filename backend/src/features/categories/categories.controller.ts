@@ -8,11 +8,22 @@ export class CategoriesController {
   constructor(private readonly prisma: PrismaService) {}
 
   @Get()
-  @ApiOperation({ summary: 'List all active wedding service categories' })
+  @ApiOperation({ summary: 'List all active wedding service categories with subcategories' })
   @ApiResponse({ status: 200, description: 'List of active categories' })
   async getCategories() {
     return this.prisma.category.findMany({
       where: { isActive: true },
+      include: {
+        subcategories: {
+          where: { isActive: true },
+          select: {
+            id: true,
+            slug: true,
+            nameEn: true,
+            nameTe: true,
+          },
+        },
+      },
       orderBy: { sortOrder: 'asc' },
     });
   }

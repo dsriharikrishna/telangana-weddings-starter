@@ -8,6 +8,11 @@ export class VendorFilterDto {
   @IsString()
   category?: string;
 
+  @ApiPropertyOptional({ example: 'lagna-muhurtham', description: 'Subcategory slug' })
+  @IsOptional()
+  @IsString()
+  subcategory?: string;
+
   @ApiPropertyOptional({ example: 'Narayanpet', description: 'District name' })
   @IsOptional()
   @IsString()

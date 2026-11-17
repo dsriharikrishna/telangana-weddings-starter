@@ -20,6 +20,13 @@ export const API_ENDPOINTS = {
   MY_ENQUIRIES: '/enquiries/my',
   VENDOR_LEADS: '/vendor/leads',
   UNLOCK_LEAD: (assignmentId: string) => `/vendor/leads/${assignmentId}/unlock`,
+  // Vendor Portal Endpoints
+  VENDOR_PORTAL_PROFILE: '/vendor/portal/profile',
+  VENDOR_PORTAL_SERVICES: '/vendor/portal/services',
+  VENDOR_PORTAL_SERVICE_BY_ID: (id: string) => `/vendor/portal/services/${id}`,
+  VENDOR_PORTAL_WALLET: '/vendor/portal/wallet',
+  VENDOR_PORTAL_WALLET_RECHARGE: '/vendor/portal/wallet/recharge',
+  VENDOR_PORTAL_REVIEWS: '/vendor/portal/reviews',
 };
 
 export default API_ENDPOINTS;
